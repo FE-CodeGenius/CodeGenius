@@ -88,12 +88,7 @@ export const gitCommitScopes: Array<CommitScope> = [
   },
 ];
 
-export const cleanUpDirs = [
-  "**/dist",
-  "**/coverage",
-  "**/node_modules",
-  "!node_modules/**",
-];
+export const cleanUpDirs = ["./dist", "./coverage", "./node_modules"];
 
 export const cwd = process.cwd();
 
