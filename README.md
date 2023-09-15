@@ -23,7 +23,7 @@ npm i -g code-genius
 | cm     | --noEmoji        | 帮助生成规范的 git 提交内容                    |
 | cmv    | --               | 帮助验证 git commit 的内容是否符合规范         |
 | cup    | --ignore <match> | 清理运行时生成的文件                           |
-| ihooks | --               | 使用且有修改 git-simple-hooks 后需要重新初始化 |
+| ihooks | --               | 使用且有修改 simple-git-hooks 后需要重新初始化 |
 
 ## API
 
