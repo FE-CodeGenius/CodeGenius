@@ -1,7 +1,8 @@
 import enquirer from "enquirer";
+import { green } from "kolorist";
 import { CommitScope, CommitType } from "../shared/types";
 import { execCommand } from "../shared";
-
+import { ACTIVATION } from "../shared/config";
 interface PromptResult {
   type: string;
   scope: string;
@@ -17,6 +18,12 @@ export const gitCommit = async (
   scopes: Array<CommitScope>,
   options: GitCommitOptions
 ) => {
+  if (ACTIVATION) {
+    console.log(`${green("gitCommit 参数信息: \n")}`);
+    console.table(types);
+    console.table(scopes);
+    console.table(options);
+  }
   const { enableEmoji } = options;
   const typesChoices = types.map(({ emoji, code, description }) => {
     const formatCode = `${code}:`.padEnd(12);

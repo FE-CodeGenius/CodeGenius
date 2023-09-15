@@ -35,7 +35,7 @@ export const setupSet: SetupSet = {
   cupSetup: (cli: CAC) => {
     cli
       .command("cup", "Clean files generated during runtime")
-      .option("--ignore <match>", "ignore match", {
+      .option("--ignore <path>", "ignore path", {
         default: [...cleanUpDirs],
       })
       .action(async (options) => {

@@ -41,8 +41,8 @@
     "build": "unbuild",
     "stub": "unbuild --stub",
     "release": "release-it",
-    "cm": "cg cm --noEmoji",
-    "cup": "cg cup --ignore '**/dist'"
+    "cm": "cross-env CG_DEBUG=activation cg cm --noEmoji",
+    "cup": "cross-env CG_DEBUG=activation cg cup --ignore ./dist --ignore ./node_modules"
   },
   "keywords": [
     "CodeGenius",
@@ -54,6 +54,8 @@
   ],
   "devDependencies": {
     "@release-it/conventional-changelog": "^7.0.1",
+    "@types/rimraf": "^4.0.5",
+    "cross-env": "^7.0.3",
     "release-it": "^16.1.5",
     "simple-git-hooks": "^2.9.0",
     "typescript": "^5.2.2",

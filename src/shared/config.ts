@@ -1,6 +1,5 @@
 import { CommitScope, CommitType } from "./types";
 
-
 export const gitCommitTypes: Array<CommitType> = [
   {
     emoji: "🎉",
@@ -97,3 +96,5 @@ export const cleanUpDirs = [
 ];
 
 export const cwd = process.cwd();
+
+export const ACTIVATION = process.env.CG_DEBUG === "activation";
