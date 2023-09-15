@@ -37,7 +37,7 @@
     "dist"
   ],
   "scripts": {
-    "prepublishOnly": "npm run build",
+    "prepare": "npx code-genius ihooks",
     "build": "unbuild",
     "stub": "unbuild --stub",
     "release": "release-it",
