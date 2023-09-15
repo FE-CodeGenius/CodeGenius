@@ -1,5 +1,12 @@
 
 
+## [0.2.0](https://github.com/OSpoon/CodeGenius/compare/0.1.2...0.2.0) (2023-09-15)
+
+
+### Features
+
+* **feature:**  增加run命令,解析并选择执行执行脚本 ([d02045b](https://github.com/OSpoon/CodeGenius/commit/d02045ba24f56676a00e933732d832555a2e873d))
+
 ## [0.1.2](https://github.com/OSpoon/CodeGenius/compare/0.1.1...0.1.2) (2023-09-15)
 
 ## [0.1.1](https://github.com/OSpoon/CodeGenius/compare/0.1.0...0.1.1) (2023-09-15)
