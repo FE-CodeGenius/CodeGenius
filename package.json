@@ -1,0 +1,72 @@
+{
+  "name": "code-genius",
+  "version": "0.0.0",
+  "description": "CodeGenius's command line tools",
+  "author": {
+    "name": "OSpoon",
+    "email": "zxin088@gmail.com",
+    "url": "https://github.com/OSpoon"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/OSpoon/CodeGenius#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/OSpoon/CodeGenius.git"
+  },
+  "bugs": {
+    "url": "https://github.com/OSpoon/CodeGenius/issues"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "main": "dist/index.cjs",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "bin": {
+    "cg": "./bin/codeGenius.mjs"
+  },
+  "files": [
+    "bin",
+    "dist"
+  ],
+  "scripts": {
+    "prepublishOnly": "npm run build",
+    "build": "unbuild",
+    "stub": "unbuild --stub",
+    "release": "release-it",
+    "cm": "cg cm --noEmoji",
+    "cup": "cg cup --ignore '**/dist'"
+  },
+  "keywords": [
+    "CodeGenius",
+    "codeGenius",
+    "Genius",
+    "genius",
+    "CLI",
+    "cli"
+  ],
+  "devDependencies": {
+    "@release-it/conventional-changelog": "^7.0.1",
+    "release-it": "^16.1.5",
+    "simple-git-hooks": "^2.9.0",
+    "typescript": "^5.2.2",
+    "unbuild": "^2.0.0"
+  },
+  "dependencies": {
+    "cac": "^6.7.14",
+    "enquirer": "^2.4.1",
+    "execa": "^8.0.1",
+    "kolorist": "^1.8.0",
+    "rimraf": "^5.0.1"
+  },
+  "simple-git-hooks": {
+    "commit-msg": "cg cmv"
+  }
+}
