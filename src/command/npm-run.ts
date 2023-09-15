@@ -8,7 +8,6 @@ export const npmRun = async (cwd = process.cwd()) => {
   const pkgContent = await fs.readFile(root, { encoding: "utf-8" });
   const scripts = JSON.parse(pkgContent)?.scripts;
   const scriptChoices = Object.keys(scripts).map((key) => {
-    console.log(key, scripts[key]);
     return {
       name: scripts[key],
       message: key,
