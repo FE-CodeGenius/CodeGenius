@@ -25,11 +25,18 @@ npm i -g code-genius
 | cup    | --ignore <match> | 清理运行时生成的文件                           |
 | ihooks | --               | 使用且有修改 git-simple-hooks 后需要重新初始化 |
 
-## 编程方式
+## API
 
-| API                                 | 参数                                                                                   | 返回            |
-| ----------------------------------- | -------------------------------------------------------------------------------------- | --------------- |
-| `gitCommit(types, scopes, options)` | `types: Array<CommitType>`, `scopes: Array<CommitScope>`, `options: GitCommitOptions)` | `Promise<void>` |
+| 序号 | API                                 | 参数                                                                                   | 返回            |
+| ---- | ----------------------------------- | -------------------------------------------------------------------------------------- | --------------- |
+| 1    | `gitCommit(types, scopes, options)` | `types: Array<CommitType>`, `scopes: Array<CommitScope>`, `options: GitCommitOptions)` | `Promise<void>` |
+| 2    | `gitCommitVerify()`                 | `--`                                                                                   | `Promise<void>` |
+| 3    | `cleanUp(paths)`                    | `paths: string[]`                                                                      | `Promise<void>` |
+| 4    | `gitInitSimpleHooks(cwd)`           | `cwd?: string`                                                                         | `Promise<void>` |
+
+## API 示例
+
+gitCommit()
 
 ```typescript
 // ./index.ts
@@ -41,11 +48,7 @@ gitCommit(gitCommitTypes, gitCommitScopes, { enableEmoji: true });
 npx esno index.ts
 ```
 
-2. `gitCommitVerify: () => Promise<void>`
-
-| API                 | 参数 | 返回            |
-| ------------------- | ---- | --------------- |
-| `gitCommitVerify()` | `--` | `Promise<void>` |
+gitCommitVerify()
 
 ```typescript
 // ./index.ts
@@ -57,9 +60,7 @@ gitCommitVerify();
 npx esno index.ts
 ```
 
-| API              | 参数              | 返回            |
-| ---------------- | ----------------- | --------------- |
-| `cleanUp(paths)` | `paths: string[]` | `Promise<void>` |
+cleanUp()
 
 ```typescript
 // ./index.ts
@@ -71,9 +72,7 @@ cleanUp(cleanUpDirs);
 npx esno index.ts
 ```
 
-| API                       | 参数           | 返回            |
-| ------------------------- | -------------- | --------------- |
-| `gitInitSimpleHooks(cwd)` | `cwd?: string` | `Promise<void>` |
+gitInitSimpleHooks()
 
 ```typescript
 // ./index.ts
