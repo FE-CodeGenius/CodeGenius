@@ -5,6 +5,9 @@ module.exports = {
   git: {
     commitMessage: "chore: release v${version}",
   },
+  github: {
+    release: true,
+  },
   plugins: {
     "@release-it/conventional-changelog": {
       infile: "CHANGELOG.md",
