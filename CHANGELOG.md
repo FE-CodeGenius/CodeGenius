@@ -1,5 +1,13 @@
 
 
+## [0.1.1](https://github.com/OSpoon/CodeGenius/compare/0.1.0...0.1.1) (2023-09-15)
+
+
+### Bug Fixes
+
+* **core:** 修改cup清理文件命令 ([4c11069](https://github.com/OSpoon/CodeGenius/commit/4c110695676c3112c4d502a4438387258fdd72bf))
+* **feature:** 修复错误描述 ([de54f72](https://github.com/OSpoon/CodeGenius/commit/de54f727a1dd9f3fd268bab8b91e8160cdf3685e))
+
 ## [0.1.0](https://github.com/OSpoon/CodeGenius/compare/0.0.1...0.1.0) (2023-09-15)
 
 
