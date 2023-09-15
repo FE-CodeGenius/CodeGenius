@@ -25,6 +25,66 @@ npm i -g code-genius
 | cup    | --ignore <match> | 清理运行时生成的文件                           |
 | ihooks | --               | 使用且有修改 git-simple-hooks 后需要重新初始化 |
 
+## 编程方式
+
+| API                                 | 参数                                                                                   | 返回            |
+| ----------------------------------- | -------------------------------------------------------------------------------------- | --------------- |
+| `gitCommit(types, scopes, options)` | `types: Array<CommitType>`, `scopes: Array<CommitScope>`, `options: GitCommitOptions)` | `Promise<void>` |
+
+```typescript
+// ./index.ts
+import { gitCommit, gitCommitScopes, gitCommitTypes } from "code-genius";
+
+gitCommit(gitCommitTypes, gitCommitScopes, { enableEmoji: true });
+
+// 运行
+npx esno index.ts
+```
+
+2. `gitCommitVerify: () => Promise<void>`
+
+| API                 | 参数 | 返回            |
+| ------------------- | ---- | --------------- |
+| `gitCommitVerify()` | `--` | `Promise<void>` |
+
+```typescript
+// ./index.ts
+import { gitCommitVerify } from "code-genius";
+
+gitCommitVerify();
+
+// 运行
+npx esno index.ts
+```
+
+| API              | 参数              | 返回            |
+| ---------------- | ----------------- | --------------- |
+| `cleanUp(paths)` | `paths: string[]` | `Promise<void>` |
+
+```typescript
+// ./index.ts
+import { cleanUp, cleanUpDirs } from "code-genius";
+
+cleanUp(cleanUpDirs);
+
+// 运行
+npx esno index.ts
+```
+
+| API                       | 参数           | 返回            |
+| ------------------------- | -------------- | --------------- |
+| `gitInitSimpleHooks(cwd)` | `cwd?: string` | `Promise<void>` |
+
+```typescript
+// ./index.ts
+import { gitInitSimpleHooks, cwd } from "code-genius";
+
+gitInitSimpleHooks(cwd);
+
+// 运行
+npx esno index.ts
+```
+
 ## 执照
 
 MIT License
