@@ -24,6 +24,7 @@ npm i -g code-genius
 | cmv    | --              | 帮助验证 git commit 的内容是否符合规范         |
 | cup    | --ignore <path> | 清理运行时生成的文件                           |
 | ihooks | --              | 使用且有修改 simple-git-hooks 后需要重新初始化 |
+| run    | --              | 运行列出的脚本                                 |
 
 ## API
 
@@ -33,6 +34,7 @@ npm i -g code-genius
 | 2    | `gitCommitVerify()`                 | `--`                                                                                   | `Promise<void>` |
 | 3    | `cleanUp(paths)`                    | `paths: string[]`                                                                      | `Promise<void>` |
 | 4    | `gitInitSimpleHooks(cwd)`           | `cwd?: string`                                                                         | `Promise<void>` |
+| 5    | `npmRun(cwd)`                       | `cwd?: string`                                                                         | `Promise<void>` |
 
 ## API 示例
 
@@ -79,6 +81,18 @@ gitInitSimpleHooks()
 import { gitInitSimpleHooks, cwd } from "code-genius";
 
 gitInitSimpleHooks(cwd);
+
+// 运行
+npx esno index.ts
+```
+
+npmRun()
+
+```typescript
+// ./index.ts
+import { gitInnpmRunitSimpleHooks, cwd } from "code-genius";
+
+npmRun(cwd);
 
 // 运行
 npx esno index.ts

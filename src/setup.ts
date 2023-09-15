@@ -7,6 +7,7 @@ import { gitCommitVerify } from "./command/git-commit-verify";
 import { gitCommit } from "./command/git-commit";
 import { gitInitSimpleHooks } from "./command/git-init-hooks";
 import { cleanUp } from "./command/cheanup";
+import { npmRun } from "./command/npm-run";
 
 export const setupSet: SetupSet = {
   cmSetup: (cli: CAC) => {
@@ -52,5 +53,10 @@ export const setupSet: SetupSet = {
       .action(async () => {
         await gitInitSimpleHooks();
       });
+  },
+  npmRunSetup: (cli: CAC) => {
+    cli.command("run", "Run the script listed").action(async () => {
+      await npmRun();
+    });
   },
 };
