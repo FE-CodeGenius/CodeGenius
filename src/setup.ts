@@ -47,7 +47,7 @@ export const setupSet: SetupSet = {
     cli
       .command(
         "ihooks",
-        "Need to re-initialize after modifying git-simple-hooks"
+        "Need to re-initialize after modifying simple-git-hooks"
       )
       .action(async () => {
         await gitInitSimpleHooks();
