@@ -41,8 +41,8 @@
     "build": "unbuild",
     "stub": "unbuild --stub",
     "release": "release-it",
-    "cm": "cross-env CG_DEBUG=activation esno scripts/cm-script.ts",
-    "cup": "cross-env CG_DEBUG=activation esno scripts/cup-script.ts"
+    "cm": "npx cross-env CG_DEBUG=activation esno scripts/cm-script.ts",
+    "cup": "npx cross-env CG_DEBUG=activation esno scripts/cup-script.ts"
   },
   "keywords": [
     "CodeGenius",
