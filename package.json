@@ -37,12 +37,12 @@
     "dist"
   ],
   "scripts": {
-    "prepare": "npx code-genius ihooks",
+    "prepare": "esno scripts/prepare.ts",
     "build": "unbuild",
     "stub": "unbuild --stub",
     "release": "release-it",
-    "cm": "cross-env CG_DEBUG=activation cg cm --noEmoji",
-    "cup": "cross-env CG_DEBUG=activation cg cup --ignore ./dist --ignore ./node_modules"
+    "cm": "cross-env CG_DEBUG=activation esno scripts/cm-script.ts",
+    "cup": "cross-env CG_DEBUG=activation esno scripts/cup-script.ts"
   },
   "keywords": [
     "CodeGenius",
@@ -54,8 +54,10 @@
   ],
   "devDependencies": {
     "@release-it/conventional-changelog": "^7.0.1",
+    "@types/node": "^20.6.2",
     "@types/rimraf": "^4.0.5",
     "cross-env": "^7.0.3",
+    "esno": "^0.17.0",
     "release-it": "^16.1.5",
     "simple-git-hooks": "^2.9.0",
     "typescript": "^5.2.2",
@@ -69,6 +71,6 @@
     "rimraf": "^5.0.1"
   },
   "simple-git-hooks": {
-    "commit-msg": "cg cmv"
+    "commit-msg": "npx esno scripts/cmv-script.ts"
   }
 }
