@@ -54,6 +54,7 @@
   ],
   "devDependencies": {
     "@release-it/conventional-changelog": "^7.0.1",
+    "@types/execa": "^2.0.0",
     "@types/node": "^20.6.2",
     "@types/rimraf": "^4.0.5",
     "cross-env": "^7.0.3",
