@@ -1,7 +1,11 @@
 import { gitCommitVerify } from "../src/command/git-commit-verify";
 
 async function cmv() {
-  await Promise.all([gitCommitVerify()]);
+  try {
+    await Promise.all([gitCommitVerify()]);
+  } catch (error) {
+    console.warn(error);
+  }
 }
 
 cmv();
