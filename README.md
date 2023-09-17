@@ -18,13 +18,14 @@ npm i -g code-genius
 
 ## 终端命令
 
-| 命令   | 参数            | 功能描述                                       |
-| ------ | --------------- | ---------------------------------------------- |
-| cm     | --noEmoji       | 帮助生成规范的 git 提交内容                    |
-| cmv    | --              | 帮助验证 git commit 的内容是否符合规范         |
-| cup    | --ignore <path> | 清理运行时生成的文件                           |
-| ihooks | --              | 使用且有修改 simple-git-hooks 后需要重新初始化 |
-| run    | --              | 运行列出的脚本                                 |
+| 命令   | 参数                                 | 功能描述                                       |
+| ------ | ------------------------------------ | ---------------------------------------------- |
+| cm     | --noEmoji                            | 帮助生成规范的 git 提交内容                    |
+| cmv    | --                                   | 帮助验证 git commit 的内容是否符合规范         |
+| cup    | --ignore \<path\>                    | 清理运行时生成的文件                           |
+| ihooks | --                                   | 使用且有修改 simple-git-hooks 后需要重新初始化 |
+| run    | --                                   | 运行列出的脚本                                 |
+| lint   | --eslintrc \<file\>, --path \<path\> | 检查代码并尝试修复                             |
 
 ## API
 
@@ -35,6 +36,7 @@ npm i -g code-genius
 | 3    | `cleanUp(paths)`                    | `paths: string[]`                                                                      | `Promise<void>` |
 | 4    | `gitInitSimpleHooks(cwd)`           | `cwd?: string`                                                                         | `Promise<void>` |
 | 5    | `npmRun(cwd)`                       | `cwd?: string`                                                                         | `Promise<void>` |
+| 6    | `eslintFix(cwd, options)`           | `cwd?: string`,` options:(EsLintOptions)`                                              | `Promise<void>` |
 
 ## API 示例
 
@@ -93,6 +95,18 @@ npmRun()
 import { gitInnpmRunitSimpleHooks, cwd } from "code-genius";
 
 npmRun(cwd);
+
+// 运行
+npx esno index.ts
+```
+
+eslintFix()
+
+```typescript
+// ./index.ts
+import { eslintFix, cwd, esLintOptions } from "code-genius";
+
+await eslintFix(cwd, { eslintrc, paths: path });
 
 // 运行
 npx esno index.ts
