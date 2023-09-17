@@ -78,6 +78,7 @@
     "rimraf": "^5.0.1"
   },
   "simple-git-hooks": {
+    "pre-commit": "npx esno scripts/lint-script.ts",
     "commit-msg": "npx esno scripts/cmv-script.ts"
   }
 }
