@@ -3,7 +3,6 @@ import path from "node:path";
 
 import {
   execCommand,
-  loading,
   loggerError,
   loggerInfo,
   loggerSuccess,
@@ -54,15 +53,11 @@ export const eslintFix = async (
       files = paths.map((path) => `${cwd}/${path}`);
     }
 
-    const resultText = await loading(async () => {
-      const results = await eslint.lintFiles(files);
+    const results = await eslint.lintFiles(files);
+    await ESLint.outputFixes(results);
+    const formatter = await eslint.loadFormatter("stylish");
+    const resultText = formatter.format(results);
 
-      await ESLint.outputFixes(results);
-
-      const formatter = await eslint.loadFormatter("stylish");
-
-      return formatter.format(results);
-    }, "eslint checking...")();
     if (resultText) {
       loggerError(`💥eslint check fail! ${resultText}`);
       process.exit(1);

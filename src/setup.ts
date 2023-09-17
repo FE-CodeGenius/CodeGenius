@@ -80,7 +80,11 @@ export const setupSet: SetupSet = {
       })
       .action(async (options) => {
         const { eslintrc, staged, path } = options;
-        await eslintFix(cwd, { eslintrc, staged, paths: path });
+        await eslintFix(cwd, {
+          eslintrc,
+          staged,
+          paths: typeof path === "string" ? [path] : path,
+        });
       });
   },
 };

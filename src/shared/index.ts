@@ -3,7 +3,6 @@ import type { Options } from "execa";
 import { consola } from "consola";
 import process from "node:process";
 import { green, lightYellow, lightGreen, lightRed } from "kolorist";
-import ora from "ora";
 import { ACTIVATION } from "./config";
 
 export const execCommand = async (
@@ -39,16 +38,6 @@ export function handleError(error: unknown) {
 
   process.exitCode = 1;
 }
-
-export const loading =
-  <T extends (...args: unknown[]) => unknown>(fn: T, message: string) =>
-  async (...args: Parameters<T>) => {
-    const spinner = ora();
-    spinner.start(green(message));
-    const result = await fn(...args);
-    spinner.stop();
-    return result;
-  };
 
 export const loggerInfo = (content: string) => {
   if (ACTIVATION) {
