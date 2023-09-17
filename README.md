@@ -26,7 +26,7 @@ npm i -g code-genius
 | ihooks   | --                                                                  | 使用且有修改 simple-git-hooks 后需要重新初始化 |
 | run      | --                                                                  | 运行列出的脚本                                 |
 | lint     | --eslintrc \<file\>, --path \<path\>, --staged, --suffix \<suffix\> | 检查代码并尝试修复                             |
-| prettier | --path \<path\>, --staged, --suffix \<suffix\>                      | 格式化代码高风格                               |
+| prettier | --path \<path\>, --staged, --suffix \<suffix\>                      | 格式化代码风格                               |
 
 ## API
 
