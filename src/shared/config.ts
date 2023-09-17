@@ -107,6 +107,7 @@ export const esLintOptions: EsLintOptions = {
 };
 
 export const prettierFormatOptions: PrettierFormatOptions = {
+  prettierrc: ".prettierrc",
   paths: ["src"],
   staged: true,
   suffix: [".js", "jsx", ".ts", ".tsx"],

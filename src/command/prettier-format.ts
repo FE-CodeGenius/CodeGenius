@@ -1,6 +1,9 @@
+import path from "node:path";
+import fs from "node:fs";
+
 import {
   execCommand,
-  getLintFiles,
+  getEveryFilesBySuffixes,
   loggerError,
   loggerInfo,
 } from "./../shared/index";
@@ -11,7 +14,7 @@ export const prettierFormat = async (
   cwd = process.cwd(),
   options: PrettierFormatOptions,
 ) => {
-  const { staged, paths, suffix } = options;
+  const { prettierrc, staged, paths, suffix } = options;
 
   if (ACTIVATION) {
     loggerInfo("prettierFormat 参数信息: \n");
@@ -20,26 +23,20 @@ export const prettierFormat = async (
   }
 
   try {
-    const files = await getLintFiles(cwd, staged, paths, suffix);
-    if (files.length > 0) {
-      const result = await execCommand("npx", [
-        "prettier",
-        "--debug-check",
-        ...files,
-      ]);
-      if (result) {
-        await execCommand(
-          "npx",
-          ["prettier", "--write", ...result.split("\n")],
-          {
-            stdio: "inherit",
-          },
-        );
-        await execCommand("git", ["add", ...result.split("\n")], {
-          stdio: "inherit",
-        });
-      }
+    const config = path.join(cwd, prettierrc);
+
+    let configArgs: string[] = [];
+    if (fs.existsSync(config)) {
+      configArgs = ["--config", config];
     }
+
+    // 获取需要处理的文件
+    const files = await getEveryFilesBySuffixes(cwd, staged, paths, suffix);
+
+    // 运行 write 命令,重写代码风格
+    await execCommand("npx", ["prettier", ...configArgs, "--write", ...files], {
+      stdio: "inherit",
+    });
   } catch (error) {
     loggerError(error);
   }

@@ -93,9 +93,12 @@ export const setupSet: SetupSet = {
         });
       });
   },
-  prettier: (cli: CAC) => {
+  prettierFormat: (cli: CAC) => {
     cli
-      .command("prettier", "Format code style(default prettier)")
+      .command("format", "Format code style(default prettier)")
+      .option("--prettierrc <file>", "prettierrc file", {
+        default: prettierFormatOptions.prettierrc,
+      })
       .option("--path <path>", "Inspecte path", {
         default: prettierFormatOptions.paths,
       })
@@ -106,8 +109,9 @@ export const setupSet: SetupSet = {
         default: ".js,.jsx,.ts,.tsx",
       })
       .action(async (options) => {
-        const { staged, path, suffix } = options;
+        const { prettierrc, staged, path, suffix } = options;
         await prettierFormat(cwd, {
+          prettierrc,
           staged,
           paths: typeof path === "string" ? [path] : path,
           suffix: suffix.split(","),

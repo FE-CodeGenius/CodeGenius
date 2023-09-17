@@ -23,6 +23,7 @@ export interface EsLintOptions {
 }
 
 export interface PrettierFormatOptions {
+  prettierrc: string;
   paths: string[];
   suffix: string[];
   staged: boolean;

@@ -2,7 +2,6 @@ import { execa } from "execa";
 import fs from "fs";
 import path from "path";
 import type { Options } from "execa";
-import { consola } from "consola";
 import process from "node:process";
 import { green, lightYellow, lightGreen, lightRed } from "kolorist";
 import { ACTIVATION } from "./config";
@@ -15,12 +14,8 @@ export const execCommand = async (
   try {
     const res = await execa(cmd, args, options);
     return res?.stdout?.trim() || "";
-  } catch (error) {
-    if (error instanceof Error) {
-      consola.error(error.message);
-    } else {
-      consola.error(error);
-    }
+  } catch (error: unknown) {
+    loggerError(error);
   }
 };
 
@@ -36,53 +31,68 @@ export class PrettyError extends Error {
 }
 
 export function handleError(error: unknown) {
-  if (error instanceof PrettyError) consola.error(error.message);
-
+  if (error instanceof PrettyError) loggerError(error);
   process.exitCode = 1;
 }
 
 export const loggerInfo = (content: string) => {
   if (ACTIVATION) {
-    console.log(green(`[INFO]： ${content}`));
+    console.log(green(`[CG INFO]：`), `${content}`);
   }
 };
 
 export const loggerWarring = (content: string) => {
   if (ACTIVATION) {
-    console.log(lightYellow(`[WARRING]： ${content}`));
+    console.log(lightYellow(`[CG WARRING]：`), `${content}`);
   }
 };
 
 export const loggerSuccess = (content: string) => {
-  console.log(lightGreen(`[SUCCESS]： ${content}`));
+  if (ACTIVATION) {
+    console.log(lightGreen(`[CG SUCCESS]：`), `${content}`);
+  }
 };
 
 export const loggerError = (content: string | unknown) => {
-  console.log(lightRed(`[ERROR]： ${content}`));
+  if (ACTIVATION) {
+    console.log(lightRed(`[CG ERROR]：`), `${content}`);
+  }
 };
 
-export function filterFiles(
+/**
+ * 根据后缀列表过滤获取合法的文件列表
+ * @param fileList
+ * @param suffixes
+ * @returns
+ */
+export function getFiilesBySuffixes(
   fileList: string[],
-  allowedExtensions: string[],
+  suffixes: string[],
 ): string[] {
-  const filteredFiles: string[] = [];
+  const paths: string[] = [];
 
   for (let i = 0; i < fileList.length; i++) {
     const file = fileList[i];
 
-    for (let j = 0; j < allowedExtensions.length; j++) {
-      const extension = allowedExtensions[j];
+    for (let j = 0; j < suffixes.length; j++) {
+      const extension = suffixes[j];
 
       if (file.endsWith(extension)) {
-        filteredFiles.push(file);
+        paths.push(file);
         break;
       }
     }
   }
-  return filteredFiles;
+  return paths;
 }
 
-export function getAllFiles(dirPaths: string[]): string[] {
+/**
+ * 获取目录列表下所有的文件列表
+ *
+ * @param paths
+ * @returns
+ */
+export function getEveryFiles(paths: string[]): string[] {
   const fileList: string[] = [];
   function traverseDirectory(dirPath: string) {
     const files = fs.readdirSync(dirPath);
@@ -92,24 +102,29 @@ export function getAllFiles(dirPaths: string[]): string[] {
       const stat = fs.statSync(filePath);
 
       if (stat.isDirectory()) {
-        // 如果是文件夹，则递归遍历
         traverseDirectory(filePath);
       } else {
-        // 如果是文件，则将文件路径添加到列表中
         fileList.push(filePath);
       }
     });
   }
 
-  dirPaths.forEach((dirPath) => {
+  paths.forEach((dirPath) => {
     traverseDirectory(dirPath);
   });
 
-  const uniqueFiles = Array.from(new Set(fileList));
-  return uniqueFiles;
+  return Array.from(new Set(fileList));
 }
 
-export const getLintFiles = async (
+/**
+ * 获取指定目录后暂存区所有符合给定后缀的文件列表
+ * @param cwd
+ * @param staged
+ * @param paths
+ * @param suffix
+ * @returns
+ */
+export const getEveryFilesBySuffixes = async (
   cwd: string,
   staged: boolean,
   paths: string[],
@@ -125,7 +140,7 @@ export const getLintFiles = async (
     ]);
     files = result?.split("\n").map((path) => `${cwd}/${path}`) || [];
   } else {
-    files = getAllFiles(paths.map((path) => `${cwd}/${path}`));
+    files = getEveryFiles(paths.map((path) => `${cwd}/${path}`));
   }
-  return filterFiles(files, suffix);
+  return getFiilesBySuffixes(files, suffix);
 };

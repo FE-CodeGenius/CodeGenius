@@ -1,11 +1,10 @@
-import { ESLint } from "eslint";
 import path from "node:path";
 
 import {
-  getLintFiles,
+  execCommand,
+  getEveryFilesBySuffixes,
   loggerError,
   loggerInfo,
-  loggerSuccess,
 } from "./../shared/index";
 import { ACTIVATION } from "../shared/config";
 import { EsLintOptions } from "../shared/types";
@@ -23,26 +22,29 @@ export const eslintFix = async (
       console.table(options);
     }
 
-    const eslint = new ESLint({
-      fix: true,
-      fixTypes: ["problem", "suggestion"],
-      useEslintrc: false,
-      overrideConfigFile: path.join(cwd, eslintrc),
-    });
+    const config = path.join(cwd, eslintrc);
 
-    const files = await getLintFiles(cwd, staged, paths, suffix);
-    const results = await eslint.lintFiles(files);
-    await ESLint.outputFixes(results);
-    const formatter = await eslint.loadFormatter("stylish");
-    const resultText = formatter.format(results);
+    // 获取需要处理的文件
+    const files = await getEveryFilesBySuffixes(cwd, staged, paths, suffix);
 
-    if (resultText) {
-      loggerError(`💥eslint check fail! ${resultText}`);
-      process.exit(1);
-    } else {
-      loggerSuccess("🎉 eslint check success!");
-    }
-  } catch (error: unknown) {
+    await execCommand(
+      "npx",
+      [
+        "eslint",
+        "--fix",
+        "--fix-type",
+        "problem",
+        "--fix-type",
+        "suggestion",
+        "--config",
+        config,
+        ...files,
+      ],
+      {
+        stdio: "inherit",
+      },
+    );
+  } catch (error) {
     loggerError(error);
   }
 };
