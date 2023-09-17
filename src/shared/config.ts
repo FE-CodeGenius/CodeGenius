@@ -97,4 +97,5 @@ export const ACTIVATION = process.env.CG_DEBUG === "activation";
 export const esLintOptions: EsLintOptions = {
   eslintrc: ".eslintrc.json",
   paths: ["src"],
+  staged: true,
 };

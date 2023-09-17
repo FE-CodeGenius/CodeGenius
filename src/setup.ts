@@ -1,7 +1,13 @@
 import { eslintFix } from "./command/eslint-fix";
 import type { CAC } from "cac";
 
-import { cleanUpDirs, cwd, esLintOptions, gitCommitScopes, gitCommitTypes } from "./shared/config";
+import {
+  cleanUpDirs,
+  cwd,
+  esLintOptions,
+  gitCommitScopes,
+  gitCommitTypes,
+} from "./shared/config";
 import { SetupSet } from "./shared/types";
 
 import { gitCommitVerify } from "./command/git-commit-verify";
@@ -62,16 +68,19 @@ export const setupSet: SetupSet = {
   },
   eslintFix: (cli: CAC) => {
     cli
-      .command("lint", "Inspected the code and try to fix it.")
+      .command("lint", "Inspecte the code and try to fix it.")
       .option("--eslintrc <file>", "eslintrc file", {
         default: esLintOptions.eslintrc,
       })
-      .option("--path <path>", "inspected path", {
+      .option("--path <path>", "Inspecte path", {
         default: esLintOptions.paths,
       })
+      .option("--staged", "Inspecte staged files", {
+        default: false,
+      })
       .action(async (options) => {
-        const { eslintrc, path } = options;
-        await eslintFix(cwd, { eslintrc, paths: path });
+        const { eslintrc, staged, path } = options;
+        await eslintFix(cwd, { eslintrc, staged, paths: path });
       });
   },
 };

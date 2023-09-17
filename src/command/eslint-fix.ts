@@ -2,6 +2,7 @@ import { ESLint } from "eslint";
 import path from "node:path";
 
 import {
+  execCommand,
   loading,
   loggerError,
   loggerInfo,
@@ -15,11 +16,12 @@ export const eslintFix = async (
   options: EsLintOptions
 ) => {
   try {
-    const { eslintrc, paths } = options;
+    const { eslintrc, staged, paths } = options;
 
     if (ACTIVATION) {
       loggerInfo("eslintFix 参数信息: \n");
       console.table(cwd);
+      console.table(staged);
       console.table(options);
     }
 
@@ -30,7 +32,17 @@ export const eslintFix = async (
       overrideConfigFile: path.join(cwd, eslintrc),
     });
 
-    const files = paths.map((path) => `${cwd}/${path}`);
+    let files: string[] = [];
+    if (staged) {
+      const result = await execCommand("git", [
+        "diff",
+        "--name-only",
+        "--cached",
+      ]);
+      files = result?.split("\n").map((path) => `${cwd}/${path}`) || [];
+    } else {
+      files = paths.map((path) => `${cwd}/${path}`);
+    }
 
     const resultText = await loading(async () => {
       const results = await eslint.lintFiles(files);
