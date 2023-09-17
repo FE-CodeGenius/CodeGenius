@@ -30,7 +30,8 @@
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
   "bin": {
-    "cg": "./bin/codeGenius.mjs"
+    "cg": "./bin/codeGenius.mjs",
+    "code-genius": "./bin/codeGenius.mjs"
   },
   "files": [
     "bin",
