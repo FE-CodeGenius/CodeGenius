@@ -10,7 +10,7 @@ import { ACTIVATION } from "./config";
 export const execCommand = async (
   cmd: string,
   args: string[],
-  options?: Options
+  options?: Options,
 ) => {
   try {
     const res = await execa(cmd, args, options);
@@ -63,7 +63,7 @@ export const loggerError = (content: string | unknown) => {
 
 export function filterFiles(
   fileList: string[],
-  allowedExtensions: string[]
+  allowedExtensions: string[],
 ): string[] {
   const filteredFiles: string[] = [];
 
@@ -113,13 +113,14 @@ export const getLintFiles = async (
   cwd: string,
   staged: boolean,
   paths: string[],
-  suffix: string[]
+  suffix: string[],
 ) => {
   let files: string[] = [];
   if (staged) {
     const result = await execCommand("git", [
       "diff",
       "--name-only",
+      "--diff-filter=d",
       "--cached",
     ]);
     files = result?.split("\n").map((path) => `${cwd}/${path}`) || [];
