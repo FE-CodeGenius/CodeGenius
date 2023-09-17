@@ -4,7 +4,9 @@ import path from "node:path";
 import { execCommand } from "../shared";
 
 export const gitCommitVerify = async () => {
-  const dogit = await execCommand("git", ["rev-parse", "--show-toplevel"]);
+  const dogit = await execCommand("git", ["rev-parse", "--show-toplevel"], {
+    stdio: "inherit",
+  });
   const root = path.join(dogit || "", ".git", "COMMIT_EDITMSG");
   const content = readFileSync(root, { encoding: "utf-8" }).trim();
   const REG_EXP =

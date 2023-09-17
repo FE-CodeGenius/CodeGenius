@@ -77,7 +77,7 @@
     "rimraf": "^5.0.1"
   },
   "simple-git-hooks": {
-    "pre-commit": "npx esno scripts/lint-script.ts",
-    "commit-msg": "npx esno scripts/cmv-script.ts"
+    "pre-commit": "npx cross-env CG_DEBUG=activation esno scripts/lint-script.ts",
+    "commit-msg": "npx cross-env CG_DEBUG=activation esno scripts/cmv-script.ts"
   }
 }

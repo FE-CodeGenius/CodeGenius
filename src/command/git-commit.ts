@@ -16,7 +16,7 @@ interface GitCommitOptions {
 export const gitCommit = async (
   types: Array<CommitType>,
   scopes: Array<CommitScope>,
-  options: GitCommitOptions
+  options: GitCommitOptions,
 ) => {
   if (ACTIVATION) {
     loggerInfo("gitCommit 参数信息: \n");

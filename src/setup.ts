@@ -1,3 +1,4 @@
+import { prettierFormat } from "./command/prettier-format";
 import { eslintFix } from "./command/eslint-fix";
 import type { CAC } from "cac";
 
@@ -7,6 +8,7 @@ import {
   esLintOptions,
   gitCommitScopes,
   gitCommitTypes,
+  prettierFormatOptions,
 } from "./shared/config";
 import { SetupSet } from "./shared/types";
 
@@ -34,7 +36,7 @@ export const setupSet: SetupSet = {
     cli
       .command(
         "cmv",
-        "Help verify whether the content of git commit complies with the specification"
+        "Help verify whether the content of git commit complies with the specification",
       )
       .action(async () => {
         await gitCommitVerify();
@@ -55,7 +57,7 @@ export const setupSet: SetupSet = {
     cli
       .command(
         "ihooks",
-        "Need to re-initialize after modifying simple-git-hooks"
+        "Need to re-initialize after modifying simple-git-hooks",
       )
       .action(async () => {
         await gitInitSimpleHooks();
@@ -83,12 +85,32 @@ export const setupSet: SetupSet = {
       })
       .action(async (options) => {
         const { eslintrc, staged, path, suffix } = options;
-        console.log(suffix)
         await eslintFix(cwd, {
           eslintrc,
           staged,
           paths: typeof path === "string" ? [path] : path,
-          suffix: suffix.split(",")
+          suffix: suffix.split(","),
+        });
+      });
+  },
+  prettier: (cli: CAC) => {
+    cli
+      .command("prettier", "Format code style(default prettier)")
+      .option("--path <path>", "Inspecte path", {
+        default: prettierFormatOptions.paths,
+      })
+      .option("--staged", "Inspecte staged files", {
+        default: false,
+      })
+      .option("--suffix <suffix>", "Inspecte files with specified suffixes", {
+        default: ".js,.jsx,.ts,.tsx",
+      })
+      .action(async (options) => {
+        const { staged, path, suffix } = options;
+        await prettierFormat(cwd, {
+          staged,
+          paths: typeof path === "string" ? [path] : path,
+          suffix: suffix.split(","),
         });
       });
   },

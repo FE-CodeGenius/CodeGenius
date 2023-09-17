@@ -1,4 +1,9 @@
-import { CommitScope, CommitType, EsLintOptions } from "./types";
+import {
+  CommitScope,
+  CommitType,
+  EsLintOptions,
+  PrettierFormatOptions,
+} from "./types";
 
 export const gitCommitTypes: Array<CommitType> = [
   {
@@ -96,6 +101,12 @@ export const ACTIVATION = process.env.CG_DEBUG === "activation";
 
 export const esLintOptions: EsLintOptions = {
   eslintrc: ".eslintrc.json",
+  paths: ["src"],
+  staged: true,
+  suffix: [".js", "jsx", ".ts", ".tsx"],
+};
+
+export const prettierFormatOptions: PrettierFormatOptions = {
   paths: ["src"],
   staged: true,
   suffix: [".js", "jsx", ".ts", ".tsx"],

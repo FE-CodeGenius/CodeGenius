@@ -12,7 +12,7 @@ import { EsLintOptions } from "../shared/types";
 
 export const eslintFix = async (
   cwd = process.cwd(),
-  options: EsLintOptions
+  options: EsLintOptions,
 ) => {
   try {
     const { eslintrc, staged, paths, suffix } = options;
