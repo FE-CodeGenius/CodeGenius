@@ -39,7 +39,17 @@ export const eslintFix = async (
         "--name-only",
         "--cached",
       ]);
-      files = result?.split("\n").map((path) => `${cwd}/${path}`) || [];
+      files =
+        result
+          ?.split("\n")
+          .map((path) => `${cwd}/${path}`)
+          .filter(
+            (path) =>
+              path.endsWith(".js") ||
+              path.endsWith(".jsx") ||
+              path.endsWith(".ts") ||
+              path.endsWith(".tsx")
+          ) || [];
     } else {
       files = paths.map((path) => `${cwd}/${path}`);
     }
@@ -55,6 +65,7 @@ export const eslintFix = async (
     }, "eslint checking...")();
     if (resultText) {
       loggerError(`💥eslint check fail! ${resultText}`);
+      process.exit(1);
     } else {
       loggerSuccess("🎉 eslint check success!");
     }
