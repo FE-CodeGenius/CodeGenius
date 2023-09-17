@@ -1,4 +1,5 @@
 import { gitCommit } from "../src/command/git-commit";
+import { loggerWarring } from "../src/shared";
 import { gitCommitScopes, gitCommitTypes } from "../src/shared/config";
 
 async function cmv() {
@@ -9,7 +10,7 @@ async function cmv() {
       }),
     ]);
   } catch (error) {
-    console.warn(error);
+    loggerWarring(error);
   }
 }
 

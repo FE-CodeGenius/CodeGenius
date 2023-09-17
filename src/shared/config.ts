@@ -1,4 +1,4 @@
-import { CommitScope, CommitType } from "./types";
+import { CommitScope, CommitType, EsLintOptions } from "./types";
 
 export const gitCommitTypes: Array<CommitType> = [
   {
@@ -93,3 +93,8 @@ export const cleanUpDirs = ["./dist", "./coverage", "./node_modules"];
 export const cwd = process.cwd();
 
 export const ACTIVATION = process.env.CG_DEBUG === "activation";
+
+export const esLintOptions: EsLintOptions = {
+  eslintrc: ".eslintrc.json",
+  paths: ["src"],
+};

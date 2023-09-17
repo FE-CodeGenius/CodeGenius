@@ -14,3 +14,8 @@ export interface CommitScope {
   name: string;
   description: string;
 }
+
+export interface EsLintOptions {
+  eslintrc: string;
+  paths: string[];
+}

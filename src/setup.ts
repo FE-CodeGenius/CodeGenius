@@ -1,6 +1,7 @@
+import { eslintFix } from "./command/eslint-fix";
 import type { CAC } from "cac";
 
-import { cleanUpDirs, gitCommitScopes, gitCommitTypes } from "./shared/config";
+import { cleanUpDirs, cwd, esLintOptions, gitCommitScopes, gitCommitTypes } from "./shared/config";
 import { SetupSet } from "./shared/types";
 
 import { gitCommitVerify } from "./command/git-commit-verify";
@@ -58,5 +59,19 @@ export const setupSet: SetupSet = {
     cli.command("run", "Run the script listed").action(async () => {
       await npmRun();
     });
+  },
+  eslintFix: (cli: CAC) => {
+    cli
+      .command("lint", "Inspected the code and try to fix it.")
+      .option("--eslintrc <file>", "eslintrc file", {
+        default: esLintOptions.eslintrc,
+      })
+      .option("--path <path>", "inspected path", {
+        default: esLintOptions.paths,
+      })
+      .action(async (options) => {
+        const { eslintrc, path } = options;
+        await eslintFix(cwd, { eslintrc, paths: path });
+      });
   },
 };

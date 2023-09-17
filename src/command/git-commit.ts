@@ -1,5 +1,5 @@
+import { loggerInfo } from "./../shared/index";
 import enquirer from "enquirer";
-import { green } from "kolorist";
 import { CommitScope, CommitType } from "../shared/types";
 import { execCommand } from "../shared";
 import { ACTIVATION } from "../shared/config";
@@ -19,7 +19,7 @@ export const gitCommit = async (
   options: GitCommitOptions
 ) => {
   if (ACTIVATION) {
-    console.log(`${green("gitCommit 参数信息: \n")}`);
+    loggerInfo("gitCommit 参数信息: \n");
     console.table(types);
     console.table(scopes);
     console.table(options);
