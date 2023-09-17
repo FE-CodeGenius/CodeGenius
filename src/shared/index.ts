@@ -1,4 +1,6 @@
 import { execa } from "execa";
+import fs from "fs";
+import path from "path";
 import type { Options } from "execa";
 import { consola } from "consola";
 import process from "node:process";
@@ -57,4 +59,72 @@ export const loggerSuccess = (content: string) => {
 
 export const loggerError = (content: string | unknown) => {
   console.log(lightRed(`[ERROR]： ${content}`));
+};
+
+export function filterFiles(
+  fileList: string[],
+  allowedExtensions: string[]
+): string[] {
+  const filteredFiles: string[] = [];
+
+  for (let i = 0; i < fileList.length; i++) {
+    const file = fileList[i];
+
+    for (let j = 0; j < allowedExtensions.length; j++) {
+      const extension = allowedExtensions[j];
+
+      if (file.endsWith(extension)) {
+        filteredFiles.push(file);
+        break;
+      }
+    }
+  }
+  return filteredFiles;
+}
+
+export function getAllFiles(dirPaths: string[]): string[] {
+  const fileList: string[] = [];
+  function traverseDirectory(dirPath: string) {
+    const files = fs.readdirSync(dirPath);
+
+    files.forEach((file) => {
+      const filePath = path.join(dirPath, file);
+      const stat = fs.statSync(filePath);
+
+      if (stat.isDirectory()) {
+        // 如果是文件夹，则递归遍历
+        traverseDirectory(filePath);
+      } else {
+        // 如果是文件，则将文件路径添加到列表中
+        fileList.push(filePath);
+      }
+    });
+  }
+
+  dirPaths.forEach((dirPath) => {
+    traverseDirectory(dirPath);
+  });
+
+  const uniqueFiles = Array.from(new Set(fileList));
+  return uniqueFiles;
+}
+
+export const getLintFiles = async (
+  cwd: string,
+  staged: boolean,
+  paths: string[],
+  suffix: string[]
+) => {
+  let files: string[] = [];
+  if (staged) {
+    const result = await execCommand("git", [
+      "diff",
+      "--name-only",
+      "--cached",
+    ]);
+    files = result?.split("\n").map((path) => `${cwd}/${path}`) || [];
+  } else {
+    files = getAllFiles(paths.map((path) => `${cwd}/${path}`));
+  }
+  return filterFiles(files, suffix);
 };

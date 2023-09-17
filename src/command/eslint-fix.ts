@@ -2,7 +2,7 @@ import { ESLint } from "eslint";
 import path from "node:path";
 
 import {
-  execCommand,
+  getLintFiles,
   loggerError,
   loggerInfo,
   loggerSuccess,
@@ -15,12 +15,11 @@ export const eslintFix = async (
   options: EsLintOptions
 ) => {
   try {
-    const { eslintrc, staged, paths } = options;
+    const { eslintrc, staged, paths, suffix } = options;
 
     if (ACTIVATION) {
       loggerInfo("eslintFix 参数信息: \n");
       console.table(cwd);
-      console.table(staged);
       console.table(options);
     }
 
@@ -31,28 +30,7 @@ export const eslintFix = async (
       overrideConfigFile: path.join(cwd, eslintrc),
     });
 
-    let files: string[] = [];
-    if (staged) {
-      const result = await execCommand("git", [
-        "diff",
-        "--name-only",
-        "--cached",
-      ]);
-      files =
-        result
-          ?.split("\n")
-          .map((path) => `${cwd}/${path}`)
-          .filter(
-            (path) =>
-              path.endsWith(".js") ||
-              path.endsWith(".jsx") ||
-              path.endsWith(".ts") ||
-              path.endsWith(".tsx")
-          ) || [];
-    } else {
-      files = paths.map((path) => `${cwd}/${path}`);
-    }
-
+    const files = await getLintFiles(cwd, staged, paths, suffix);
     const results = await eslint.lintFiles(files);
     await ESLint.outputFixes(results);
     const formatter = await eslint.loadFormatter("stylish");

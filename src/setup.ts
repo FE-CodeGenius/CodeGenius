@@ -78,12 +78,17 @@ export const setupSet: SetupSet = {
       .option("--staged", "Inspecte staged files", {
         default: false,
       })
+      .option("--suffix <suffix>", "Inspecte files with specified suffixes", {
+        default: ".js,.jsx,.ts,.tsx",
+      })
       .action(async (options) => {
-        const { eslintrc, staged, path } = options;
+        const { eslintrc, staged, path, suffix } = options;
+        console.log(suffix)
         await eslintFix(cwd, {
           eslintrc,
           staged,
           paths: typeof path === "string" ? [path] : path,
+          suffix: suffix.split(",")
         });
       });
   },

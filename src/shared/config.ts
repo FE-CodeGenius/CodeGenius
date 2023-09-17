@@ -98,4 +98,5 @@ export const esLintOptions: EsLintOptions = {
   eslintrc: ".eslintrc.json",
   paths: ["src"],
   staged: true,
+  suffix: [".js", "jsx", ".ts", ".tsx"],
 };
