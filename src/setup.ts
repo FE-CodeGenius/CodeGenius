@@ -74,6 +74,9 @@ export const setupSet: SetupSet = {
       .option("--eslintrc <file>", "eslintrc file", {
         default: esLintOptions.eslintrc,
       })
+      .option("--ignore <file>", ".eslintignore file", {
+        default: esLintOptions.ignorePath,
+      })
       .option("--path <path>", "Inspecte path", {
         default: esLintOptions.paths,
       })
@@ -84,9 +87,10 @@ export const setupSet: SetupSet = {
         default: ".js,.jsx,.ts,.tsx",
       })
       .action(async (options) => {
-        const { eslintrc, staged, path, suffix } = options;
+        const { eslintrc, ignore, staged, path, suffix } = options;
         await eslintFix(cwd, {
           eslintrc,
+          ignorePath: ignore,
           staged,
           paths: typeof path === "string" ? [path] : path,
           suffix: suffix.split(","),
@@ -99,6 +103,9 @@ export const setupSet: SetupSet = {
       .option("--prettierrc <file>", "prettierrc file", {
         default: prettierFormatOptions.prettierrc,
       })
+      .option("--ignore <file>", ".prettierignore file", {
+        default: prettierFormatOptions.ignorePath,
+      })
       .option("--path <path>", "Inspecte path", {
         default: prettierFormatOptions.paths,
       })
@@ -109,9 +116,10 @@ export const setupSet: SetupSet = {
         default: ".js,.jsx,.ts,.tsx",
       })
       .action(async (options) => {
-        const { prettierrc, staged, path, suffix } = options;
+        const { prettierrc, ignore, staged, path, suffix } = options;
         await prettierFormat(cwd, {
           prettierrc,
+          ignorePath: ignore,
           staged,
           paths: typeof path === "string" ? [path] : path,
           suffix: suffix.split(","),

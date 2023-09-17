@@ -17,6 +17,7 @@ export interface CommitScope {
 
 export interface EsLintOptions {
   eslintrc: string;
+  ignorePath: string;
   paths: string[];
   suffix: string[];
   staged: boolean;
@@ -24,6 +25,7 @@ export interface EsLintOptions {
 
 export interface PrettierFormatOptions {
   prettierrc: string;
+  ignorePath: string;
   paths: string[];
   suffix: string[];
   staged: boolean;

@@ -1,4 +1,5 @@
 import path from "node:path";
+import fs from "node:fs";
 
 import {
   execCommand,
@@ -14,7 +15,7 @@ export const eslintFix = async (
   options: EsLintOptions,
 ) => {
   try {
-    const { eslintrc, staged, paths, suffix } = options;
+    const { eslintrc, ignorePath, staged, paths, suffix } = options;
 
     if (ACTIVATION) {
       loggerInfo("eslintFix 参数信息: \n");
@@ -23,6 +24,12 @@ export const eslintFix = async (
     }
 
     const config = path.join(cwd, eslintrc);
+
+    const ignoreConfig = path.join(cwd, ignorePath);
+    let ignoreConfigArgs: string[] = [];
+    if (fs.existsSync(ignoreConfig)) {
+      ignoreConfigArgs = ["--ignore-path", ignoreConfig];
+    }
 
     // 获取需要处理的文件
     const files = await getEveryFilesBySuffixes(cwd, staged, paths, suffix);
@@ -38,6 +45,7 @@ export const eslintFix = async (
         "suggestion",
         "--config",
         config,
+        ...ignoreConfigArgs,
         ...files,
       ],
       {

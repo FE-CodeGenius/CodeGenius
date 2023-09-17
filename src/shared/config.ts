@@ -101,6 +101,7 @@ export const ACTIVATION = process.env.CG_DEBUG === "activation";
 
 export const esLintOptions: EsLintOptions = {
   eslintrc: ".eslintrc.json",
+  ignorePath: ".eslintignore",
   paths: ["src"],
   staged: true,
   suffix: [".js", "jsx", ".ts", ".tsx"],
@@ -108,6 +109,7 @@ export const esLintOptions: EsLintOptions = {
 
 export const prettierFormatOptions: PrettierFormatOptions = {
   prettierrc: ".prettierrc",
+  ignorePath: ".prettierignore",
   paths: ["src"],
   staged: true,
   suffix: [".js", "jsx", ".ts", ".tsx"],
