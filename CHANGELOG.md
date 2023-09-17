@@ -1,5 +1,13 @@
 
 
+## [0.4.0](https://github.com/OSpoon/CodeGenius/compare/0.3.1...0.4.0) (2023-09-17)
+
+
+### Features
+
+* **feature:** 添加prettier命令 ([61a467f](https://github.com/OSpoon/CodeGenius/commit/61a467ffca86155b028a0f4febeeb73dba28432a))
+* **feature:** lint 指定后缀文件 ([e430fbe](https://github.com/OSpoon/CodeGenius/commit/e430fbe8be89950354322549736340be82c21fd2))
+
 ## [0.3.1](https://github.com/OSpoon/CodeGenius/compare/0.3.0...0.3.1) (2023-09-17)
 
 ## [0.3.0](https://github.com/OSpoon/CodeGenius/compare/0.2.0...0.3.0) (2023-09-17)
