@@ -1,5 +1,21 @@
 
 
+## [0.3.0](https://github.com/OSpoon/CodeGenius/compare/0.2.0...0.3.0) (2023-09-17)
+
+
+### Features
+
+* **feature:** 添加lint命令 ([1ec60b1](https://github.com/OSpoon/CodeGenius/commit/1ec60b18c24557ef5ac09dc53f4784ed9fde3d96))
+* **feature:** 支持仅lint暂存区文件 ([bb95754](https://github.com/OSpoon/CodeGenius/commit/bb95754f3a9586946619b70833c8100fa6e3a29d))
+
+
+### Bug Fixes
+
+* **build:** 修复模块导出的范围 ([294ba38](https://github.com/OSpoon/CodeGenius/commit/294ba3810af9359261864fc348f0c5ab26373595))
+* **feature:** 目前仅支持js ts jsx tsx 后缀的文件 ([bbb1ffa](https://github.com/OSpoon/CodeGenius/commit/bbb1ffac0960879a1f3b35792e81285924b57502))
+* **feature:** 修复 lint --path 识别错误 ([b492048](https://github.com/OSpoon/CodeGenius/commit/b492048041b1cd6e266682cc2c798bd55e61bd00))
+* **feature:** 修复模块丢失 ([943d4dc](https://github.com/OSpoon/CodeGenius/commit/943d4dcad6ffd00321395b14e784a9f8b0650f3d))
+
 ## [0.2.0](https://github.com/OSpoon/CodeGenius/compare/0.1.2...0.2.0) (2023-09-15)
 
 
