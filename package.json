@@ -57,7 +57,6 @@
     "@types/eslint": "^8.44.2",
     "@types/execa": "^2.0.0",
     "@types/node": "^20.6.2",
-    "@types/ora": "^3.2.0",
     "@types/rimraf": "^4.0.5",
     "@typescript-eslint/eslint-plugin": "^6.7.0",
     "@typescript-eslint/parser": "^6.7.0",
@@ -69,11 +68,11 @@
     "unbuild": "^2.0.0"
   },
   "dependencies": {
+    "cac": "^6.7.14",
     "enquirer": "^2.4.1",
     "eslint": "^8.49.0",
     "execa": "^8.0.1",
     "kolorist": "^1.8.0",
-    "ora": "^7.0.1",
     "rimraf": "^5.0.1"
   },
   "simple-git-hooks": {
