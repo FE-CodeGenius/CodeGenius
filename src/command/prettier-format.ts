@@ -37,6 +37,7 @@ export const prettierFormat = async (
 
     // 获取需要处理的文件
     const files = await getEveryFilesBySuffixes(cwd, staged, paths, suffix);
+    if (files.length === 0) true;
 
     // 运行 write 命令,重写代码风格
     await execCommand(
