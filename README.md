@@ -106,7 +106,7 @@ eslintFix()
 // ./index.ts
 import { eslintFix, cwd, esLintOptions } from "code-genius";
 
-await eslintFix(cwd, { eslintrc, paths: path });
+await eslintFix(cwd, esLintOptions);
 
 // 运行
 npx esno index.ts
