@@ -18,15 +18,15 @@ npm i -g code-genius
 
 ## 终端命令
 
-| 命令   | 参数                                                                | 功能描述                                       |
-| ------ | ------------------------------------------------------------------- | ---------------------------------------------- |
-| cm     | --noEmoji                                                           | 帮助生成规范的 git 提交内容                    |
-| cmv    | --                                                                  | 帮助验证 git commit 的内容是否符合规范         |
-| cup    | --ignore \<path\>                                                   | 清理运行时生成的文件                           |
-| ihooks | --                                                                  | 使用且有修改 simple-git-hooks 后需要重新初始化 |
-| run    | --                                                                  | 运行列出的脚本                                 |
-| lint   | --eslintrc \<file\>, --path \<path\>, --staged, --suffix \<suffix\> | 检查代码并尝试修复                             |
-| format | --prettierrc \<file\>, --path \<path\>, --staged, --suffix \<suffix\> | 格式化代码风格                                 |
+| 命令   | 参数                                                                                     | 功能描述                                       |
+| ------ | ---------------------------------------------------------------------------------------- | ---------------------------------------------- |
+| cm     | --noEmoji                                                                                | 帮助生成规范的 git 提交内容                    |
+| cmv    | --                                                                                       | 帮助验证 git commit 的内容是否符合规范         |
+| cup    | --ignore \<path\>                                                                        | 清理运行时生成的文件                           |
+| ihooks | --                                                                                       | 使用且有修改 simple-git-hooks 后需要重新初始化 |
+| run    | --                                                                                       | 运行列出的脚本                                 |
+| lint   | --eslintrc \<file\>, --ignore \<file\>， --path \<path\>, --staged, --suffix \<suffix\>  | 检查代码并尝试修复                             |
+| format | --prettierrc \<file\>, --ignore \<file\>, --path \<path\>, --staged, --suffix \<suffix\> | 格式化代码风格                                 |
 
 ## API
 
