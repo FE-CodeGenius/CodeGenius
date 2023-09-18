@@ -41,9 +41,7 @@
     "prepare": "esno scripts/prepare.ts",
     "build": "unbuild",
     "stub": "unbuild --stub",
-    "release": "release-it",
-    "cm": "npx cross-env CG_DEBUG=activation esno scripts/cm-script.ts",
-    "cup": "npx cross-env CG_DEBUG=activation esno scripts/cup-script.ts"
+    "release": "release-it"
   },
   "keywords": [
     "CodeGenius",
@@ -71,8 +69,7 @@
     "cac": "^6.7.14",
     "enquirer": "^2.4.1",
     "execa": "^8.0.1",
-    "kolorist": "^1.8.0",
-    "rimraf": "^5.0.1"
+    "kolorist": "^1.8.0"
   },
   "simple-git-hooks": {
     "pre-commit": "npx cross-env CG_DEBUG=activation esno scripts/lint-script.ts",

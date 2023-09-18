@@ -3,7 +3,7 @@ import { loggerWarring } from "../src/shared";
 
 async function prepare() {
   try {
-    await Promise.all([gitInitSimpleHooks(process.cwd())]);
+    await gitInitSimpleHooks(process.cwd());
   } catch (error) {
     loggerWarring(error);
   }

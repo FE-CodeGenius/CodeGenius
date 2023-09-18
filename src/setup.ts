@@ -3,127 +3,92 @@ import { eslintFix } from "./command/eslint-fix";
 import type { CAC } from "cac";
 
 import {
-  cleanUpDirs,
-  cwd,
-  esLintOptions,
+  clearGlob,
+  eslintGlob,
+  formatGlob,
   gitCommitScopes,
   gitCommitTypes,
-  prettierFormatOptions,
 } from "./shared/config";
-import { SetupSet } from "./shared/types";
+
+import { CommandSet } from "./shared/types";
 
 import { gitCommitVerify } from "./command/git-commit-verify";
 import { gitCommit } from "./command/git-commit";
 import { gitInitSimpleHooks } from "./command/git-init-hooks";
-import { cleanUp } from "./command/cheanup";
+import { clear } from "./command/clear";
 import { npmRun } from "./command/npm-run";
 
-export const setupSet: SetupSet = {
-  cmSetup: (cli: CAC) => {
+export const commandSet: CommandSet = {
+  gitCommitCmd: (cli: CAC) => {
     cli
-      .command("cm", "Help generate canonical git commit content")
-      .option("--noEmoji", "Disable emoji", {
-        default: false,
-      })
+      .command("commit", "生成 angualr 规范的提交信息")
+      .option("--no-emoji", "禁用 emoji")
       .action(async (options) => {
-        const { noEmoji } = options;
+        const { emoji } = options;
         await gitCommit(gitCommitTypes, gitCommitScopes, {
-          enableEmoji: !noEmoji,
+          emoji,
         });
       });
   },
-  cmvSetup: (cli: CAC) => {
+  gitCommitVerifySetup: (cli: CAC) => {
     cli
-      .command(
-        "cmv",
-        "Help verify whether the content of git commit complies with the specification",
-      )
+      .command("verify", "校验 COMMIT_EDITMSG 中的信息是否符合 Angualr 规范")
       .action(async () => {
         await gitCommitVerify();
       });
   },
-  cupSetup: (cli: CAC) => {
+  clearSetup: (cli: CAC) => {
     cli
-      .command("cup", "Clean files generated during runtime")
-      .option("--ignore <path>", "ignore path", {
-        default: [...cleanUpDirs],
+      .command("clear", "运行 rimraf 删除不再需要的文件或文件夹")
+      .option("-p, --pattern <pattern>", "设置配置规则", {
+        default: [...clearGlob],
       })
       .action(async (options) => {
-        const { ignore } = options;
-        await cleanUp(ignore);
+        const patterns =
+          typeof options.pattern === "string"
+            ? [options.pattern]
+            : options.pattern;
+        await clear(patterns);
       });
   },
-  initSimpleHooks: (cli: CAC) => {
+  initSimpleGitHooks: (cli: CAC) => {
     cli
-      .command(
-        "ihooks",
-        "Need to re-initialize after modifying simple-git-hooks",
-      )
+      .command("hooks", "新增或修改 simple-git-hooks 配置后需要重新初始化")
       .action(async () => {
         await gitInitSimpleHooks();
       });
   },
   npmRunSetup: (cli: CAC) => {
-    cli.command("run", "Run the script listed").action(async () => {
+    cli.command("run", "列出可以运行的全部脚本").action(async () => {
       await npmRun();
     });
   },
   eslintFix: (cli: CAC) => {
     cli
-      .command("lint", "Inspecte the code and try to fix it.")
-      .option("--eslintrc <file>", "eslintrc file", {
-        default: esLintOptions.eslintrc,
-      })
-      .option("--ignore <file>", ".eslintignore file", {
-        default: esLintOptions.ignorePath,
-      })
-      .option("--path <path>", "Inspecte path", {
-        default: esLintOptions.paths,
-      })
-      .option("--staged", "Inspecte staged files", {
-        default: false,
-      })
-      .option("--suffix <suffix>", "Inspecte files with specified suffixes", {
-        default: ".js,.jsx,.ts,.tsx",
+      .command("fix", "运行 eslint 静态扫描和修复代码中存在的问题")
+      .option("-p, --pattern <pattern>", "设置配置规则", {
+        default: [...eslintGlob],
       })
       .action(async (options) => {
-        const { eslintrc, ignore, staged, path, suffix } = options;
-        await eslintFix(cwd, {
-          eslintrc,
-          ignorePath: ignore,
-          staged,
-          paths: typeof path === "string" ? [path] : path,
-          suffix: suffix.split(","),
-        });
+        const patterns =
+          typeof options.pattern === "string"
+            ? [options.pattern]
+            : options.pattern;
+        await eslintFix(patterns);
       });
   },
   prettierFormat: (cli: CAC) => {
     cli
-      .command("format", "Format code style(default prettier)")
-      .option("--prettierrc <file>", "prettierrc file", {
-        default: prettierFormatOptions.prettierrc,
-      })
-      .option("--ignore <file>", ".prettierignore file", {
-        default: prettierFormatOptions.ignorePath,
-      })
-      .option("--path <path>", "Inspecte path", {
-        default: prettierFormatOptions.paths,
-      })
-      .option("--staged", "Inspecte staged files", {
-        default: false,
-      })
-      .option("--suffix <suffix>", "Inspecte files with specified suffixes", {
-        default: ".js,.jsx,.ts,.tsx",
+      .command("format", "运行 prettier 格式化代码风格")
+      .option("-p, --pattern <pattern>", "设置配置规则", {
+        default: [...formatGlob],
       })
       .action(async (options) => {
-        const { prettierrc, ignore, staged, path, suffix } = options;
-        await prettierFormat(cwd, {
-          prettierrc,
-          ignorePath: ignore,
-          staged,
-          paths: typeof path === "string" ? [path] : path,
-          suffix: suffix.split(","),
-        });
+        const patterns =
+          typeof options.pattern === "string"
+            ? [options.pattern]
+            : options.pattern;
+        await prettierFormat(patterns);
       });
   },
 };

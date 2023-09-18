@@ -18,113 +18,15 @@ npm i -g code-genius
 
 ## 终端命令
 
-| 命令   | 参数                                                                                     | 功能描述                                       |
-| ------ | ---------------------------------------------------------------------------------------- | ---------------------------------------------- |
-| cm     | --noEmoji                                                                                | 帮助生成规范的 git 提交内容                    |
-| cmv    | --                                                                                       | 帮助验证 git commit 的内容是否符合规范         |
-| cup    | --ignore \<path\>                                                                        | 清理运行时生成的文件                           |
-| ihooks | --                                                                                       | 使用且有修改 simple-git-hooks 后需要重新初始化 |
-| run    | --                                                                                       | 运行列出的脚本                                 |
-| lint   | --eslintrc \<file\>, --ignore \<file\>， --path \<path\>, --staged, --suffix \<suffix\>  | 检查代码并尝试修复                             |
-| format | --prettierrc \<file\>, --ignore \<file\>, --path \<path\>, --staged, --suffix \<suffix\> | 格式化代码风格                                 |
-
-## API
-
-| 序号 | API                                 | 参数                                                                                   | 返回            |
-| ---- | ----------------------------------- | -------------------------------------------------------------------------------------- | --------------- |
-| 1    | `gitCommit(types, scopes, options)` | `types: Array<CommitType>`, `scopes: Array<CommitScope>`, `options: GitCommitOptions)` | `Promise<void>` |
-| 2    | `gitCommitVerify()`                 | `--`                                                                                   | `Promise<void>` |
-| 3    | `cleanUp(paths)`                    | `paths: string[]`                                                                      | `Promise<void>` |
-| 4    | `gitInitSimpleHooks(cwd)`           | `cwd?: string`                                                                         | `Promise<void>` |
-| 5    | `npmRun(cwd)`                       | `cwd?: string`                                                                         | `Promise<void>` |
-| 6    | `eslintFix(cwd, options)`           | `cwd?: string`,` options:(EsLintOptions)`                                              | `Promise<void>` |
-| 7    | `prettierFormat(cwd, options)`      | `cwd?: string`,` options:(PrettierFormatOptions)`                                      | `Promise<void>` |
-
-## API 示例
-
-gitCommit()
-
-```typescript
-// ./index.ts
-import { gitCommit, gitCommitScopes, gitCommitTypes } from "code-genius";
-
-gitCommit(gitCommitTypes, gitCommitScopes, { enableEmoji: true });
-
-// 运行
-npx esno index.ts
-```
-
-gitCommitVerify()
-
-```typescript
-// ./index.ts
-import { gitCommitVerify } from "code-genius";
-
-gitCommitVerify();
-
-// 运行
-npx esno index.ts
-```
-
-cleanUp()
-
-```typescript
-// ./index.ts
-import { cleanUp, cleanUpDirs } from "code-genius";
-
-cleanUp(cleanUpDirs);
-
-// 运行
-npx esno index.ts
-```
-
-gitInitSimpleHooks()
-
-```typescript
-// ./index.ts
-import { gitInitSimpleHooks, cwd } from "code-genius";
-
-gitInitSimpleHooks(cwd);
-
-// 运行
-npx esno index.ts
-```
-
-npmRun()
-
-```typescript
-// ./index.ts
-import { gitInnpmRunitSimpleHooks, cwd } from "code-genius";
-
-npmRun(cwd);
-
-// 运行
-npx esno index.ts
-```
-
-eslintFix()
-
-```typescript
-// ./index.ts
-import { eslintFix, cwd, esLintOptions } from "code-genius";
-
-await eslintFix(cwd, esLintOptions);
-
-// 运行
-npx esno index.ts
-```
-
-prettierFormat()
-
-```typescript
-// ./index.ts
-import { prettierFormat, cwd, prettierFormatOptions } from "code-genius";
-
-await prettierFormat(cwd, prettierFormatOptions);
-
-// 运行
-npx esno index.ts
-```
+| 命令   | 参数                  | 默认值    | 功能描述                                          |
+| ------ | --------------------- | --------- | ------------------------------------------------- |
+| commit | --no-emoji            | true      | 生成 angualr 规范的提交信息                       |
+| verify | --                    | --        | 校验 COMMIT_EDITMSG 中的信息是否符合 Angualr 规范 |
+| clear  | --pattern \<pattern\> | './dist/' | 运行 rimraf 删除不再需要的文件或文件夹            |
+| hooks  | --                    | --        | 新增或修改 simple-git-hooks 配置后需要重新初始化  |
+| run    | --                    | --        | 列出可以运行的全部脚本                            |
+| fix    | --pattern \<pattern\> | './src'   | 运行 eslint 静态扫描和修复代码中存在的问题        |
+| format | --pattern \<pattern\> | ./src'    | 运行 prettier 格式化代码风格                      |
 
 ## 执照
 

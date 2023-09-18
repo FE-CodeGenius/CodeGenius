@@ -10,7 +10,7 @@ interface PromptResult {
 }
 
 interface GitCommitOptions {
-  enableEmoji: boolean;
+  emoji: boolean;
 }
 
 export const gitCommit = async (
@@ -24,20 +24,20 @@ export const gitCommit = async (
     console.table(scopes);
     console.table(options);
   }
-  const { enableEmoji } = options;
+  const { emoji: emojiStatus } = options;
   const typesChoices = types.map(({ emoji, code, description }) => {
-    const formatCode = `${code}:`.padEnd(12);
+    const formatCode = `${code}:`.padEnd(20);
     return {
-      name: enableEmoji ? `${emoji}${code}` : code,
+      name: emojiStatus ? `${emoji}${code}` : code,
       message: `${emoji}${formatCode}${description}`,
     };
   });
 
   const scopesChoices = scopes.map(({ name, description }) => {
-    const formatName = `${name}:`.padEnd(12);
+    const formatName = `${name}:`.padEnd(20);
     return {
       name,
-      message: `${formatName.padEnd(12)} ${description}`,
+      message: `${formatName.padEnd(20)} ${description}`,
     };
   });
 
@@ -62,5 +62,5 @@ export const gitCommit = async (
   ]);
 
   const content = `${result.type}(${result.scope}): ${result.description}`;
-  execCommand("git", ["commit", "-m", content], { stdio: "inherit" });
+  await execCommand("git", ["commit", "-m", content], { stdio: "inherit" });
 };

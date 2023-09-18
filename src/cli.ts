@@ -1,13 +1,13 @@
 import { handleError } from "./shared/index";
 import { version } from "../package.json";
-import { setupSet } from "./setup";
+import { commandSet } from "./setup";
 import cac from "cac";
 
 export const setupCli = async () => {
   const cli = cac("cg");
 
-  Object.keys(setupSet).forEach((key) => {
-    setupSet[key](cli);
+  Object.keys(commandSet).forEach((key) => {
+    commandSet[key](cli);
   });
 
   cli.help();

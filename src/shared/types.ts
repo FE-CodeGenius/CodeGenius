@@ -1,6 +1,6 @@
 import type { CAC } from "cac";
 
-export interface SetupSet {
+export interface CommandSet {
   [key: string]: (cli: CAC) => void;
 }
 

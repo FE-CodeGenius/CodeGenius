@@ -59,6 +59,22 @@ export const loggerError = (content: string | unknown) => {
   }
 };
 
+export const printInfo = (content: string) => {
+  console.log(green(`[CG INFO]：`), `${content}`);
+};
+
+export const printWarring = (content: string) => {
+  console.log(lightYellow(`[CG WARRING]：`), `${content}`);
+};
+
+export const printSuccess = (content: string) => {
+  console.log(lightGreen(`[CG SUCCESS]：`), `${content}`);
+};
+
+export const printError = (content: string | unknown) => {
+  console.log(lightRed(`[CG ERROR]：`), `${content}`);
+};
+
 /**
  * 根据后缀列表过滤获取合法的文件列表
  * @param fileList

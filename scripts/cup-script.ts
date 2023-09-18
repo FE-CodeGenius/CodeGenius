@@ -1,13 +1,12 @@
 import { loggerWarring } from "../src/shared";
-import { cleanUpDirs } from "../src/shared/config";
-import { cleanUp } from "./../src/command/cheanup";
+import { clear } from "./../src/command/clear";
 
-async function cmv() {
+async function clearDist() {
   try {
-    await Promise.all([cleanUp(cleanUpDirs)]);
+    await clear(["./dist"]);
   } catch (error) {
     loggerWarring(error);
   }
 }
 
-cmv();
+clearDist();

@@ -1,9 +1,12 @@
-import {
-  CommitScope,
-  CommitType,
-  EsLintOptions,
-  PrettierFormatOptions,
-} from "./types";
+import { CommitScope, CommitType } from "./types";
+
+export const clearGlob = ["./dist/"];
+
+export const formatGlob = ["./src"];
+
+export const eslintGlob = ["./src"];
+
+export const ACTIVATION = process.env.CG_DEBUG === "activation";
 
 export const gitCommitTypes: Array<CommitType> = [
   {
@@ -92,25 +95,3 @@ export const gitCommitScopes: Array<CommitScope> = [
     description: "用户界面",
   },
 ];
-
-export const cleanUpDirs = ["./dist", "./coverage", "./node_modules"];
-
-export const cwd = process.cwd();
-
-export const ACTIVATION = process.env.CG_DEBUG === "activation";
-
-export const esLintOptions: EsLintOptions = {
-  eslintrc: ".eslintrc.json",
-  ignorePath: ".eslintignore",
-  paths: ["src"],
-  staged: true,
-  suffix: [".js", "jsx", ".ts", ".tsx"],
-};
-
-export const prettierFormatOptions: PrettierFormatOptions = {
-  prettierrc: ".prettierrc",
-  ignorePath: ".prettierignore",
-  paths: ["src"],
-  staged: true,
-  suffix: [".js", "jsx", ".ts", ".tsx"],
-};
