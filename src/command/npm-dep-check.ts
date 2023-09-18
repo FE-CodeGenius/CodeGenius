@@ -1,4 +1,3 @@
-import { ACTIVATION } from "../shared/config";
 import { execCommand } from "../shared/index";
 
 export const npmDepCheck = async () => {
