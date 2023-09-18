@@ -15,6 +15,11 @@ export interface CommitScope {
   description: string;
 }
 
+export interface KeyValue {
+  key: string;
+  value: string;
+}
+
 export interface EsLintOptions {
   eslintrc: string;
   ignorePath: string;

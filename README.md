@@ -28,6 +28,7 @@ npm i -g code-genius
 | fix      | --pattern \<pattern\> | './src'   | 运行 eslint 静态扫描和修复代码中存在的问题          |
 | format   | --pattern \<pattern\> | ./src'    | 运行 prettier 格式化代码风格                        |
 | depcheck | --                    | --        | 运行 npm-check 检查过时的、不正确的和未使用的依赖项 |
+| registry | --                    | --        | 切换 NPM 镜像地址                                   |
 
 ## 执照
 

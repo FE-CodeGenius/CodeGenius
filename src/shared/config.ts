@@ -1,4 +1,4 @@
-import { CommitScope, CommitType } from "./types";
+import { CommitScope, CommitType, KeyValue } from "./types";
 
 export const clearGlob = ["./dist/"];
 
@@ -93,5 +93,32 @@ export const gitCommitScopes: Array<CommitScope> = [
   {
     name: "ui",
     description: "用户界面",
+  },
+];
+
+export const npmRegisters: Array<KeyValue> = [
+  {
+    key: "npm",
+    value: "https://registry.npmjs.org/",
+  },
+  {
+    key: "yarn",
+    value: "https://registry.yarnpkg.com/",
+  },
+  {
+    key: "tencent",
+    value: "https://mirrors.cloud.tencent.com/npm/",
+  },
+  {
+    key: "cnpm",
+    value: "https://r.cnpmjs.org/",
+  },
+  {
+    key: "taobao",
+    value: "https://registry.npmmirror.com/",
+  },
+  {
+    key: "npmMirror",
+    value: "https://skimdb.npmjs.com/registry/",
   },
 ];

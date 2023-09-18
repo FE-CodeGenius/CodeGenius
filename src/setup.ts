@@ -18,6 +18,7 @@ import { gitInitSimpleHooks } from "./command/git-init-hooks";
 import { clear } from "./command/clear";
 import { npmRun } from "./command/npm-run";
 import { npmDepCheck } from "./command/npm-dep-check";
+import { npmRegistry } from "./command/npm-registry";
 
 export const commandSet: CommandSet = {
   gitCommitCmd: (cli: CAC) => {
@@ -63,7 +64,7 @@ export const commandSet: CommandSet = {
     cli
       .command(
         "depcheck",
-        "运行 npm-check 检查过时的、不正确的和未使用的依赖项",
+        "运行 npm-check 检查过时的、不正确的和未使用的依赖项"
       )
       .action(async () => {
         await npmDepCheck();
@@ -72,6 +73,11 @@ export const commandSet: CommandSet = {
   npmRunCmd: (cli: CAC) => {
     cli.command("run", "列出可以运行的全部脚本").action(async () => {
       await npmRun();
+    });
+  },
+  npmRegistryCmd: (cli: CAC) => {
+    cli.command("registry", "切换 NPM 镜像地址").action(async () => {
+      await npmRegistry();
     });
   },
   eslintFixCmd: (cli: CAC) => {
