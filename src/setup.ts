@@ -17,6 +17,7 @@ import { gitCommit } from "./command/git-commit";
 import { gitInitSimpleHooks } from "./command/git-init-hooks";
 import { clear } from "./command/clear";
 import { npmRun } from "./command/npm-run";
+import { npmDepCheck } from "./command/npm-dep-check";
 
 export const commandSet: CommandSet = {
   gitCommitCmd: (cli: CAC) => {
@@ -30,14 +31,14 @@ export const commandSet: CommandSet = {
         });
       });
   },
-  gitCommitVerifySetup: (cli: CAC) => {
+  gitCommitVerifyCmd: (cli: CAC) => {
     cli
       .command("verify", "校验 COMMIT_EDITMSG 中的信息是否符合 Angualr 规范")
       .action(async () => {
         await gitCommitVerify();
       });
   },
-  clearSetup: (cli: CAC) => {
+  clearCmd: (cli: CAC) => {
     cli
       .command("clear", "运行 rimraf 删除不再需要的文件或文件夹")
       .option("-p, --pattern <pattern>", "设置配置规则", {
@@ -51,22 +52,32 @@ export const commandSet: CommandSet = {
         await clear(patterns);
       });
   },
-  initSimpleGitHooks: (cli: CAC) => {
+  initSimpleGitHooksCmd: (cli: CAC) => {
     cli
       .command("hooks", "新增或修改 simple-git-hooks 配置后需要重新初始化")
       .action(async () => {
         await gitInitSimpleHooks();
       });
   },
-  npmRunSetup: (cli: CAC) => {
+  npmDepCheck: (cli: CAC) => {
+    cli
+      .command(
+        "depcheck",
+        "运行 npm-check 检查过时的、不正确的和未使用的依赖项",
+      )
+      .action(async () => {
+        await npmDepCheck();
+      });
+  },
+  npmRunCmd: (cli: CAC) => {
     cli.command("run", "列出可以运行的全部脚本").action(async () => {
       await npmRun();
     });
   },
-  eslintFix: (cli: CAC) => {
+  eslintFixCmd: (cli: CAC) => {
     cli
       .command("fix", "运行 eslint 静态扫描和修复代码中存在的问题")
-      .option("-p, --pattern <pattern>", "设置配置规则", {
+      .option("-p, --pattern <pattern>", "设置匹配规则", {
         default: [...eslintGlob],
       })
       .action(async (options) => {
@@ -77,10 +88,10 @@ export const commandSet: CommandSet = {
         await eslintFix(patterns);
       });
   },
-  prettierFormat: (cli: CAC) => {
+  prettierFormatCmd: (cli: CAC) => {
     cli
       .command("format", "运行 prettier 格式化代码风格")
-      .option("-p, --pattern <pattern>", "设置配置规则", {
+      .option("-p, --pattern <pattern>", "设置匹配规则", {
         default: [...formatGlob],
       })
       .action(async (options) => {

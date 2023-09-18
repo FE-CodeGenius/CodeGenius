@@ -18,15 +18,16 @@ npm i -g code-genius
 
 ## 终端命令
 
-| 命令   | 参数                  | 默认值    | 功能描述                                          |
-| ------ | --------------------- | --------- | ------------------------------------------------- |
-| commit | --no-emoji            | true      | 生成 angualr 规范的提交信息                       |
-| verify | --                    | --        | 校验 COMMIT_EDITMSG 中的信息是否符合 Angualr 规范 |
-| clear  | --pattern \<pattern\> | './dist/' | 运行 rimraf 删除不再需要的文件或文件夹            |
-| hooks  | --                    | --        | 新增或修改 simple-git-hooks 配置后需要重新初始化  |
-| run    | --                    | --        | 列出可以运行的全部脚本                            |
-| fix    | --pattern \<pattern\> | './src'   | 运行 eslint 静态扫描和修复代码中存在的问题        |
-| format | --pattern \<pattern\> | ./src'    | 运行 prettier 格式化代码风格                      |
+| 命令     | 参数                  | 默认值    | 功能描述                                            |
+| -------- | --------------------- | --------- | --------------------------------------------------- |
+| commit   | --no-emoji            | true      | 生成 angualr 规范的提交信息                         |
+| verify   | --                    | --        | 校验 COMMIT_EDITMSG 中的信息是否符合 Angualr 规范   |
+| clear    | --pattern \<pattern\> | './dist/' | 运行 rimraf 删除不再需要的文件或文件夹              |
+| hooks    | --                    | --        | 新增或修改 simple-git-hooks 配置后需要重新初始化    |
+| run      | --                    | --        | 列出可以运行的全部脚本                              |
+| fix      | --pattern \<pattern\> | './src'   | 运行 eslint 静态扫描和修复代码中存在的问题          |
+| format   | --pattern \<pattern\> | ./src'    | 运行 prettier 格式化代码风格                        |
+| depcheck | --                    | --        | 运行 npm-check 检查过时的、不正确的和未使用的依赖项 |
 
 ## 执照
 
