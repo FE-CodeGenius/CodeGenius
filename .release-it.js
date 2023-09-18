@@ -1,6 +1,6 @@
 module.exports = {
   hooks: {
-    "after:bump": "npm run build",
+    "after:bump": "npx esno scripts/dep-script.ts && npm run build",
   },
   git: {
     commitMessage: "chore: release v${version}",
