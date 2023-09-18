@@ -64,7 +64,7 @@ export const commandSet: CommandSet = {
     cli
       .command(
         "depcheck",
-        "运行 npm-check 检查过时的、不正确的和未使用的依赖项"
+        "运行 npm-check 检查过时的、不正确的和未使用的依赖项",
       )
       .action(async () => {
         await npmDepCheck();
