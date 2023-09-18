@@ -13,7 +13,7 @@ export const gitCommitVerify = async () => {
     /(?<type>[a-z]+)(\((?<scope>.+)\))?(?<breaking>!)?: (?<description>.+)/i;
   if (!REG_EXP.test(content)) {
     printError("Git 提交信息不符合 Angualr 规范~");
-    printInfo("推荐: 运行 cg cm 生成提交信息");
+    printInfo("推荐: 运行 `npx code-genius commit` 生成提交信息");
     process.exit(1);
   }
 };
