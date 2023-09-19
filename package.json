@@ -1,6 +1,6 @@
 {
   "name": "code-genius",
-  "version": "0.4.7",
+  "version": "0.4.8",
   "description": "CodeGenius's command line tools",
   "author": {
     "name": "OSpoon",
@@ -38,8 +38,8 @@
     "dist"
   ],
   "engines": {
-		"node": ">=14.17"
-	},
+    "node": ">=14.17"
+  },
   "scripts": {
     "prepare": "esno scripts/prepare.ts",
     "build": "unbuild",
