@@ -5,7 +5,7 @@ import { execCommand, loggerWarring } from "@/shared";
 async function lint() {
   try {
     await prettierFormat(["./src/", "./scripts/"]);
-    await execCommand("git", ["add", ","]);
+    await execCommand("git", ["add", "."]);
     await eslintFix(["./src/", "./scripts/"]);
   } catch (error) {
     loggerWarring(error);

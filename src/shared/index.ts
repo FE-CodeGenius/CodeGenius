@@ -14,12 +14,8 @@ export const execCommand = async (
   args: string[],
   options?: Options,
 ) => {
-  try {
-    const res = await execa(cmd, args, options);
-    return res?.stdout?.trim() || "";
-  } catch (error: unknown) {
-    loggerError(error);
-  }
+  const res = await execa(cmd, args, options);
+  return res?.stdout?.trim() || "";
 };
 
 export class PrettyError extends Error {
