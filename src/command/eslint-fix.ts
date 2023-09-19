@@ -1,5 +1,5 @@
-import { execCommand, loggerInfo } from "./../shared/index";
-import { ACTIVATION } from "../shared/config";
+import { execCommand, loggerInfo } from "@/shared/index";
+import { ACTIVATION } from "@/shared/config";
 
 export const eslintFix = async (paths: string[]) => {
   if (ACTIVATION) {

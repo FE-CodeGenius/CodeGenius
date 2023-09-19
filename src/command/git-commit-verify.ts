@@ -1,7 +1,7 @@
-import { printError, printInfo } from "./../shared/index";
-import { readFileSync } from "fs";
+import { readFileSync } from "node:fs";
 import path from "node:path";
-import { execCommand } from "../shared";
+
+import { printError, printInfo, execCommand } from "@/shared/index";
 
 export const gitCommitVerify = async () => {
   const dogit = await execCommand("git", ["rev-parse", "--show-toplevel"], {

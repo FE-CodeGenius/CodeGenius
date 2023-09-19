@@ -1,5 +1,5 @@
-import { execCommand, loggerInfo } from "./../shared/index";
-import { ACTIVATION } from "../shared/config";
+import { execCommand, loggerInfo } from "@/shared/index";
+import { ACTIVATION } from "@/shared/config";
 
 export const prettierFormat = async (paths: string[]) => {
   if (ACTIVATION) {

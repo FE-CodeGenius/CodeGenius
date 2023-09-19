@@ -19,19 +19,3 @@ export interface KeyValue {
   key: string;
   value: string;
 }
-
-export interface EsLintOptions {
-  eslintrc: string;
-  ignorePath: string;
-  paths: string[];
-  suffix: string[];
-  staged: boolean;
-}
-
-export interface PrettierFormatOptions {
-  prettierrc: string;
-  ignorePath: string;
-  paths: string[];
-  suffix: string[];
-  staged: boolean;
-}

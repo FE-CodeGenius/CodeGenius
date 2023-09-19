@@ -1,7 +1,9 @@
-import enquirer from "enquirer";
 import path from "node:path";
-import fs from "fs/promises";
-import { execCommand } from "../shared/index";
+import fs from "node:fs/promises";
+
+import enquirer from "enquirer";
+
+import { execCommand } from "@/shared/index";
 
 export const npmRun = async (cwd = process.cwd()) => {
   const root = path.join(cwd, "package.json");

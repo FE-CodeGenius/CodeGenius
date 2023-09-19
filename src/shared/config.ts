@@ -1,4 +1,4 @@
-import { CommitScope, CommitType, KeyValue } from "./types";
+import { CommitScope, CommitType, KeyValue } from "@/shared/types";
 
 export const clearGlob = ["./dist/"];
 

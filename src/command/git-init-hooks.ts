@@ -1,6 +1,7 @@
 import path from "node:path";
-import { existsSync } from "fs";
-import { execCommand } from "../shared";
+import { existsSync } from "node:fs";
+
+import { execCommand } from "@/shared/index";
 
 export const gitInitSimpleHooks = async (cwd = process.cwd()) => {
   const dohusky = path.join(cwd, ".husky");

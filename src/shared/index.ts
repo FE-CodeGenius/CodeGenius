@@ -1,15 +1,18 @@
-import execa from "execa";
-import fs from "fs";
-import path from "path";
-import type { Options } from "execa";
+import fs from "node:fs";
+import path from "node:path";
 import process from "node:process";
+
+import type { Options } from "execa";
+
+import execa from "execa";
 import { green, lightYellow, lightGreen, lightRed } from "kolorist";
-import { ACTIVATION } from "./config";
+
+import { ACTIVATION } from "@/shared/config";
 
 export const execCommand = async (
   cmd: string,
   args: string[],
-  options?: Options,
+  options?: Options
 ) => {
   try {
     const res = await execa(cmd, args, options);
@@ -83,7 +86,7 @@ export const printError = (content: string | unknown) => {
  */
 export function getFiilesBySuffixes(
   fileList: string[],
-  suffixes: string[],
+  suffixes: string[]
 ): string[] {
   const paths: string[] = [];
 
@@ -144,7 +147,7 @@ export const getEveryFilesBySuffixes = async (
   cwd: string,
   staged: boolean,
   paths: string[],
-  suffix: string[],
+  suffix: string[]
 ) => {
   let files: string[] = [];
   if (staged) {

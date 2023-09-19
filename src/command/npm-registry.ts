@@ -1,22 +1,26 @@
-import { printInfo, printWarring } from "./../shared/index";
 import enquirer from "enquirer";
-import { execCommand } from "../shared";
-import { npmRegisters } from "../shared/config";
+
+import { printInfo, printWarring, execCommand } from "@/shared/index";
+import { npmRegisters } from "@/shared/config";
 
 interface PromptResult {
   registry: string;
 }
 
-export const npmRegistry = async () => {
-  printInfo("当前 NPM 镜像地址（全局）：");
+const printCurrentRegistry = async (isBefore: boolean = true) => {
+  printInfo(`${isBefore ? "当前" : "最新"} NPM 镜像地址（全局）：`);
   await execCommand("npm", ["config", "get", "registry", "-g"], {
     stdio: "inherit",
   });
-  printInfo("当前 NPM 镜像地址（非全局）");
+  printInfo(`${isBefore ? "当前" : "最新"} NPM 镜像地址（非全局）：`);
   await execCommand("npm", ["config", "get", "registry"], {
     stdio: "inherit",
   });
   printWarring("PS: 非全局查询结果受`.npmrc`影响会不准确。");
+};
+
+export const npmRegistry = async () => {
+  await printCurrentRegistry();
 
   const registersChoices = npmRegisters.map(({ key, value }) => {
     const formatKey = `${key}:`.padEnd(15);
@@ -38,13 +42,5 @@ export const npmRegistry = async () => {
     stdio: "inherit",
   });
 
-  printInfo("最新 NPM 镜像地址（全局）：");
-  await execCommand("npm", ["config", "get", "registry", "-g"], {
-    stdio: "inherit",
-  });
-  printInfo("最新 NPM 镜像地址（非全局）");
-  await execCommand("npm", ["config", "get", "registry"], {
-    stdio: "inherit",
-  });
-  printWarring("PS: 非全局查询结果受`.npmrc`影响会不准确。");
+  await printCurrentRegistry();
 };

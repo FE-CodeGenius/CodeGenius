@@ -1,7 +1,9 @@
-import { handleError } from "./shared/index";
-import { version } from "../package.json";
-import { commandSet } from "./setup";
 import cac from "cac";
+
+import { handleError } from "@/shared/index";
+import { commandSet } from "@/setup";
+
+import { version } from "../package.json";
 
 export const setupCli = async () => {
   const cli = cac("cg");

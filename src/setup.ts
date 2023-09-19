@@ -1,6 +1,7 @@
-import { prettierFormat } from "./command/prettier-format";
-import { eslintFix } from "./command/eslint-fix";
 import type { CAC } from "cac";
+
+import { prettierFormat } from "@/command/prettier-format";
+import { eslintFix } from "@/command/eslint-fix";
 
 import {
   clearGlob,

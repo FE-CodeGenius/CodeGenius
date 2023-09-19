@@ -1,4 +1,4 @@
-import { execCommand } from "../shared/index";
+import { execCommand } from "@/shared/index";
 
 export const npmDepCheck = async () => {
   await execCommand("npx", ["npm-check"], {

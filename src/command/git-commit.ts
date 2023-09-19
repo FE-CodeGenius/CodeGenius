@@ -1,8 +1,8 @@
-import { loggerInfo } from "./../shared/index";
 import enquirer from "enquirer";
-import { CommitScope, CommitType } from "../shared/types";
-import { execCommand } from "../shared";
-import { ACTIVATION } from "../shared/config";
+
+import { ACTIVATION } from "@/shared/config";
+import { CommitScope, CommitType } from "@/shared/types";
+import { loggerInfo, execCommand } from "@/shared/index";
 interface PromptResult {
   type: string;
   scope: string;
@@ -16,7 +16,7 @@ interface GitCommitOptions {
 export const gitCommit = async (
   types: Array<CommitType>,
   scopes: Array<CommitScope>,
-  options: GitCommitOptions,
+  options: GitCommitOptions
 ) => {
   if (ACTIVATION) {
     loggerInfo("gitCommit 参数信息: \n");
