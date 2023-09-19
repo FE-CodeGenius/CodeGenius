@@ -1,10 +1,11 @@
-import { eslintFix } from "./../src/command/eslint-fix";
-import { prettierFormat } from "../src/command/prettier-format";
-import { loggerWarring } from "../src/shared";
+import { eslintFix } from "@/command/eslint-fix";
+import { prettierFormat } from "@/command/prettier-format";
+import { execCommand, loggerWarring } from "@/shared";
 
 async function lint() {
   try {
     await prettierFormat(["./src/", "./scripts/"]);
+    await execCommand("git", ["add", ","]);
     await eslintFix(["./src/", "./scripts/"]);
   } catch (error) {
     loggerWarring(error);

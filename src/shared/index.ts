@@ -44,7 +44,7 @@ export const loggerInfo = (content: string) => {
   }
 };
 
-export const loggerWarring = (content: string) => {
+export const loggerWarring = (content: string | unknown) => {
   if (ACTIVATION) {
     console.log(lightYellow(`[CG WARRING]：`), `${content}`);
   }

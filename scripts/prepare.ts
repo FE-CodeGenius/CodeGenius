@@ -1,5 +1,5 @@
-import { gitInitSimpleHooks } from "../src/command/git-init-hooks";
-import { loggerWarring } from "../src/shared";
+import { gitInitSimpleHooks } from "@/command/git-init-hooks";
+import { loggerWarring } from "@/shared";
 
 async function prepare() {
   try {

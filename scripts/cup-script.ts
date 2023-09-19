@@ -1,5 +1,5 @@
-import { loggerWarring } from "../src/shared";
-import { clear } from "./../src/command/clear";
+import { loggerWarring } from "@/shared";
+import { clear } from "@/command/clear";
 
 async function clearDist() {
   try {

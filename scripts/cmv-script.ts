@@ -1,5 +1,5 @@
-import { loggerWarring } from "./../src/shared/index";
-import { gitCommitVerify } from "../src/command/git-commit-verify";
+import { loggerWarring } from "@/shared/index";
+import { gitCommitVerify } from "@/command/git-commit-verify";
 
 async function cmv() {
   try {

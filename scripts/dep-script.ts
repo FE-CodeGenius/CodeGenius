@@ -1,5 +1,5 @@
-import { loggerWarring } from "../src/shared/index";
-import { npmDepCheck } from "../src/command/npm-dep-check";
+import { loggerWarring } from "@/shared/index";
+import { npmDepCheck } from "@/command/npm-dep-check";
 
 async function cmv() {
   try {
