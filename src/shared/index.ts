@@ -12,7 +12,7 @@ import { ACTIVATION } from "@/shared/config";
 export const execCommand = async (
   cmd: string,
   args: string[],
-  options?: Options
+  options?: Options,
 ) => {
   try {
     const res = await execa(cmd, args, options);
@@ -86,7 +86,7 @@ export const printError = (content: string | unknown) => {
  */
 export function getFiilesBySuffixes(
   fileList: string[],
-  suffixes: string[]
+  suffixes: string[],
 ): string[] {
   const paths: string[] = [];
 
@@ -147,7 +147,7 @@ export const getEveryFilesBySuffixes = async (
   cwd: string,
   staged: boolean,
   paths: string[],
-  suffix: string[]
+  suffix: string[],
 ) => {
   let files: string[] = [];
   if (staged) {
