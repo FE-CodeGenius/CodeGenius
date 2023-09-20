@@ -1,5 +1,7 @@
+import type { CAC } from "cac";
+
 import { execCommand, loggerInfo } from "@/shared/index";
-import { ACTIVATION } from "@/shared/config";
+import { ACTIVATION, formatGlob } from "@/shared/config";
 
 export const prettierFormat = async (paths: string[]) => {
   if (ACTIVATION) {
@@ -11,3 +13,23 @@ export const prettierFormat = async (paths: string[]) => {
     stdio: "inherit",
   });
 };
+
+export default function prettierFormatInstaller(cli: CAC) {
+  return {
+    name: "prettierFormatInstaller",
+    setup: () => {
+      cli
+        .command("format", "运行 prettier 格式化代码风格")
+        .option("-p, --pattern <pattern>", "设置匹配规则", {
+          default: [...formatGlob],
+        })
+        .action(async (options) => {
+          const patterns =
+            typeof options.pattern === "string"
+              ? [options.pattern]
+              : options.pattern;
+          await prettierFormat(patterns);
+        });
+    },
+  };
+}

@@ -1,6 +1,8 @@
+import type { CAC } from "cac";
+
 import enquirer from "enquirer";
 
-import { ACTIVATION } from "@/shared/config";
+import { ACTIVATION, gitCommitScopes, gitCommitTypes } from "@/shared/config";
 import { CommitScope, CommitType } from "@/shared/types";
 import { loggerInfo, execCommand } from "@/shared/index";
 interface PromptResult {
@@ -64,3 +66,20 @@ export const gitCommit = async (
   const content = `${result.type}(${result.scope}): ${result.description}`;
   await execCommand("git", ["commit", "-m", content], { stdio: "inherit" });
 };
+
+export default function gitCommitInstaller(cli: CAC) {
+  return {
+    name: "gitCommitInstaller",
+    setup: () => {
+      cli
+        .command("commit", "生成 angualr 规范的提交信息")
+        .option("--no-emoji", "禁用 emoji")
+        .action(async (options) => {
+          const { emoji } = options;
+          await gitCommit(gitCommitTypes, gitCommitScopes, {
+            emoji,
+          });
+        });
+    },
+  };
+}

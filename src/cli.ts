@@ -1,9 +1,9 @@
 import cac, { CAC } from "cac";
 
 import { handleError } from "@/shared/index";
-import { commandSet } from "@/setup";
 
 import { version } from "../package.json";
+import { cmdInstaller } from "./setup";
 
 function welcome(cli: CAC) {
   cli.outputHelp();
@@ -11,10 +11,9 @@ function welcome(cli: CAC) {
 
 export const setupCli = async () => {
   const cli = cac("cg");
+  cli.command("");
 
-  Object.keys(commandSet).forEach((key) => {
-    commandSet[key](cli);
-  });
+  cmdInstaller(cli);
 
   cli.help();
   cli.version(version);

@@ -1,3 +1,5 @@
+import type { CAC } from "cac";
+
 import path from "node:path";
 import fs from "node:fs/promises";
 
@@ -32,3 +34,14 @@ export const npmRun = async (cwd = process.cwd()) => {
     execCommand(cmd, args, { stdio: "inherit" });
   }
 };
+
+export default function npmRunInstaller(cli: CAC) {
+  return {
+    name: "npmRunInstaller",
+    setup: () => {
+      cli.command("run", "列出可以运行的全部脚本").action(async () => {
+        await npmRun();
+      });
+    },
+  };
+}

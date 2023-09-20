@@ -1,3 +1,5 @@
+import type { CAC } from "cac";
+
 import { readFileSync } from "node:fs";
 import path from "node:path";
 
@@ -17,3 +19,16 @@ export const gitCommitVerify = async () => {
     process.exit(1);
   }
 };
+
+export default function gitCommitVerifyInstaller(cli: CAC) {
+  return {
+    name: "gitCommitVerifyInstaller",
+    setup: () => {
+      cli
+        .command("verify", "校验 COMMIT_EDITMSG 中的信息是否符合 Angualr 规范")
+        .action(async () => {
+          await gitCommitVerify();
+        });
+    },
+  };
+}

@@ -1,5 +1,7 @@
+import type { CAC } from "cac";
+
 import { execCommand, loggerInfo } from "@/shared/index";
-import { ACTIVATION } from "@/shared/config";
+import { ACTIVATION, clearGlob } from "@/shared/config";
 
 export const clear = async (paths: string[]) => {
   if (ACTIVATION) {
@@ -10,3 +12,23 @@ export const clear = async (paths: string[]) => {
     stdio: "inherit",
   });
 };
+
+export default function clearInstaller(cli: CAC) {
+  return {
+    name: "clearInstaller",
+    setup: () => {
+      cli
+        .command("clear", "运行 rimraf 删除不再需要的文件或文件夹")
+        .option("-p, --pattern <pattern>", "设置配置规则", {
+          default: [...clearGlob],
+        })
+        .action(async (options) => {
+          const patterns =
+            typeof options.pattern === "string"
+              ? [options.pattern]
+              : options.pattern;
+          await clear(patterns);
+        });
+    },
+  };
+}

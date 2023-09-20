@@ -1,3 +1,5 @@
+import type { CAC } from "cac";
+
 import enquirer from "enquirer";
 
 import { printInfo, printWarring, execCommand } from "@/shared/index";
@@ -44,3 +46,14 @@ export const npmRegistry = async () => {
 
   await printCurrentRegistry();
 };
+
+export default function npmRegistryInstaller(cli: CAC) {
+  return {
+    name: "npmRegistryInstaller",
+    setup: () => {
+      cli.command("registry", "切换 NPM 镜像地址").action(async () => {
+        await npmRegistry();
+      });
+    },
+  };
+}

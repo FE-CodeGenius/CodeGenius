@@ -1,3 +1,5 @@
+import type { CAC } from "cac";
+
 import path from "node:path";
 import { existsSync } from "node:fs";
 
@@ -20,3 +22,16 @@ export const gitInitSimpleHooks = async (cwd = process.cwd()) => {
   });
   await execCommand("npx", ["simple-git-hooks"], { stdio: "inherit" });
 };
+
+export default function gitInitSimpleHooksInstaller(cli: CAC) {
+  return {
+    name: "gitInitSimpleHooksInstaller",
+    setup: () => {
+      cli
+        .command("hooks", "新增或修改 simple-git-hooks 配置后需要重新初始化")
+        .action(async () => {
+          await gitInitSimpleHooks();
+        });
+    },
+  };
+}
