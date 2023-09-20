@@ -1,21 +1,26 @@
 import type { CAC } from "cac";
 
+import fs from "fs-extra";
+
 import path from "node:path";
 import { randomUUID } from "node:crypto";
 
 import enquirer from "enquirer";
 
 import {
+  emptyDir,
   getVariantByFramework,
   isEmptyDir,
   isValidFramework,
   isValidPackageName,
   isValidVariant,
   loggerInfo,
+  pkgFromUserAgent,
   toValidPackageName,
 } from "@/shared/index";
-import { ACTIVATION, FRAMEWORKS } from "@/shared/config";
+import { ACTIVATION, fileIgnore, FRAMEWORKS } from "@/shared/config";
 import { TemplateOptions } from "@/shared/types";
+import { fileURLToPath } from "node:url";
 
 interface PromptResult {
   projectName: string;
@@ -99,25 +104,47 @@ export const template = async (options: TemplateOptions) => {
   console.log(projectName, framework, variant, overwrite, packageName);
 
   const root = path.join(process.cwd(), projectName);
-  // if (overwrite) emptyDir(root);
-  // const template: string = variant || framework;
-  // const pkgInfo = pkgFromUserAgent(process.env.npm_config_user_agent);
-  // const pkgManager = pkgInfo ? pkgInfo.name : "npm";
+  if (overwrite) emptyDir(root);
+  const template: string = variant || framework;
+  const pkgInfo = pkgFromUserAgent(process.env.npm_config_user_agent);
+  const pkgManager = pkgInfo ? pkgInfo.name : "npm";
 
   console.log(`\nScaffolding project in ${root}...`);
-  // const templateDir = path.resolve(
-  //   fileURLToPath(import.meta.url),
-  //   "../../../template",
-  //   `template-${template}`
-  // );
-  // console.log(templateDir);
-  // fs.copySync(templateDir, projectName, {
-  //   filter: (src: string) => {
-  //     return !fileIgnore.find(
-  //       (f) => f === `${path.parse(src).name}${path.parse(src).ext}`
-  //     );
-  //   },
-  // });
+  const templateDir = path.resolve(
+    fileURLToPath(import.meta.url),
+    "../../../templates",
+    `template-${template}`,
+  );
+  console.log(templateDir);
+  fs.copySync(templateDir, projectName, {
+    filter: (src: string) => {
+      return !fileIgnore.find(
+        (f) => f === `${path.parse(src).name}${path.parse(src).ext}`,
+      );
+    },
+  });
+
+  const gitignoreInfo = fs.readFileSync(
+    path.resolve(templateDir, "_gitignore"),
+  );
+  fs.outputFile(path.join(root, ".gitignore"), gitignoreInfo);
+
+  const pkg = fs.readJsonSync(path.resolve(templateDir, "package.json"));
+  pkg.name = packageName;
+  fs.outputJSONSync(path.join(root, "package.json"), pkg, {
+    spaces: 2,
+  });
+
+  switch (pkgManager) {
+    case "yarn":
+      console.log("  yarn");
+      console.log("  yarn dev");
+      break;
+    default:
+      console.log(`  ${pkgManager} install`);
+      console.log(`  ${pkgManager} run dev`);
+      break;
+  }
 };
 
 export default function templateInstaller(cli: CAC) {
