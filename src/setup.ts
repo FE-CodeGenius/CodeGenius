@@ -10,6 +10,7 @@ import npmRunInstaller from "./command/npm-run";
 import npmRegistryInstaller from "./command/npm-registry";
 import eslintFixInstaller from "./command/eslint-fix";
 import prettierFormatInstaller from "./command/prettier-format";
+import templateInstaller from "./command/template";
 
 export function cmdInstaller(cli: CAC) {
   gitCommitInstaller(cli).setup();
@@ -19,8 +20,9 @@ export function cmdInstaller(cli: CAC) {
   npmDepCheckInstaller(cli).setup();
   npmRunInstaller(cli).setup();
   npmRegistryInstaller(cli).setup();
-  eslintFixInstaller(cli).setup;
+  eslintFixInstaller(cli).setup();
   prettierFormatInstaller(cli).setup();
   clearInstaller(cli).setup();
   createProjectInstaller(cli).setup();
+  templateInstaller(cli).setup();
 }

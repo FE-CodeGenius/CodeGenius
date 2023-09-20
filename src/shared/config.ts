@@ -1,9 +1,12 @@
 import {
   CommitScope,
   CommitType,
+  Framework,
   KeyValue,
   ProjectSource,
 } from "@/shared/types";
+
+import { blue, green, yellow } from "kolorist";
 
 export const clearGlob = ["./dist/"];
 
@@ -142,3 +145,31 @@ export const projectSources: Array<ProjectSource> = [
     description: "创建由 Vite 驱动的 Vue2 项目(支持 IE11)",
   },
 ];
+
+export const FRAMEWORKS: Framework[] = [
+  {
+    name: "vue",
+    display: "Vue",
+    color: green,
+    variants: [
+      {
+        framework: "vue",
+        name: "vue",
+        display: "JavaScript",
+        color: yellow,
+      },
+      {
+        framework: "vue",
+        name: "vue-ts",
+        display: "TypeScript",
+        color: blue,
+      },
+    ],
+  },
+];
+
+export const TEMPLATES = FRAMEWORKS.map(
+  (f) => (f.variants && f.variants.map((v) => v.name)) || [f.name],
+).reduce((a, b) => a.concat(b), []);
+
+export const fileIgnore = ["package.json", "_gitignore"];

@@ -24,3 +24,25 @@ export interface ProjectSource {
   name: string;
   description: string;
 }
+
+export interface TemplateOptions {
+  projectName: string;
+  framework: string;
+}
+
+export type ColorFunc = (str: string | number) => string;
+
+export interface FrameworkVariant {
+  framework: string;
+  name: string;
+  display: string;
+  color: ColorFunc;
+  customCommand?: string;
+}
+
+export interface Framework {
+  name: string;
+  display: string;
+  color: ColorFunc;
+  variants: FrameworkVariant[];
+}
