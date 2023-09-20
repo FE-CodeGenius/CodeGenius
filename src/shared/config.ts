@@ -1,4 +1,9 @@
-import { CommitScope, CommitType, KeyValue } from "@/shared/types";
+import {
+  CommitScope,
+  CommitType,
+  KeyValue,
+  ProjectSource,
+} from "@/shared/types";
 
 export const clearGlob = ["./dist/"];
 
@@ -120,5 +125,20 @@ export const npmRegisters: Array<KeyValue> = [
   {
     key: "npmMirror",
     value: "https://skimdb.npmjs.com/registry/",
+  },
+];
+
+export const projectSources: Array<ProjectSource> = [
+  {
+    name: "vite@latest",
+    description: "创建由 Vite 驱动的新的项目",
+  },
+  {
+    name: "vue@latest",
+    description: "创建由 Vite 驱动的 Vue3 项目",
+  },
+  {
+    name: "vue@legacy",
+    description: "创建由 Vite 驱动的 Vue2 项目(支持 IE11)",
   },
 ];

@@ -9,6 +9,7 @@ import {
   formatGlob,
   gitCommitScopes,
   gitCommitTypes,
+  projectSources,
 } from "./shared/config";
 
 import { CommandSet } from "./shared/types";
@@ -20,6 +21,7 @@ import { clear } from "./command/clear";
 import { npmRun } from "./command/npm-run";
 import { npmDepCheck } from "./command/npm-dep-check";
 import { npmRegistry } from "./command/npm-registry";
+import { createProject } from "./command/create-project";
 
 export const commandSet: CommandSet = {
   gitCommitCmd: (cli: CAC) => {
@@ -107,6 +109,13 @@ export const commandSet: CommandSet = {
             ? [options.pattern]
             : options.pattern;
         await prettierFormat(patterns);
+      });
+  },
+  createProjectCmd: (cli: CAC) => {
+    cli
+      .command("create", "运行 npm create 快速创建基础项目")
+      .action(async () => {
+        await createProject(projectSources);
       });
   },
 };
