@@ -24,6 +24,9 @@ import { npmRegistry } from "./command/npm-registry";
 import { createProject } from "./command/create-project";
 
 export const commandSet: CommandSet = {
+  defaultCmd: (cli: CAC) => {
+    cli.command("");
+  },
   gitCommitCmd: (cli: CAC) => {
     cli
       .command("commit", "生成 angualr 规范的提交信息")
