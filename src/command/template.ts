@@ -3,12 +3,12 @@ import type { CAC } from "cac";
 import fs from "fs-extra";
 
 import path from "node:path";
-import { randomUUID } from "node:crypto";
 
 import enquirer from "enquirer";
 
 import {
   emptyDir,
+  generateRandom,
   getVariantByFramework,
   isEmptyDir,
   isValidFramework,
@@ -154,7 +154,7 @@ export default function templateInstaller(cli: CAC) {
       cli
         .command("template", "快速创建CodeGenius基础项目")
         .option("-n, --project-name <project-name>", "项目名称", {
-          default: `project-${randomUUID().slice(0, 8)}`,
+          default: `project-${generateRandom(8)}`,
         })
         .option("-f, --framework <framework>", "项目框架")
         .action(async (options) => {
