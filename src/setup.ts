@@ -11,6 +11,7 @@ import npmRegistryInstaller from "./command/npm-registry";
 import eslintFixInstaller from "./command/eslint-fix";
 import prettierFormatInstaller from "./command/prettier-format";
 import templateInstaller from "./command/template";
+import lighthouseInstaller from "./command/lighthouse";
 
 export function cmdInstaller(cli: CAC) {
   gitCommitInstaller(cli).setup();
@@ -24,4 +25,5 @@ export function cmdInstaller(cli: CAC) {
   prettierFormatInstaller(cli).setup();
   createProjectInstaller(cli).setup();
   templateInstaller(cli).setup();
+  lighthouseInstaller(cli).setup();
 }
