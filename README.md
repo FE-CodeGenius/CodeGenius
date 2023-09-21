@@ -28,7 +28,7 @@ npm i -g code-genius
 | run        | --                                                                  | --        | 列出可以运行的全部脚本                              |
 | registry   | --                                                                  | --        | 切换 NPM 镜像地址                                   |
 | fix        | --pattern \<pattern\>                                               | './src'   | 运行 eslint 静态扫描和修复代码中存在的问题          |
-| format     | --pattern \<pattern\>                                               | ./src'    | 运行 prettier 格式化代码风格                        |
+| format     | --pattern \<pattern\>                                               | './src'    | 运行 prettier 格式化代码风格                        |
 | create     | --                                                                  | --        | 运行 npm create 快速创建基础项目                    |
 | template   | -n, --project-name \<project-name\>, -f, --framework \<framework\>, | --        | 快速创建 CodeGenius 基础项目                        |
 | lighthouse | --url \<url\>                                                       | --        | 运行 lighthouse 分析及收集 Web 应用的性能指标       |
