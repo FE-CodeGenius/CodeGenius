@@ -133,15 +133,23 @@ export const npmRegisters: Array<KeyValue> = [
 
 export const projectSources: Array<ProjectSource> = [
   {
-    name: "vite@latest",
+    name: "npx code-genius template",
+    display: "code-genius",
+    description: "创建由 CodeGenius 内置的新的项目",
+  },
+  {
+    name: "npm create vite@latest",
+    display: "vite@latest",
     description: "创建由 Vite 驱动的新的项目",
   },
   {
-    name: "vue@latest",
+    name: "npm create vue@latest",
+    display: "vue@latest",
     description: "创建由 Vite 驱动的 Vue3 项目",
   },
   {
-    name: "vue@legacy",
+    name: "npm create vue@legacy",
+    display: "vue@legacy",
     description: "创建由 Vite 驱动的 Vue2 项目(支持 IE11)",
   },
 ];

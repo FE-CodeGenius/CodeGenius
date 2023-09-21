@@ -22,7 +22,6 @@ export function cmdInstaller(cli: CAC) {
   npmRegistryInstaller(cli).setup();
   eslintFixInstaller(cli).setup();
   prettierFormatInstaller(cli).setup();
-  clearInstaller(cli).setup();
   createProjectInstaller(cli).setup();
   templateInstaller(cli).setup();
 }

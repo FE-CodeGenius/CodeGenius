@@ -16,11 +16,11 @@ export const createProject = async (sources: ProjectSource[]) => {
     console.table(sources);
   }
 
-  const sourceChoices = sources.map(({ name, description }) => {
-    const formatName = `${name}:`.padEnd(15);
+  const sourceChoices = sources.map(({ name, display, description }) => {
+    const formatDisplay = `${display}:`.padEnd(20);
     return {
       name: name,
-      message: `${formatName}${description}`,
+      message: `${formatDisplay}${description}`,
     };
   });
 
@@ -32,8 +32,9 @@ export const createProject = async (sources: ProjectSource[]) => {
       choices: sourceChoices,
     },
   ]);
+  const commands = result.command.split(" ");
 
-  await execCommand("npm", ["create", result.command], {
+  await execCommand(commands[0], [...commands.slice(1)], {
     stdio: "inherit",
   });
 };

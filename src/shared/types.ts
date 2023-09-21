@@ -22,6 +22,7 @@ export interface KeyValue {
 
 export interface ProjectSource {
   name: string;
+  display: string;
   description: string;
 }
 
