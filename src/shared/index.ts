@@ -18,60 +18,49 @@ export const execCommand = async (
   return res?.stdout?.trim() || "";
 };
 
-export class PrettyError extends Error {
-  constructor(message: string) {
-    super(message);
-    this.name = this.constructor.name;
-
-    if (typeof Error.captureStackTrace === "function")
-      Error.captureStackTrace(this, this.constructor);
-    else this.stack = new Error(message).stack;
-  }
-}
-
 export function handleError(error: unknown) {
-  if (error instanceof PrettyError) printError(error);
+  error && printError(error);
   process.exitCode = 1;
 }
 
 export const loggerInfo = (content: string) => {
   if (ACTIVATION) {
-    console.log(green(`[CG INFO]：`), `${content}`);
+    console.log(green(`[CODEG]:`), `${content}`);
   }
 };
 
 export const loggerWarring = (content: string | unknown) => {
   if (ACTIVATION) {
-    console.log(lightYellow(`[CG WARRING]：`), `${content}`);
+    console.log(lightYellow(`[CODEG]:`), `${content}`);
   }
 };
 
 export const loggerSuccess = (content: string) => {
   if (ACTIVATION) {
-    console.log(lightGreen(`[CG SUCCESS]：`), `${content}`);
+    console.log(lightGreen(`[CODEG]:`), `${content}`);
   }
 };
 
 export const loggerError = (content: string | unknown) => {
   if (ACTIVATION) {
-    console.log(lightRed(`[CG ERROR]：`), `${content}`);
+    console.log(lightRed(`[CODEG]:`), `${content}`);
   }
 };
 
 export const printInfo = (content: string) => {
-  console.log(green(`[CG INFO]：`), `${content}`);
+  console.log(green(`[CODEG]:`), `${content}`);
 };
 
 export const printWarring = (content: string) => {
-  console.log(lightYellow(`[CG WARRING]：`), `${content}`);
+  console.log(lightYellow(`[CODEG]：`), `${content}`);
 };
 
 export const printSuccess = (content: string) => {
-  console.log(lightGreen(`[CG SUCCESS]：`), `${content}`);
+  console.log(lightGreen(`[CODEG]:`), `${content}`);
 };
 
 export const printError = (content: string | unknown) => {
-  console.log(lightRed(`[CG ERROR]：`), `${content}`);
+  console.log(lightRed(`[CODEG]:`), `${content}`);
 };
 
 /**
