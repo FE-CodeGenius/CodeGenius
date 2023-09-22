@@ -28,8 +28,8 @@ export const gitUser = async (options: GitUserOptions) => {
   }
 
   const { name, email, ruleName, ruleEmail } = options;
-  const nameRegExp = new RegExp(ruleName);
-  const emailRegExp = new RegExp(ruleEmail, "i");
+  const nameRegExp = new RegExp(ruleName!);
+  const emailRegExp = new RegExp(ruleEmail!, "i");
 
   await printCurrentGitUser(true);
 
