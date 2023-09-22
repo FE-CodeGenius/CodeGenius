@@ -42,10 +42,10 @@
     "node": ">=14.17"
   },
   "scripts": {
-    "prepare": "esno scripts/prepare.ts",
-    "build": "unbuild",
-    "stub": "unbuild --stub",
-    "release": "release-it"
+    "prepare": "npx esno scripts/prepare.ts",
+    "build": "npx unbuild",
+    "stub": "npx unbuild --stub",
+    "release": "npx release-it"
   },
   "keywords": [
     "CodeGenius",

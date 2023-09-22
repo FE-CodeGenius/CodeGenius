@@ -14,7 +14,7 @@ export const npmRun = async (cwd = process.cwd()) => {
   const scriptChoices = Object.keys(scripts).map((key) => {
     return {
       name: scripts[key],
-      message: key,
+      message: `${key}`,
     };
   });
 
