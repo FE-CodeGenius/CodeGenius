@@ -32,7 +32,8 @@ npm i -g code-genius
 | create     | --                                                                                       | --        | 运行 npm create 快速创建基础项目                    |
 | template   | -n, --project-name \<project-name\>, -f, --framework \<framework\>,                      | --        | 快速创建 CodeGenius 基础项目                        |
 | lighthouse | --url \<url\>                                                                            | --        | 运行 lighthouse 分析及收集 Web 应用的性能指标       |
-| lighthouse | -n, --name \<name\>,-e, --email \<email\>,--rule-name \<regexp\>,--rule-email \<regexp\> | --        | 设置或校验 git user 信息是否规范                    |
+| git-user   | -n, --name \<name\>,-e, --email \<email\>,--rule-name \<regexp\>,--rule-email \<regexp\> | --        | 设置或校验 git user 信息是否规范                    |
+| quantity   | -p, --path <path>                                                                        | --        | 运行 cloc 分析并统计代码量                          |
 
 ## 执照
 

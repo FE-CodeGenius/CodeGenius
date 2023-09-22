@@ -13,6 +13,7 @@ import prettierFormatInstaller from "./command/prettier-format";
 import templateInstaller from "./command/template";
 import lighthouseInstaller from "./command/lighthouse";
 import gitUserInstaller from "./command/git-user";
+import quantityInstaller from "./command/quantity";
 
 export function cmdInstaller(cli: CAC) {
   gitCommitInstaller(cli).setup();
@@ -28,4 +29,5 @@ export function cmdInstaller(cli: CAC) {
   templateInstaller(cli).setup();
   lighthouseInstaller(cli).setup();
   gitUserInstaller(cli).setup();
+  quantityInstaller(cli).setup();
 }
