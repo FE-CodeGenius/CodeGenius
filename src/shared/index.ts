@@ -5,7 +5,15 @@ import process from "node:process";
 import type { Options } from "execa";
 
 import execa from "execa";
-import { green, lightYellow, lightGreen, lightRed } from "kolorist";
+import {
+  lightYellow,
+  lightGreen,
+  lightRed,
+  bgGreen,
+  bgLightYellow,
+  bgLightGreen,
+  bgLightRed,
+} from "kolorist";
 
 import { ACTIVATION, FRAMEWORKS, TEMPLATES } from "@/shared/config";
 
@@ -19,48 +27,51 @@ export const execCommand = async (
 };
 
 export function handleError(error: unknown) {
-  error && printError(error);
-  process.exitCode = 1;
+  error && printError((error as Error).message);
+  process.exit(1);
 }
 
 export const loggerInfo = (content: string) => {
   if (ACTIVATION) {
-    console.log(green(`[CODEG]:`), `${content}`);
+    console.log(bgGreen(`[CODEG INFO]:`), content);
   }
 };
 
 export const loggerWarring = (content: string | unknown) => {
   if (ACTIVATION) {
-    console.log(lightYellow(`[CODEG]:`), `${content}`);
+    console.log(
+      lightYellow(`[CODEG WARRING]:`),
+      bgLightYellow(content as string),
+    );
   }
 };
 
 export const loggerSuccess = (content: string) => {
   if (ACTIVATION) {
-    console.log(lightGreen(`[CODEG]:`), `${content}`);
+    console.log(bgLightGreen(`[CODEG SUCCESS]:`), lightGreen(content));
   }
 };
 
 export const loggerError = (content: string | unknown) => {
   if (ACTIVATION) {
-    console.log(lightRed(`[CODEG]:`), `${content}`);
+    console.log(bgLightRed(`[CODEG ERROR]:`), lightRed(content as string));
   }
 };
 
 export const printInfo = (content: string) => {
-  console.log(green(`[CODEG]:`), `${content}`);
+  console.log(bgGreen(`[CODEG INFO]:`), content);
 };
 
 export const printWarring = (content: string) => {
-  console.log(lightYellow(`[CODEG]：`), `${content}`);
+  console.log(bgLightYellow(`[CODEG WARRING]:`), lightYellow(content));
 };
 
 export const printSuccess = (content: string) => {
-  console.log(lightGreen(`[CODEG]:`), `${content}`);
+  console.log(bgLightGreen(`[CODEG SUCCESS]:`), lightGreen(content));
 };
 
 export const printError = (content: string | unknown) => {
-  console.log(lightRed(`[CODEG]:`), `${content}`);
+  console.log(bgLightRed(`[CODEG ERROR]:`), lightRed(content as string));
 };
 
 /**

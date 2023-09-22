@@ -29,9 +29,7 @@ export default function gitInitSimpleHooksInstaller(cli: CAC) {
     setup: () => {
       cli
         .command("hooks", "新增或修改 simple-git-hooks 配置后需要重新初始化")
-        .action(async () => {
-          await gitInitSimpleHooks();
-        });
+        .action(async () => await gitInitSimpleHooks());
     },
   };
 }

@@ -1,0 +1,10 @@
+{
+  "ignores": [
+    "@release-it/conventional-changelog",
+    "@types/rimraf",
+    "cross-env",
+    "simple-git-hooks",
+    "typescript"
+  ],
+  "skip-missing": false
+}

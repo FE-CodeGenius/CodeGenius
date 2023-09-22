@@ -10,15 +10,10 @@ import {
 import { ACTIVATION, gitUserOptions } from "@/shared/config";
 import { GitUserOptions } from "..";
 
-async function printCurrentGitUser(isBefore: boolean = true) {
-  printInfo(`${isBefore ? "当前" : "最新"}使用的 Git UserName :`);
-  await execCommand("git", ["config", "user.name"], {
-    stdio: "inherit",
-  });
-  printInfo(`${isBefore ? "当前" : "最新"}使用的 Git UserEmail :`);
-  await execCommand("git", ["config", "user.email"], {
-    stdio: "inherit",
-  });
+async function printCurrentGitUser() {
+  const name = await execCommand("git", ["config", "user.name"]);
+  const email = await execCommand("git", ["config", "user.email"]);
+  printInfo(`\ngit config info:\n user.name: ${name}\n user.email: ${email}`);
 }
 
 export const gitUser = async (options: GitUserOptions) => {
@@ -31,46 +26,41 @@ export const gitUser = async (options: GitUserOptions) => {
   const nameRegExp = new RegExp(ruleName!);
   const emailRegExp = new RegExp(ruleEmail!, "i");
 
-  await printCurrentGitUser(true);
+  await printCurrentGitUser();
 
   if (name) {
     if (!nameRegExp.test(name)) {
-      printWarring(`因输入的 ${name} 不符合 name 规则, 未能成功设置 name`);
+      printWarring(`设置失败(user.name), ${name} 不符合规范`);
     } else {
       await execCommand("git", ["config", "user.name", name], {
         stdio: "inherit",
       });
-      printInfo(`最新使用的 Git UserName :`);
-      await execCommand("git", ["config", "user.name"], {
-        stdio: "inherit",
-      });
+      const result = await execCommand("git", ["config", "user.name"]);
+      printInfo(`更新成功(user.name): ${result}`);
     }
   }
 
   if (email) {
     if (!emailRegExp.test(email)) {
-      printWarring(`因输入的 ${email} 不符合 email 规则, 未能成功设置 email`);
+      printWarring(`设置失败(user.email), ${email} 不符合规范`);
     } else {
       await execCommand("git", ["config", "user.email", email], {
         stdio: "inherit",
       });
-      printInfo(`最新使用的 Git UserEmail :`);
-      await execCommand("git", ["config", "user.email"], {
-        stdio: "inherit",
-      });
+      const result = await execCommand("git", ["config", "user.email"]);
+      printInfo(`更新成功(user.email): ${result}`);
     }
   }
 
   if (!name && !email) {
     const username = await execCommand("git", ["config", "user.name"]);
     if (!nameRegExp.test(username)) {
-      printError("Git 配置的 user.name 不符合规范, 请更换");
+      printError(`${username} 不符合 ${ruleName} 规范`);
       process.exit(1);
     }
-
     const useremail = await execCommand("git", ["config", "user.email"]);
     if (!emailRegExp.test(useremail)) {
-      printError("Git 配置的 user.email 不符合规范, 请更换");
+      printError(`${useremail} 不符合 ${ruleEmail} 规范`);
       process.exit(1);
     }
   }
@@ -94,10 +84,7 @@ export default function gitUserInstaller(cli: CAC) {
             default: gitUserOptions.ruleEmail,
           },
         )
-        .action(async (options) => {
-          console.log(options);
-          await gitUser(options);
-        });
+        .action(async (options) => await gitUser(options));
     },
   };
 }

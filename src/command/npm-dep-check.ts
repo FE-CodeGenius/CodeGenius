@@ -1,11 +1,23 @@
 import type { CAC } from "cac";
 
-import { execCommand } from "@/shared/index";
+import {
+  execCommand,
+  loggerError,
+  printError,
+  printInfo,
+} from "@/shared/index";
 
 export const npmDepCheck = async () => {
-  await execCommand("npx", ["npm-check"], {
-    stdio: "inherit",
-  });
+  try {
+    await execCommand("npx", ["depcheck"], {
+      stdio: "inherit",
+    });
+    printInfo("项目依赖检查通过");
+  } catch (error) {
+    printError(`项目依赖存在一些问题`);
+    loggerError(error);
+    process.exit(1);
+  }
 };
 
 export default function npmDepCheckInstaller(cli: CAC) {
@@ -15,11 +27,9 @@ export default function npmDepCheckInstaller(cli: CAC) {
       cli
         .command(
           "depcheck",
-          "运行 npm-check 检查过时的、不正确的和未使用的依赖项",
+          "运行 depcheck 检查过时的、不正确的和未使用的依赖项",
         )
-        .action(async () => {
-          await npmDepCheck();
-        });
+        .action(async () => await npmDepCheck());
     },
   };
 }

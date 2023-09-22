@@ -1,6 +1,12 @@
 import type { CAC } from "cac";
 
-import { execCommand, loggerInfo } from "@/shared/index";
+import {
+  execCommand,
+  loggerError,
+  loggerInfo,
+  printError,
+  printInfo,
+} from "@/shared/index";
 import { ACTIVATION, eslintGlob } from "@/shared/config";
 
 export const eslintFix = async (paths: string[]) => {
@@ -9,13 +15,20 @@ export const eslintFix = async (paths: string[]) => {
     console.table(paths);
   }
 
-  await execCommand(
-    "npx",
-    ["eslint", "--fix", "--fix-type", "problem,suggestion", ...paths],
-    {
-      stdio: "inherit",
-    },
-  );
+  try {
+    await execCommand(
+      "npx",
+      ["eslint", "--fix", "--fix-type", "problem,suggestion", ...paths],
+      {
+        stdio: "inherit",
+      },
+    );
+    printInfo("代码已通过 eslint 校验");
+  } catch (error) {
+    printError(`代码未通过 eslint 校验`);
+    loggerError(error);
+    process.exit(1);
+  }
 };
 
 export default function eslintFixInstaller(cli: CAC) {
