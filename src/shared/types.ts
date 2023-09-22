@@ -47,3 +47,10 @@ export interface Framework {
   color: ColorFunc;
   variants: FrameworkVariant[];
 }
+
+export interface GitUserOptions {
+  name?: string;
+  email?: string;
+  ruleName?: string;
+  ruleEmail?: string;
+}

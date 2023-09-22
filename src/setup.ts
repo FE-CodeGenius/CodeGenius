@@ -12,6 +12,7 @@ import eslintFixInstaller from "./command/eslint-fix";
 import prettierFormatInstaller from "./command/prettier-format";
 import templateInstaller from "./command/template";
 import lighthouseInstaller from "./command/lighthouse";
+import gitUserInstaller from "./command/git-user";
 
 export function cmdInstaller(cli: CAC) {
   gitCommitInstaller(cli).setup();
@@ -26,4 +27,5 @@ export function cmdInstaller(cli: CAC) {
   createProjectInstaller(cli).setup();
   templateInstaller(cli).setup();
   lighthouseInstaller(cli).setup();
+  gitUserInstaller(cli).setup();
 }

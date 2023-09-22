@@ -2,6 +2,7 @@ import {
   CommitScope,
   CommitType,
   Framework,
+  GitUserOptions,
   KeyValue,
   ProjectSource,
 } from "@/shared/types";
@@ -181,3 +182,11 @@ export const TEMPLATES = FRAMEWORKS.map(
 ).reduce((a, b) => a.concat(b), []);
 
 export const fileIgnore = ["package.json", "_gitignore"];
+
+export const gitUserOptions: GitUserOptions = {
+  name: "",
+  email: "",
+  ruleName: "[\\s\\S]*",
+  ruleEmail:
+    "^[a-zA-Z0-9._%+-]+@(163|qq|126|139|sina|sohu|yeah|gmail)\\.(com|net)$",
+};
