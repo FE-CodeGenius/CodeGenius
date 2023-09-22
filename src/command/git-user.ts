@@ -84,11 +84,11 @@ export default function gitUserInstaller(cli: CAC) {
         .command("git-user", "设置或校验 git user 信息是否规范")
         .option("-n, --name <name>", "设置 user.name")
         .option("-e, --email <email>", "设置 user.email")
-        .option("--rule-name [regexp]", "设置 user.name 匹配规则(转义字符串)", {
+        .option("--rule-name <regexp>", "设置 user.name 匹配规则(转义字符串)", {
           default: gitUserOptions.ruleName,
         })
         .option(
-          "--rule-email [regexp]",
+          "--rule-email <regexp>",
           "设置 user.email 匹配规则(转义字符串)",
           {
             default: gitUserOptions.ruleEmail,
