@@ -1,9 +1,9 @@
-import type { CAC } from "cac";
-
 import fs from "fs-extra";
 
 import { execCommand, loggerInfo } from "@/shared/index";
 import { ACTIVATION } from "@/shared/config";
+import { action, args, command } from "@/shared/reflect";
+import { BaseCommand } from "@/shared/types";
 
 async function getReportfile(url: string) {
   const _url = new URL(url);
@@ -39,18 +39,19 @@ export const lighthouse = async (url: string) => {
   );
 };
 
-export default function lighthouseInstaller(cli: CAC) {
-  return {
-    name: "lighthouseInstaller",
-    setup: () => {
-      cli
-        .command("lighthouse", "运行 lighthouse 分析及收集 Web 应用的性能指标")
-        .option("--url <url>", "Web 应用地址")
-        .action(async (options) => {
-          if (options.url) {
-            await lighthouse(options.url);
-          }
-        });
-    },
-  };
+@command("lighthouse", "运行 lighthouse 分析及收集 Web 应用的性能指标")
+export class LighthouseCommand extends BaseCommand {
+  @args({
+    rawName: "--url <url>",
+    description: "Web 应用地址",
+    default: "",
+  })
+  url: string | undefined;
+
+  @action
+  protected async action(options: { url: string }): Promise<void> {
+    if (options.url) {
+      await lighthouse(options.url);
+    }
+  }
 }

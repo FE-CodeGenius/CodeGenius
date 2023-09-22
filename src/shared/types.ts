@@ -54,3 +54,11 @@ export interface GitUserOptions {
   ruleName?: string;
   ruleEmail?: string;
 }
+
+export abstract class BaseCommand {
+  protected abstract action(options: unknown): void;
+}
+
+export interface CommandClass {
+  name: string;
+}

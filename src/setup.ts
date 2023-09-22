@@ -1,33 +1,51 @@
 import type { CAC } from "cac";
+import { getMetadata } from "./shared/reflect";
 
-import createProjectInstaller from "./command/create-project";
-import clearInstaller from "./command/clear";
-import gitCommitInstaller from "./command/git-commit";
-import gitCommitVerifyInstaller from "./command/git-commit-verify";
-import gitInitSimpleHooksInstaller from "./command/git-init-hooks";
-import npmDepCheckInstaller from "./command/npm-dep-check";
-import npmRunInstaller from "./command/npm-run";
-import npmRegistryInstaller from "./command/npm-registry";
-import eslintFixInstaller from "./command/eslint-fix";
-import prettierFormatInstaller from "./command/prettier-format";
-import templateInstaller from "./command/template";
-import lighthouseInstaller from "./command/lighthouse";
-import gitUserInstaller from "./command/git-user";
-import quantityInstaller from "./command/quantity";
+import { CreateProjectCommand } from "./command/create-project";
+import { ClearCommand } from "./command/clear";
+import { GitCommitCommand } from "./command/git-commit";
+import { GitCommitVerifyCommand } from "./command/git-commit-verify";
+import { GitInitSimpleHooksCommand } from "./command/git-init-hooks";
+import { NpmDepCheckCommand } from "./command/npm-dep-check";
+import { NpmRunCommand } from "./command/npm-run";
+import { NpmRegistryCommand } from "./command/npm-registry";
+import { EslintFixCommand } from "./command/eslint-fix";
+import { PrettierFormatCommand } from "./command/prettier-format";
+import { TemplateCommand } from "./command/template";
+import { LighthouseCommand } from "./command/lighthouse";
+import { GitUserCommand } from "./command/git-user";
+import { QuantityCommand } from "./command/quantity";
 
-export function cmdInstaller(cli: CAC) {
-  gitCommitInstaller(cli).setup();
-  gitCommitVerifyInstaller(cli).setup();
-  clearInstaller(cli).setup();
-  gitInitSimpleHooksInstaller(cli).setup();
-  npmDepCheckInstaller(cli).setup();
-  npmRunInstaller(cli).setup();
-  npmRegistryInstaller(cli).setup();
-  eslintFixInstaller(cli).setup();
-  prettierFormatInstaller(cli).setup();
-  createProjectInstaller(cli).setup();
-  templateInstaller(cli).setup();
-  lighthouseInstaller(cli).setup();
-  gitUserInstaller(cli).setup();
-  quantityInstaller(cli).setup();
+const commandClasses = [
+  GitCommitCommand,
+  GitCommitVerifyCommand,
+  NpmDepCheckCommand,
+  NpmRegistryCommand,
+  NpmRunCommand,
+  ClearCommand,
+  GitInitSimpleHooksCommand,
+  EslintFixCommand,
+  PrettierFormatCommand,
+  CreateProjectCommand,
+  TemplateCommand,
+  LighthouseCommand,
+  GitUserCommand,
+  QuantityCommand,
+];
+
+export async function initCommands(cli: CAC) {
+  commandClasses.forEach((clazz) => {
+    const data = getMetadata(clazz.name);
+    const { cmd, description, action } = data;
+    const argKeys = Object.keys(data).filter(
+      (key) => !["cmd", "description", "action"].includes(key),
+    );
+    const command = cli.command(cmd, description);
+    argKeys.forEach((key) => {
+      command.option(data[key].rawName, data[key].description, {
+        default: data[key].default,
+      });
+    });
+    command.action(action);
+  });
 }

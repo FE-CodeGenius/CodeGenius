@@ -1,5 +1,3 @@
-import type { CAC } from "cac";
-
 import {
   execCommand,
   loggerInfo,
@@ -8,7 +6,8 @@ import {
   printWarring,
 } from "@/shared/index";
 import { ACTIVATION, gitUserOptions } from "@/shared/config";
-import { GitUserOptions } from "..";
+import { BaseCommand, GitUserOptions } from "..";
+import { action, args, command } from "@/shared/reflect";
 
 async function printCurrentGitUser(isBefore: boolean = true) {
   printInfo(`${isBefore ? "当前" : "最新"}使用的 Git UserName :`);
@@ -76,28 +75,38 @@ export const gitUser = async (options: GitUserOptions) => {
   }
 };
 
-export default function gitUserInstaller(cli: CAC) {
-  return {
-    name: "gitUserInstaller",
-    setup: () => {
-      cli
-        .command("git-user", "设置或校验 git user 信息是否规范")
-        .option("-n, --name <name>", "设置 user.name")
-        .option("-e, --email <email>", "设置 user.email")
-        .option("--rule-name <regexp>", "设置 user.name 匹配规则(转义字符串)", {
-          default: gitUserOptions.ruleName,
-        })
-        .option(
-          "--rule-email <regexp>",
-          "设置 user.email 匹配规则(转义字符串)",
-          {
-            default: gitUserOptions.ruleEmail,
-          },
-        )
-        .action(async (options) => {
-          console.log(options);
-          await gitUser(options);
-        });
-    },
-  };
+@command("git-user", "设置或校验 git user 信息是否规范")
+export class GitUserCommand extends BaseCommand {
+  @args({
+    rawName: "-n, --name <name>",
+    description: "设置 user.name",
+    default: "",
+  })
+  name: string | undefined;
+
+  @args({
+    rawName: "-e, --email <email>",
+    description: "设置 user.email",
+    default: "",
+  })
+  email: string | undefined;
+
+  @args({
+    rawName: "--rule-name <regexp>",
+    description: "设置 user.name 匹配规则(转义字符串)",
+    default: gitUserOptions.ruleName || "",
+  })
+  ruleName: string | undefined;
+
+  @args({
+    rawName: "--rule-email <regexp>",
+    description: "设置 user.email 匹配规则(转义字符串)",
+    default: gitUserOptions.ruleEmail || "",
+  })
+  ruleEmail: string | undefined;
+
+  @action
+  protected async action(options: GitUserOptions): Promise<void> {
+    await gitUser(options);
+  }
 }

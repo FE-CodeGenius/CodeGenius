@@ -1,7 +1,7 @@
-import type { CAC } from "cac";
-
 import { execCommand, loggerInfo } from "@/shared/index";
 import { ACTIVATION, eslintGlob } from "@/shared/config";
+import { action, args, command } from "@/shared/reflect";
+import { BaseCommand } from "@/shared/types";
 
 export const eslintFix = async (paths: string[]) => {
   if (ACTIVATION) {
@@ -18,22 +18,19 @@ export const eslintFix = async (paths: string[]) => {
   );
 };
 
-export default function eslintFixInstaller(cli: CAC) {
-  return {
-    name: "eslintFixInstaller",
-    setup: () => {
-      cli
-        .command("fix", "运行 eslint 静态扫描和修复代码中存在的问题")
-        .option("-p, --pattern <pattern>", "设置匹配规则", {
-          default: [...eslintGlob],
-        })
-        .action(async (options) => {
-          const patterns =
-            typeof options.pattern === "string"
-              ? [options.pattern]
-              : options.pattern;
-          await eslintFix(patterns);
-        });
-    },
-  };
+@command("fix", "运行 eslint 静态扫描和修复代码中存在的问题")
+export class EslintFixCommand extends BaseCommand {
+  @args({
+    rawName: "-p, --pattern <pattern>",
+    description: "设置匹配规则设置匹配规则",
+    default: [...eslintGlob],
+  })
+  pattern: string | undefined;
+
+  @action
+  protected async action(options: { pattern: string }): Promise<void> {
+    const patterns =
+      typeof options.pattern === "string" ? [options.pattern] : options.pattern;
+    await eslintFix(patterns);
+  }
 }

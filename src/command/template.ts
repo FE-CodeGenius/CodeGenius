@@ -1,5 +1,3 @@
-import type { CAC } from "cac";
-
 import fs from "fs-extra";
 
 import path from "node:path";
@@ -19,8 +17,9 @@ import {
   toValidPackageName,
 } from "@/shared/index";
 import { ACTIVATION, fileIgnore, FRAMEWORKS } from "@/shared/config";
-import { TemplateOptions } from "@/shared/types";
+import { BaseCommand, TemplateOptions } from "@/shared/types";
 import { fileURLToPath } from "node:url";
+import { action, args, command } from "@/shared/reflect";
 
 interface PromptResult {
   projectName: string;
@@ -147,23 +146,24 @@ export const template = async (options: TemplateOptions) => {
   }
 };
 
-export default function templateInstaller(cli: CAC) {
-  return {
-    name: "templateInstaller",
-    setup: () => {
-      cli
-        .command("template", "快速创建CodeGenius基础项目")
-        .option("-n, --project-name <project-name>", "项目名称", {
-          default: `project-${generateRandom(8)}`,
-        })
-        .option("-f, --framework <framework>", "项目框架")
-        .action(async (options) => {
-          const { projectName, framework } = options;
-          await template({
-            projectName,
-            framework,
-          });
-        });
-    },
-  };
+@command("template", "快速创建CodeGenius基础项目")
+export class TemplateCommand extends BaseCommand {
+  @args({
+    rawName: "-n, --project-name <project-name>",
+    description: "项目名称",
+    default: `project-${generateRandom(8)}`,
+  })
+  projectName: string | undefined;
+
+  @action
+  protected async action(options: {
+    projectName: string;
+    framework: string;
+  }): Promise<void> {
+    const { projectName, framework } = options;
+    await template({
+      projectName,
+      framework,
+    });
+  }
 }

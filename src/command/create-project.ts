@@ -1,11 +1,9 @@
-import type { CAC } from "cac";
-
 import enquirer from "enquirer";
 
 import { execCommand, loggerInfo } from "@/shared/index";
 import { ACTIVATION, projectSources } from "@/shared/config";
-import { ProjectSource } from "@/shared/types";
-
+import { BaseCommand, ProjectSource } from "@/shared/types";
+import { action, command } from "@/shared/reflect";
 interface PromptResult {
   command: string;
 }
@@ -39,15 +37,10 @@ export const createProject = async (sources: ProjectSource[]) => {
   });
 };
 
-export default function createProjectInstaller(cli: CAC) {
-  return {
-    name: "createProjectInstaller",
-    setup: () => {
-      cli
-        .command("create", "运行 npm create 快速创建基础项目")
-        .action(async () => {
-          await createProject(projectSources);
-        });
-    },
-  };
+@command("create", "运行 npm create 快速创建基础项目")
+export class CreateProjectCommand extends BaseCommand {
+  @action
+  protected async action(): Promise<void> {
+    await createProject(projectSources);
+  }
 }

@@ -3,7 +3,7 @@ import cac, { CAC } from "cac";
 import { handleError } from "@/shared/index";
 
 import { version } from "../package.json";
-import { cmdInstaller } from "./setup";
+import { initCommands } from "./setup";
 
 function welcome(cli: CAC) {
   cli.outputHelp();
@@ -13,7 +13,7 @@ export const setupCli = async () => {
   const cli = cac("cg");
   cli.command("");
 
-  cmdInstaller(cli);
+  initCommands(cli);
 
   cli.help();
   cli.version(version);

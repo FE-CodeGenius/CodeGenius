@@ -1,10 +1,9 @@
-import type { CAC } from "cac";
-
 import enquirer from "enquirer";
 
 import { ACTIVATION, gitCommitScopes, gitCommitTypes } from "@/shared/config";
-import { CommitScope, CommitType } from "@/shared/types";
+import { BaseCommand, CommitScope, CommitType } from "@/shared/types";
 import { loggerInfo, execCommand } from "@/shared/index";
+import { action, args, command } from "@/shared/reflect";
 interface PromptResult {
   type: string;
   scope: string;
@@ -67,19 +66,20 @@ export const gitCommit = async (
   await execCommand("git", ["commit", "-m", content], { stdio: "inherit" });
 };
 
-export default function gitCommitInstaller(cli: CAC) {
-  return {
-    name: "gitCommitInstaller",
-    setup: () => {
-      cli
-        .command("commit", "生成 angualr 规范的提交信息")
-        .option("--no-emoji", "禁用 emoji")
-        .action(async (options) => {
-          const { emoji } = options;
-          await gitCommit(gitCommitTypes, gitCommitScopes, {
-            emoji,
-          });
-        });
-    },
-  };
+@command("commit", "生成 angualr 规范的提交信息")
+export class GitCommitCommand extends BaseCommand {
+  @args({
+    rawName: "--no-emoji",
+    description: "禁用 emoji",
+    default: true,
+  })
+  emoji: string | undefined;
+
+  @action
+  protected async action(options: { emoji: boolean }): Promise<void> {
+    const { emoji } = options;
+    await gitCommit(gitCommitTypes, gitCommitScopes, {
+      emoji,
+    });
+  }
 }

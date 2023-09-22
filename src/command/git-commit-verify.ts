@@ -1,9 +1,9 @@
-import type { CAC } from "cac";
-
 import { readFileSync } from "node:fs";
 import path from "node:path";
 
 import { printError, printInfo, execCommand } from "@/shared/index";
+import { action, command } from "@/shared/reflect";
+import { BaseCommand } from "@/shared/types";
 
 export const gitCommitVerify = async () => {
   const dogit = await execCommand("git", ["rev-parse", "--show-toplevel"], {
@@ -20,15 +20,10 @@ export const gitCommitVerify = async () => {
   }
 };
 
-export default function gitCommitVerifyInstaller(cli: CAC) {
-  return {
-    name: "gitCommitVerifyInstaller",
-    setup: () => {
-      cli
-        .command("verify", "校验 COMMIT_EDITMSG 中的信息是否符合 Angualr 规范")
-        .action(async () => {
-          await gitCommitVerify();
-        });
-    },
-  };
+@command("verify", "校验 COMMIT_EDITMSG 中的信息是否符合 Angualr 规范")
+export class GitCommitVerifyCommand extends BaseCommand {
+  @action
+  protected async action(): Promise<void> {
+    await gitCommitVerify();
+  }
 }

@@ -1,33 +1,23 @@
-import type { CAC } from "cac";
-
-import { execCommand, loggerInfo } from "@/shared/index";
+import { execCommand } from "@/shared/index";
 import path from "node:path";
-import { ACTIVATION } from "@/shared/config";
+import { BaseCommand } from "@/shared/types";
+import { action, args, command } from "@/shared/reflect";
 
-export const quantity = async (dir: string) => {
-  if (ACTIVATION) {
-    loggerInfo("clear 参数信息: \n");
-    console.table({ dir });
+@command("quantity", "运行 cloc 分析并统计代码量")
+export class QuantityCommand extends BaseCommand {
+  @args({
+    rawName: "-p, --path <path>",
+    description: "设置代码路径",
+    default: ".",
+  })
+  path: string | undefined;
+
+  @action
+  protected async action(options: { path: string }): Promise<void> {
+    const { path: dir } = options;
+    const root = path.join(process.cwd(), dir);
+    await execCommand("npx", ["cloc", root], {
+      stdio: "inherit",
+    });
   }
-  const root = path.join(process.cwd(), dir);
-  await execCommand("npx", ["cloc", root], {
-    stdio: "inherit",
-  });
-};
-
-export default function quantityInstaller(cli: CAC) {
-  return {
-    name: "quantityInstaller",
-    setup: () => {
-      cli
-        .command("quantity", "运行 cloc 分析并统计代码量")
-        .option("-p, --path <path>", "设置代码路径", {
-          default: ".",
-        })
-        .action(async (options) => {
-          const { path } = options;
-          await quantity(path);
-        });
-    },
-  };
 }

@@ -1,11 +1,11 @@
-import type { CAC } from "cac";
-
 import path from "node:path";
 import fs from "node:fs/promises";
 
 import enquirer from "enquirer";
 
 import { execCommand } from "@/shared/index";
+import { action, command } from "@/shared/reflect";
+import { BaseCommand } from "@/shared/types";
 
 export const npmRun = async (cwd = process.cwd()) => {
   const root = path.join(cwd, "package.json");
@@ -35,13 +35,10 @@ export const npmRun = async (cwd = process.cwd()) => {
   }
 };
 
-export default function npmRunInstaller(cli: CAC) {
-  return {
-    name: "npmRunInstaller",
-    setup: () => {
-      cli.command("run", "列出可以运行的全部脚本").action(async () => {
-        await npmRun();
-      });
-    },
-  };
+@command("run", "列出可以运行的全部脚本")
+export class NpmRunCommand extends BaseCommand {
+  @action
+  protected async action(): Promise<void> {
+    await npmRun();
+  }
 }
