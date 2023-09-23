@@ -5,17 +5,25 @@ import process from "node:process";
 import type { Options } from "execa";
 
 import execa from "execa";
-import {
-  lightYellow,
-  lightGreen,
-  lightRed,
-  bgGreen,
-  bgLightYellow,
-  bgLightGreen,
-  bgLightRed,
-} from "kolorist";
+import { green, yellow, gray, red } from "kolorist";
+import boxen from "boxen";
 
 import { ACTIVATION, FRAMEWORKS, TEMPLATES } from "@/shared/config";
+
+const boxenBorderStyle = {
+  padding: 1,
+  margin: 1,
+  borderStyle: {
+    topLeft: "+",
+    topRight: "+",
+    bottomLeft: "+",
+    bottomRight: "+",
+    top: "-",
+    bottom: "-",
+    left: "|",
+    right: "",
+  },
+};
 
 export const execCommand = async (
   cmd: string,
@@ -33,45 +41,88 @@ export function handleError(error: unknown) {
 
 export const loggerInfo = (content: string) => {
   if (ACTIVATION) {
-    console.log(bgGreen(`[CODEG INFO]:`), content);
+    console.log(
+      boxen(gray(content as string), {
+        title: "CODEG INFO HINT:",
+        borderColor: "gray",
+        ...boxenBorderStyle,
+      }),
+    );
   }
 };
 
 export const loggerWarring = (content: string | unknown) => {
   if (ACTIVATION) {
     console.log(
-      lightYellow(`[CODEG WARRING]:`),
-      bgLightYellow(content as string),
+      boxen(yellow(content as string), {
+        title: "CODEG WARRING HINT:",
+        borderColor: "yellow",
+        ...boxenBorderStyle,
+      }),
     );
   }
 };
 
 export const loggerSuccess = (content: string) => {
   if (ACTIVATION) {
-    console.log(bgLightGreen(`[CODEG SUCCESS]:`), lightGreen(content));
+    console.log(
+      boxen(green(content as string), {
+        title: "CODEG SUCCESS HINT:",
+        borderColor: "green",
+        ...boxenBorderStyle,
+      }),
+    );
   }
 };
 
 export const loggerError = (content: string | unknown) => {
   if (ACTIVATION) {
-    console.log(bgLightRed(`[CODEG ERROR]:`), lightRed(content as string));
+    boxen(red(content as string), {
+      title: "CODEG ERROR HINT:",
+      borderColor: "red",
+      ...boxenBorderStyle,
+    });
   }
 };
 
 export const printInfo = (content: string) => {
-  console.log(bgGreen(`[CODEG INFO]:`), content);
+  console.log(
+    boxen(gray(content as string), {
+      title: "CODEG INFO HINT:",
+      borderColor: "gray",
+      ...boxenBorderStyle,
+    }),
+  );
 };
 
 export const printWarring = (content: string) => {
-  console.log(bgLightYellow(`[CODEG WARRING]:`), lightYellow(content));
+  console.log(
+    boxen(yellow(content as string), {
+      title: "CODEG WARRING HINT:",
+      borderColor: "yellow",
+      ...boxenBorderStyle,
+    }),
+  );
 };
 
 export const printSuccess = (content: string) => {
-  console.log(bgLightGreen(`[CODEG SUCCESS]:`), lightGreen(content));
+  console.log(
+    boxen(green(content as string), {
+      title: "CODEG SUCCESS HINT:",
+      borderColor: "green",
+      ...boxenBorderStyle,
+    }),
+  );
 };
 
 export const printError = (content: string | unknown) => {
-  console.log(bgLightRed(`[CODEG ERROR]:`), lightRed(content as string));
+  console.log(
+    boxen(red(content as string), {
+      title: "CODEG ERROR HINT:",
+      borderColor: "red",
+      ...boxenBorderStyle,
+    }),
+  );
 };
 
 /**

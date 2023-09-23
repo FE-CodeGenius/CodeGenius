@@ -152,7 +152,7 @@ export default function templateInstaller(cli: CAC) {
     name: "templateInstaller",
     setup: () => {
       cli
-        .command("template", "快速创建CodeGenius基础项目")
+        .command("template", "运行 cg 生成 CodeGenius 内置模板项目")
         .option("-n, --project-name <project-name>", "项目名称", {
           default: `project-${generateRandom(8)}`,
         })

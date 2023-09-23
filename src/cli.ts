@@ -2,8 +2,10 @@ import cac, { CAC } from "cac";
 
 import { handleError } from "@/shared/index";
 
-import { version } from "../package.json";
+import pkg from "../package.json";
 import { cmdInstaller } from "./setup";
+
+import updateNotifier from "simple-update-notifier";
 
 function welcome(cli: CAC) {
   cli.outputHelp();
@@ -16,7 +18,10 @@ export const setupCli = async () => {
   cmdInstaller(cli);
 
   cli.help();
-  cli.version(version);
+  cli.version(pkg.version);
+  cli.command("update", "检测 CodeGenius 版本").action(() => {
+    updateNotifier({ pkg, alwaysRun: true });
+  });
 
   cli.on("command:!", () => {
     welcome(cli);

@@ -18,16 +18,16 @@ import quantityInstaller from "./command/quantity";
 export function cmdInstaller(cli: CAC) {
   gitCommitInstaller(cli).setup();
   gitCommitVerifyInstaller(cli).setup();
-  clearInstaller(cli).setup();
+  gitUserInstaller(cli).setup();
   gitInitSimpleHooksInstaller(cli).setup();
-  npmDepCheckInstaller(cli).setup();
-  npmRunInstaller(cli).setup();
   npmRegistryInstaller(cli).setup();
+  clearInstaller(cli).setup();
+  npmDepCheckInstaller(cli).setup();
   eslintFixInstaller(cli).setup();
   prettierFormatInstaller(cli).setup();
   createProjectInstaller(cli).setup();
   templateInstaller(cli).setup();
   lighthouseInstaller(cli).setup();
-  gitUserInstaller(cli).setup();
   quantityInstaller(cli).setup();
+  npmRunInstaller(cli).setup();
 }
