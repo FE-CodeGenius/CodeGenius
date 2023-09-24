@@ -21,7 +21,7 @@ const boxenBorderStyle = {
     top: "-",
     bottom: "-",
     left: "|",
-    right: "",
+    right: "|",
   },
 };
 

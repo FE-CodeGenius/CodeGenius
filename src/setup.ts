@@ -1,12 +1,12 @@
 import type { CAC } from "cac";
 
+import rootInstaller from "./command/root";
 import createProjectInstaller from "./command/create-project";
 import clearInstaller from "./command/clear";
 import gitCommitInstaller from "./command/git-commit";
 import gitCommitVerifyInstaller from "./command/git-commit-verify";
 import gitInitSimpleHooksInstaller from "./command/git-init-hooks";
 import npmDepCheckInstaller from "./command/npm-dep-check";
-import npmRunInstaller from "./command/npm-run";
 import npmRegistryInstaller from "./command/npm-registry";
 import eslintFixInstaller from "./command/eslint-fix";
 import prettierFormatInstaller from "./command/prettier-format";
@@ -16,6 +16,7 @@ import gitUserInstaller from "./command/git-user";
 import quantityInstaller from "./command/quantity";
 
 export function cmdInstaller(cli: CAC) {
+  rootInstaller(cli).setup();
   gitCommitInstaller(cli).setup();
   gitCommitVerifyInstaller(cli).setup();
   gitUserInstaller(cli).setup();
@@ -29,5 +30,4 @@ export function cmdInstaller(cli: CAC) {
   templateInstaller(cli).setup();
   lighthouseInstaller(cli).setup();
   quantityInstaller(cli).setup();
-  npmRunInstaller(cli).setup();
 }

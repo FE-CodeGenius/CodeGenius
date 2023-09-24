@@ -25,7 +25,6 @@ npm i -g code-genius
 | clear      | --pattern \<pattern\>                                                                    | './dist/' | 运行 rimraf 删除不再需要的文件或文件夹              |
 | hooks      | --                                                                                       | --        | 新增或修改 simple-git-hooks 配置后需要重新初始化    |
 | depcheck   | --                                                                                       | --        | 运行 npm-check 检查过时的、不正确的和未使用的依赖项 |
-| run        | --                                                                                       | --        | 列出可以运行的全部脚本                              |
 | registry   | --                                                                                       | --        | 切换 NPM 镜像地址                                   |
 | fix        | --pattern \<pattern\>                                                                    | './src'   | 运行 eslint 静态扫描和修复代码中存在的问题          |
 | format     | --pattern \<pattern\>                                                                    | './src'   | 运行 prettier 格式化代码风格                        |
