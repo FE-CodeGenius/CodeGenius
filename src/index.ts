@@ -21,7 +21,8 @@ import lighthouseInstaller, { lighthouse } from "@/command/lighthouse";
 import gitUserInstaller, {
   setGitUserName,
   setGitUserEmail,
-  checkGitUserInfo,
+  checkGitUserName,
+  checkGitUserEmail,
 } from "@/command/git-user";
 import quantityInstaller, { quantity } from "@/command/quantity";
 import { defineConfig } from "@/helper";
@@ -41,7 +42,8 @@ export {
   lighthouse,
   setGitUserName,
   setGitUserEmail,
-  checkGitUserInfo,
+  checkGitUserName,
+  checkGitUserEmail,
   quantity,
 };
 

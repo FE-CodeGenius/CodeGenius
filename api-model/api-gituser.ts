@@ -1,7 +1,8 @@
 import {
   setGitUserName,
   setGitUserEmail,
-  checkGitUserInfo,
+  checkGitUserName,
+  checkGitUserEmail,
 } from "../src/index";
 
 (async () => {
@@ -10,5 +11,6 @@ import {
     "zxin088@gmail.com",
     "^[a-zA-Z0-9._%+-]+@(gmail)\\.(com)$"
   );
-  await checkGitUserInfo("[\\s\\S]*", "^[a-zA-Z0-9._%+-]+@(gmail)\\.(com)$");
+  await checkGitUserName("[\\s\\S]*");
+  await checkGitUserEmail("^[a-zA-Z0-9._%+-]+@(gmail)\\.(com)$");
 })();

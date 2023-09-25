@@ -51,22 +51,31 @@ export async function setGitUserEmail(email: string, ruleEmail: string) {
   }
 }
 
-export async function checkGitUserInfo(ruleName: string, ruleEmail: string) {
+export async function checkGitUserName(ruleName: string) {
   if (ACTIVATION) {
     loggerInfo(
       `checkGitUserInfo 参数信息: \n ${JSON.stringify({
         ruleName,
-        ruleEmail,
       })}`,
     );
   }
   const nameRegExp = new RegExp(ruleName!);
-  const emailRegExp = new RegExp(ruleEmail!, "i");
   const username = await execCommand("git", ["config", "user.name"]);
   if (!nameRegExp.test(username)) {
     printError(`${username} 不符合 ${ruleName} 规范`);
     process.exit(1);
   }
+}
+
+export async function checkGitUserEmail(ruleEmail: string) {
+  if (ACTIVATION) {
+    loggerInfo(
+      `checkGitUserInfo 参数信息: \n ${JSON.stringify({
+        ruleEmail,
+      })}`,
+    );
+  }
+  const emailRegExp = new RegExp(ruleEmail!, "i");
   const useremail = await execCommand("git", ["config", "user.email"]);
   if (!emailRegExp.test(useremail)) {
     printError(`${useremail} 不符合 ${ruleEmail} 规范`);
@@ -95,10 +104,10 @@ export default function gitUserInstaller(cli: CAC) {
           },
         )
         .action(async (options) => {
-          console.log(options);
           const { name, email, ruleName, ruleEmail } = options;
           if (!name && !email) {
-            await checkGitUserInfo(ruleName, ruleEmail);
+            await checkGitUserName(ruleName);
+            await checkGitUserEmail(ruleEmail);
           }
           if (name) {
             await setGitUserName(name, ruleName);
