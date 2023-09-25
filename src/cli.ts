@@ -1,14 +1,14 @@
 import cac from "cac";
 
-import { handleError } from "@/shared/index";
+import { cmdInstaller, handleError } from "@/shared/index";
 
 import pkg from "../package.json";
-import { cmdInstaller } from "./setup";
+import config from "@/index";
 
-export const setupCli = async () => {
+const setupCli = async () => {
   const cli = cac("codeg");
 
-  cmdInstaller(cli);
+  cmdInstaller(cli, config);
 
   cli.help();
   cli.version(pkg.version);

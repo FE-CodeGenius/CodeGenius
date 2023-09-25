@@ -1,14 +1,59 @@
-export * from "@/command/clear";
-export * from "@/command/git-commit";
-export * from "@/command/git-commit-verify";
-export * from "@/command/git-init-hooks";
-export * from "@/command/npm-run";
-export * from "@/command/npm-dep-check";
-export * from "@/command/eslint-fix";
-export * from "@/command/prettier-format";
+import rootInstaller, { root } from "@/command/root";
+import createProjectInstaller, {
+  createProject,
+} from "@/command/create-project";
+import clearInstaller, { clear } from "@/command/clear";
+import gitCommitInstaller, { gitCommit } from "@/command/git-commit";
+import gitCommitVerifyInstaller, {
+  gitCommitVerify,
+} from "@/command/git-commit-verify";
+import gitInitSimpleHooksInstaller, {
+  gitInitSimpleHooks,
+} from "@/command/git-init-hooks";
+import npmDepCheckInstaller, { npmDepCheck } from "@/command/npm-dep-check";
+import npmRegistryInstaller, { npmRegistry } from "@/command/npm-registry";
+import eslintFixInstaller, { eslintFix } from "@/command/eslint-fix";
+import prettierFormatInstaller, {
+  prettierFormat,
+} from "@/command/prettier-format";
+import templateInstaller, { template } from "@/command/template";
+import lighthouseInstaller, { lighthouse } from "@/command/lighthouse";
+import gitUserInstaller, { gitUser } from "@/command/git-user";
+import quantityInstaller, { quantity } from "@/command/quantity";
+import { defineConfig } from "@/shared/index";
 
-export * from "@/shared/index";
-export * from "@/shared/config";
-export * from "@/shared/types";
+export {
+  root,
+  createProject,
+  clear,
+  gitCommit,
+  gitCommitVerify,
+  gitInitSimpleHooks,
+  npmDepCheck,
+  npmRegistry,
+  eslintFix,
+  prettierFormat,
+  template,
+  lighthouse,
+  gitUser,
+  quantity,
+};
 
-export * from "@/setup";
+export default defineConfig({
+  plugins: [
+    rootInstaller,
+    gitCommitInstaller,
+    gitCommitVerifyInstaller,
+    gitUserInstaller,
+    gitInitSimpleHooksInstaller,
+    npmRegistryInstaller,
+    clearInstaller,
+    npmDepCheckInstaller,
+    eslintFixInstaller,
+    prettierFormatInstaller,
+    createProjectInstaller,
+    templateInstaller,
+    lighthouseInstaller,
+    quantityInstaller,
+  ],
+});

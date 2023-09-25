@@ -1,5 +1,6 @@
 import type { CAC } from "cac";
 
+export type ColorFunc = (str: string | number) => string;
 export interface CommandSet {
   [key: string]: (cli: CAC) => void;
 }
@@ -31,8 +32,6 @@ export interface TemplateOptions {
   framework: string;
 }
 
-export type ColorFunc = (str: string | number) => string;
-
 export interface FrameworkVariant {
   framework: string;
   name: string;
@@ -53,4 +52,13 @@ export interface GitUserOptions {
   email?: string;
   ruleName?: string;
   ruleEmail?: string;
+}
+
+export interface CodeGeniusOptions {
+  plugins: Array<
+    (cli: CAC) => {
+      name: string;
+      setup: () => void;
+    }
+  >;
 }

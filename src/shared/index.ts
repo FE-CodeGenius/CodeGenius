@@ -9,6 +9,8 @@ import { green, yellow, gray, red } from "kolorist";
 import boxen from "boxen";
 
 import { ACTIVATION, FRAMEWORKS, TEMPLATES } from "@/shared/config";
+import { CAC } from "cac";
+import { CodeGeniusOptions } from "./types";
 
 const boxenBorderStyle = {
   padding: 1,
@@ -284,4 +286,14 @@ export function generateRandom(length: number) {
     result += characters.charAt(Math.floor(Math.random() * charactersLength));
   }
   return result;
+}
+
+export const defineConfig = (config: CodeGeniusOptions): CodeGeniusOptions =>
+  config;
+
+export function cmdInstaller(cli: CAC, config: CodeGeniusOptions) {
+  const { plugins } = config;
+  for (const plugin of plugins) {
+    plugin(cli).setup();
+  }
 }

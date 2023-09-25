@@ -8,7 +8,7 @@ import {
   printWarring,
 } from "@/shared/index";
 import { ACTIVATION, gitUserOptions } from "@/shared/config";
-import { GitUserOptions } from "..";
+import { GitUserOptions } from "@/shared/types";
 
 async function printCurrentGitUser() {
   const name = await execCommand("git", ["config", "user.name"]);
