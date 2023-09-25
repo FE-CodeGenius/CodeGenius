@@ -248,16 +248,94 @@ import { setGitUserName, setGitUserEmail, checkGitUserInfo } from "code-genius";
 })();
 ```
 
-## 命令
+## template 命令
 
-| 命令       | 参数                                                                | 默认值  | 功能描述                                      |
-| ---------- | ------------------------------------------------------------------- | ------- | --------------------------------------------- |
-| fix        | --pattern \<pattern\>                                               | './src' | 运行 eslint 静态扫描和修复代码中存在的问题    |
-| format     | --pattern \<pattern\>                                               | './src' | 运行 prettier 格式化代码风格                  |
-| create     | --                                                                  | --      | 运行 npm create 快速创建基础项目              |
-| template   | -n, --project-name \<project-name\>, -f, --framework \<framework\>, | --      | 快速创建 CodeGenius 基础项目                  |
-| lighthouse | --url \<url\>                                                       | --      | 运行 lighthouse 分析及收集 Web 应用的性能指标 |
-| quantity   | -p, --path <path>                                                   | --      | 运行 cloc 分析并统计代码量                    |
+快速创建 CodeGenius 基础项目
+基于 **CodeGenius** 内置模板快速创建新项目, 仅支持询问模式;
+
+### 询问模式
+
+```bash
+# 启动询问模式(默认)
+codeg template
+```
+
+```
+# 询问过程
+1. 请输入项目名称
+2. 请输入 package name
+3. 请选择下列的有效模板
+4. 请选择下列的有效变体
+```
+
+```bash
+# 启动询问模式(带参)
+codeg template -n project-salkdyfT -f vue
+```
+
+| 选项                                | 描述     |
+| ----------------------------------- | -------- |
+| -n, --project-name \<project-name\> | 项目名称 |
+| -f, --framework \<framework\>       | 项目框架 |
+
+```
+# 询问过程
+1. 请输入项目名称 (-n 输入则仅需确认)
+2. 请输入 package name
+3. 请选择下列的有效模板 (-f 输入有效则跳过)
+4. 请选择下列的有效变体
+```
+
+## fix 命令
+
+运行 `eslint` 静态扫描和修复代码中存在的问题, 仅支持命令模式;
+
+### 命令模式
+
+```bash
+# 检测和修改 src 文件夹中的代码
+codeg fix
+```
+
+```bash
+# 检测和修改 src 和 components 文件夹中的代码
+codeg fix -p ./src -p ./components
+```
+
+| 选项                      | 描述         |
+| ------------------------- | ------------ |
+| -p, --pattern \<pattern\> | 设置匹配规则 |
+
+PS: 依赖 `eslint` CLI 模式, 同时对项目配置的 `.eslintignore` 和 `.eslintrc.json` 生效.
+
+## format 命令
+
+运行 `prettier` 格式化代码风格, 仅支持命令模式;
+
+### 命令模式
+
+```bash
+# 格式化 src 文件夹下的文件
+codeg format
+```
+
+```bash
+# 格式化 src 和 components 文件夹下的文件
+codeg format -p ./src -p ./components
+```
+| 选项                      | 描述         |
+| ------------------------- | ------------ |
+| -p, --pattern \<pattern\> | 设置匹配规则 |
+
+PS: 依赖 `prettier` CLI 模式, 同时对项目配置的 `.prettierignore` 和 `.prettierrc.json` 生效.
+
+## 其他命令
+
+| 命令       | 参数              | 默认值 | 功能描述                                      |
+| ---------- | ----------------- | ------ | --------------------------------------------- |
+| create     | --                | --     | 运行 npm create 快速创建基础项目              |
+| lighthouse | --url \<url\>     | --     | 运行 lighthouse 分析及收集 Web 应用的性能指标 |
+| quantity   | -p, --path <path> | --     | 运行 cloc 分析并统计代码量                    |
 
 ## 执照
 
