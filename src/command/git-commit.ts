@@ -2,39 +2,22 @@ import type { CAC } from "cac";
 
 import enquirer from "enquirer";
 
-import { ACTIVATION, gitCommitScopes, gitCommitTypes } from "@/shared/config";
-import { CommitScope, CommitType } from "@/shared/types";
 import { loggerInfo, execCommand } from "@/shared/index";
-interface PromptResult {
-  type: string;
-  scope: string;
-  description: string;
-}
+import { ACTIVATION, gitCommitScopes, gitCommitTypes } from "@/shared/config";
+import { GitCommitOptions } from "@/shared/types";
 
-interface GitCommitOptions {
-  emoji: boolean;
-}
-
-export const gitCommit = async (
-  types: Array<CommitType>,
-  scopes: Array<CommitScope>,
-  options: GitCommitOptions,
-) => {
-  if (ACTIVATION) {
-    loggerInfo(
-      `gitCommit 参数信息: \ntypes ${types} \nscopes${scopes} \noptions${options}`,
-    );
-  }
-  const { emoji: emojiStatus } = options;
-  const typesChoices = types.map(({ emoji, code, description }) => {
+const generateEnquirer = async (): Promise<
+  Pick<GitCommitOptions, Exclude<keyof GitCommitOptions, "emoji">>
+> => {
+  const typesChoices = gitCommitTypes.map(({ emoji, code, description }) => {
     const formatCode = `${code}:`.padEnd(20);
     return {
-      name: emojiStatus ? `${emoji}${code}` : code,
+      name: `${emoji} ${code}`,
       message: `${emoji}${formatCode}${description}`,
     };
   });
 
-  const scopesChoices = scopes.map(({ name, description }) => {
+  const scopesChoices = gitCommitScopes.map(({ name, description }) => {
     const formatName = `${name}:`.padEnd(20);
     return {
       name,
@@ -42,7 +25,7 @@ export const gitCommit = async (
     };
   });
 
-  const result = await enquirer.prompt<PromptResult>([
+  const result = await enquirer.prompt<GitCommitOptions>([
     {
       name: "type",
       type: "select",
@@ -60,9 +43,23 @@ export const gitCommit = async (
       type: "text",
       message: "请输入提交描述",
     },
+    {
+      name: "emoji",
+      type: "confirm",
+      message: "要在提交信息中显示内置的 emoji 表情吗?",
+    },
   ]);
+  return {
+    type: result.emoji ? result.type : result.type.split(" ")[1],
+    scope: result.scope,
+    description: result.description,
+  };
+};
 
-  const content = `${result.type}(${result.scope}): ${result.description}`;
+export const gitCommit = async (content: string) => {
+  if (ACTIVATION) {
+    loggerInfo(`gitCommit 参数信息: \n${JSON.stringify(content)}`);
+  }
   await execCommand("git", ["commit", "-m", content], { stdio: "inherit" });
 };
 
@@ -72,12 +69,19 @@ export default function gitCommitInstaller(cli: CAC) {
     setup: () => {
       cli
         .command("commit", "生成 angualr 规范的提交信息")
-        .option("--no-emoji", "禁用 emoji")
+        .option("-t, --type <type>", "添加修改类型")
+        .option("-s, --scope <scope>", "填写修改范围")
+        .option("-d, --description <description>", "填写修改描述")
         .action(async (options) => {
-          const { emoji } = options;
-          await gitCommit(gitCommitTypes, gitCommitScopes, {
-            emoji,
-          });
+          const { type, scope, description } = options;
+          let content = "";
+          if (!type || !scope || !description) {
+            const result = await generateEnquirer();
+            content = `${result.type}(${result.scope}): ${result.description}`;
+          } else {
+            content = `${type}(${scope}): ${description}`;
+          }
+          await gitCommit(content);
         });
     },
   };

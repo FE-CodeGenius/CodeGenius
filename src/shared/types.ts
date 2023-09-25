@@ -62,3 +62,10 @@ export interface CodeGeniusOptions {
     }
   >;
 }
+
+export interface GitCommitOptions {
+  emoji: boolean;
+  type: string;
+  scope: string;
+  description: string;
+}
