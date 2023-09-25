@@ -5,8 +5,7 @@ import { ACTIVATION, formatGlob } from "@/shared/config";
 
 export const prettierFormat = async (paths: string[]) => {
   if (ACTIVATION) {
-    loggerInfo("prettierFormat 参数信息: \n");
-    console.table(paths);
+    loggerInfo(`prettierFormat 参数信息: \n${JSON.stringify(paths)}`);
   }
 
   await execCommand("npx", ["prettier", "--write", ...paths], {

@@ -11,8 +11,7 @@ import { ACTIVATION, eslintGlob } from "@/shared/config";
 
 export const eslintFix = async (paths: string[]) => {
   if (ACTIVATION) {
-    loggerInfo("eslintFix 参数信息: \n");
-    console.table(paths);
+    loggerInfo(`eslintFix 参数信息: \n ${paths}`);
   }
 
   try {

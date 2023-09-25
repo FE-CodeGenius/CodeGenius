@@ -21,10 +21,9 @@ export const gitCommit = async (
   options: GitCommitOptions,
 ) => {
   if (ACTIVATION) {
-    loggerInfo("gitCommit 参数信息: \n");
-    console.table(types);
-    console.table(scopes);
-    console.table(options);
+    loggerInfo(
+      `gitCommit 参数信息: \ntypes ${types} \nscopes${scopes} \noptions${options}`,
+    );
   }
   const { emoji: emojiStatus } = options;
   const typesChoices = types.map(({ emoji, code, description }) => {

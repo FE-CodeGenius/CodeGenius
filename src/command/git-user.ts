@@ -18,8 +18,7 @@ async function printCurrentGitUser() {
 
 export const gitUser = async (options: GitUserOptions) => {
   if (ACTIVATION) {
-    loggerInfo("gitUser 参数信息: \n");
-    console.table(options);
+    loggerInfo(`gitUser 参数信息: \n ${JSON.stringify(options)}`);
   }
 
   const { name, email, ruleName, ruleEmail } = options;

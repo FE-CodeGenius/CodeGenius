@@ -15,8 +15,7 @@ async function getReportfile(url: string) {
 
 export const lighthouse = async (url: string) => {
   if (ACTIVATION) {
-    loggerInfo("lighthouse 参数信息: \n");
-    console.table(url);
+    loggerInfo(`lighthouse 参数信息: \n ${url}`);
   }
 
   const histories = await getReportfile(url);

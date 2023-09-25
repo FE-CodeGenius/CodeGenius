@@ -5,8 +5,7 @@ import { ACTIVATION, clearGlob } from "@/shared/config";
 
 export const clear = async (paths: string[]) => {
   if (ACTIVATION) {
-    loggerInfo("clear 参数信息: \n");
-    console.table(paths);
+    loggerInfo(`clear 参数信息: \n ${JSON.stringify(paths)}`);
   }
   await execCommand("npx", ["rimraf", "--glob", ...paths], {
     stdio: "inherit",

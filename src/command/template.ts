@@ -32,8 +32,7 @@ interface PromptResult {
 
 export const template = async (options: TemplateOptions) => {
   if (ACTIVATION) {
-    loggerInfo("template 参数信息: \n");
-    console.table(options);
+    loggerInfo(`template 参数信息: \n${JSON.stringify(options)}`);
   }
 
   const { projectName } = await enquirer.prompt<PromptResult>({

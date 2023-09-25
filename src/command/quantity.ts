@@ -6,8 +6,7 @@ import { ACTIVATION } from "@/shared/config";
 
 export const quantity = async (dir: string) => {
   if (ACTIVATION) {
-    loggerInfo("clear 参数信息: \n");
-    console.table({ dir });
+    loggerInfo(`clear 参数信息: \n${dir}`);
   }
   const root = path.join(process.cwd(), dir);
   await execCommand("npx", ["cloc", root], {

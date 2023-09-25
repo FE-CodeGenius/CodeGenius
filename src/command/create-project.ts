@@ -12,8 +12,7 @@ interface PromptResult {
 
 export const createProject = async (sources: ProjectSource[]) => {
   if (ACTIVATION) {
-    loggerInfo("createProject 参数信息: \n");
-    console.table(sources);
+    loggerInfo(`createProject 参数信息: \n ${JSON.stringify(sources)}`);
   }
 
   const sourceChoices = sources.map(({ name, display, description }) => {
