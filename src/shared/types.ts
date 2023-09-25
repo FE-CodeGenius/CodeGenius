@@ -69,3 +69,7 @@ export interface GitCommitOptions {
   scope: string;
   description: string;
 }
+
+export interface ClearOptions {
+  files: Array<string>;
+}

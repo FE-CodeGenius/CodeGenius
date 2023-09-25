@@ -9,7 +9,7 @@ import {
 
 import { blue, green, yellow } from "kolorist";
 
-export const clearGlob = ["./dist/"];
+export const clearGlob = ["./dist", "./node_modules"];
 
 export const formatGlob = ["./src"];
 

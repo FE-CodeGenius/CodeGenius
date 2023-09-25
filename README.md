@@ -16,9 +16,15 @@ npm i code-genius
 npm i -g code-genius
 ```
 
-## commit 命令介绍
+帮助信息
 
-生成符合 Angualr 规范的提交内容,支持命令模式和询问模式;
+```bash
+code-genius --help
+```
+
+## commit 命令
+
+生成 **Angualr** 规范的提交信息, 支持命令模式, 询问模式和 **API** 模式;
 
 ### 命令模式
 
@@ -35,12 +41,89 @@ codeg commit -t fix -s feat -d 修复xx功能的xxBug
 ### 询问模式
 
 ```bash
+# 启动询问模式
 codeg commit
+```
 
+```
+# 询问过程
 1. 请选择提交类型
 2. 请选择提交范
 3. 请输入提交描述
 4. 要在提交信息中显示内置的 emoji 表情吗?
+```
+
+### API 模式
+
+仅对 `git commit -m "xxx"` 包装, 无提交规范生成.
+
+```typescript
+import { gitCommit } from "code-genius";
+
+(async () => {
+  await gitCommit("fix(feat): 修复xx功能的xxBug");
+})();
+```
+
+## verify 命令
+
+校验 `COMMIT_EDITMSG` 中的信息是否符合 **Angualr** 规范, 支持命令模式和 **API** 模式;
+
+### 命令模式
+
+```bash
+codeg verify
+```
+
+### API 模式
+
+```typescript
+import { gitCommitVerify } from "code-genius";
+
+(async () => {
+  await gitCommitVerify();
+  console.log("Git 提交信息校验通过, 正在执行后续逻辑...");
+})();
+```
+
+## clear 命令
+
+运行 `rimraf` 删除不再需要的文件或文件夹, 支持命令模式, 询问模式和 **API** 模式;
+
+### 命令模式
+
+```bash
+# 删除 dist 文件夹
+codeg clear -p ./dist
+
+# 删除 dist 和 node_modules 两个文件夹
+codeg clear -p ./dist -p ./node_modules
+```
+
+| 选项                      | 描述         |
+| ------------------------- | ------------ |
+| -p, --pattern \<pattern\> | 设置匹配规则 |
+
+### 询问模式
+
+```bash
+# 启动询问模式
+codeg clear
+```
+
+```
+# 询问过程
+1. 请选择需要清理的文件/夹
+```
+
+### API 模式
+
+```typescript
+import { clear } from "code-genius";
+
+(async () => {
+  await clear(["./dist"]);
+})();
 ```
 
 ## 命令
