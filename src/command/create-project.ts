@@ -2,9 +2,9 @@ import type { CAC } from "cac";
 
 import enquirer from "enquirer";
 
-import { execCommand, loggerInfo } from "@/shared/index";
-import { ACTIVATION, projectSources } from "@/shared/config";
-import { ProjectSource } from "@/shared/types";
+import { execCommand, loggerInfo } from "@/helper";
+import { ACTIVATION, projectSources } from "@/config";
+import { ProjectSource } from "@/types";
 
 interface PromptResult {
   command: string;

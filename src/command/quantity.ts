@@ -1,8 +1,8 @@
 import type { CAC } from "cac";
 
-import { execCommand, loggerInfo } from "@/shared/index";
+import { execCommand, loggerInfo } from "@/helper";
 import path from "node:path";
-import { ACTIVATION } from "@/shared/config";
+import { ACTIVATION } from "@/config";
 
 export const quantity = async (dir: string) => {
   if (ACTIVATION) {

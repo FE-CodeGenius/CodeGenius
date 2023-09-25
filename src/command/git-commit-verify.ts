@@ -3,7 +3,7 @@ import type { CAC } from "cac";
 import { readFileSync } from "node:fs";
 import path from "node:path";
 
-import { printError, printInfo, execCommand } from "@/shared/index";
+import { printError, printInfo, execCommand } from "@/helper";
 
 export const gitCommitVerify = async () => {
   const dogit = await execCommand("git", ["rev-parse", "--show-toplevel"]);

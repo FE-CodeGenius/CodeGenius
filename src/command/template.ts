@@ -17,9 +17,9 @@ import {
   loggerInfo,
   pkgFromUserAgent,
   toValidPackageName,
-} from "@/shared/index";
-import { ACTIVATION, fileIgnore, FRAMEWORKS } from "@/shared/config";
-import { TemplateOptions } from "@/shared/types";
+} from "@/helper";
+import { ACTIVATION, fileIgnore, FRAMEWORKS } from "@/config";
+import { TemplateOptions } from "@/types";
 import { fileURLToPath } from "node:url";
 
 interface PromptResult {

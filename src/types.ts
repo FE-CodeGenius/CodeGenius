@@ -73,3 +73,7 @@ export interface GitCommitOptions {
 export interface ClearOptions {
   files: Array<string>;
 }
+
+export interface RegistryOptions {
+  url: string;
+}

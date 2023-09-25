@@ -1,6 +1,6 @@
 import cac from "cac";
 
-import { cmdInstaller, handleError } from "@/shared/index";
+import { cmdInstaller, handleError } from "@/helper";
 
 import pkg from "../package.json";
 import config from "@/index";

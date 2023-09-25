@@ -3,11 +3,11 @@ import type { CAC } from "cac";
 import path from "node:path";
 import { existsSync } from "node:fs";
 
-import { execCommand } from "@/shared/index";
+import { execCommand } from "@/helper";
 
-export const gitInitSimpleHooks = async (cwd = process.cwd()) => {
-  const dohusky = path.join(cwd, ".husky");
-  const githooks = path.join(cwd, ".git", "hooks");
+export const gitInitSimpleHooks = async () => {
+  const dohusky = path.join(process.cwd(), ".husky");
+  const githooks = path.join(process.cwd(), ".git", "hooks");
   const exists = existsSync(dohusky);
   if (exists) {
     await execCommand("npx", ["rimraf", dohusky], {

@@ -2,9 +2,9 @@ import type { CAC } from "cac";
 
 import enquirer from "enquirer";
 
-import { loggerInfo, execCommand } from "@/shared/index";
-import { ACTIVATION, gitCommitScopes, gitCommitTypes } from "@/shared/config";
-import { GitCommitOptions } from "@/shared/types";
+import { loggerInfo, execCommand } from "@/helper";
+import { ACTIVATION, gitCommitScopes, gitCommitTypes } from "@/config";
+import { GitCommitOptions } from "@/types";
 
 const generateEnquirer = async (): Promise<
   Pick<GitCommitOptions, Exclude<keyof GitCommitOptions, "emoji">>

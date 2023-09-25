@@ -6,8 +6,8 @@ import {
   loggerInfo,
   printError,
   printInfo,
-} from "@/shared/index";
-import { ACTIVATION, eslintGlob } from "@/shared/config";
+} from "@/helper";
+import { ACTIVATION, eslintGlob } from "@/config";
 
 export const eslintFix = async (paths: string[]) => {
   if (ACTIVATION) {

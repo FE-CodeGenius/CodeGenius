@@ -1,7 +1,7 @@
 import type { CAC } from "cac";
 
-import { execCommand, loggerInfo } from "@/shared/index";
-import { ACTIVATION, formatGlob } from "@/shared/config";
+import { execCommand, loggerInfo } from "@/helper";
+import { ACTIVATION, formatGlob } from "@/config";
 
 export const prettierFormat = async (paths: string[]) => {
   if (ACTIVATION) {

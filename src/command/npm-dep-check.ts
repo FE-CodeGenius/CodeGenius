@@ -1,11 +1,6 @@
 import type { CAC } from "cac";
 
-import {
-  execCommand,
-  loggerError,
-  printError,
-  printInfo,
-} from "@/shared/index";
+import { execCommand, loggerError, printError, printInfo } from "@/helper";
 
 export const npmDepCheck = async () => {
   try {

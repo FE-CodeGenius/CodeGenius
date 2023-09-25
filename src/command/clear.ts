@@ -5,9 +5,9 @@ import path from "node:path";
 import fs from "fs-extra";
 import enquirer from "enquirer";
 
-import { execCommand, loggerInfo } from "@/shared/index";
-import { ACTIVATION, clearGlob } from "@/shared/config";
-import { ClearOptions } from "@/shared/types";
+import { execCommand, loggerInfo } from "@/helper";
+import { ACTIVATION, clearGlob } from "@/config";
+import { ClearOptions } from "@/types";
 
 const generateEnquirer = async (): Promise<ClearOptions> => {
   const files = fs

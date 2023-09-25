@@ -1,7 +1,7 @@
 import { eslintFix } from "@/command/eslint-fix";
 import { gitUser } from "@/command/git-user";
 import { prettierFormat } from "@/command/prettier-format";
-import { execCommand } from "@/shared";
+import { execCommand } from "@/helper";
 
 async function lint() {
   await gitUser({ ruleEmail: "^[a-zA-Z0-9._%+-]+@(gmail)\\.(com)$" });

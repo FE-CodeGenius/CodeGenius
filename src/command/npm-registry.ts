@@ -2,12 +2,9 @@ import type { CAC } from "cac";
 
 import enquirer from "enquirer";
 
-import { printInfo, printWarring, execCommand } from "@/shared/index";
-import { npmRegisters } from "@/shared/config";
-
-interface PromptResult {
-  registry: string;
-}
+import { printInfo, printWarring, execCommand, loggerInfo } from "@/helper";
+import { ACTIVATION, npmRegisters } from "@/config";
+import { RegistryOptions } from "@/types";
 
 const printCurrentRegistry = async (isBefore: boolean = true) => {
   printInfo(`${isBefore ? "当前" : "最新"} NPM 镜像地址（全局）：`);
@@ -21,7 +18,7 @@ const printCurrentRegistry = async (isBefore: boolean = true) => {
   printWarring("PS: 非全局查询结果受`.npmrc`影响会不准确。");
 };
 
-export const npmRegistry = async () => {
+const generateEnquirer = async (): Promise<RegistryOptions> => {
   await printCurrentRegistry();
 
   const registersChoices = npmRegisters.map(({ key, value }) => {
@@ -32,18 +29,27 @@ export const npmRegistry = async () => {
     };
   });
 
-  const result = await enquirer.prompt<PromptResult>([
+  const result = await enquirer.prompt<RegistryOptions>([
     {
-      name: "registry",
+      name: "url",
       type: "select",
-      message: "请选择新 NPM 镜像",
+      message: "请选择 NPM 镜像",
       choices: registersChoices,
     },
   ]);
-  await execCommand("npm", ["config", "set", "registry", result.registry], {
+
+  return {
+    url: result.url,
+  };
+};
+
+export const npmRegistry = async (registry: string) => {
+  if (ACTIVATION) {
+    loggerInfo(`npmRegistry 参数信息: \n ${JSON.stringify(registry)}`);
+  }
+  await execCommand("npm", ["config", "set", "registry", registry], {
     stdio: "inherit",
   });
-
   await printCurrentRegistry();
 };
 
@@ -51,9 +57,20 @@ export default function npmRegistryInstaller(cli: CAC) {
   return {
     name: "npmRegistryInstaller",
     setup: () => {
-      cli.command("registry", "切换 NPM 镜像地址").action(async () => {
-        await npmRegistry();
-      });
+      cli
+        .command("registry", "切换 NPM 镜像地址")
+        .option("-u, --url <url>", "镜像地址")
+        .action(async (options) => {
+          const { url } = options;
+          let registryUrl = "";
+          if (!url) {
+            const result = await generateEnquirer();
+            registryUrl = result.url;
+          } else {
+            registryUrl = url;
+          }
+          await npmRegistry(registryUrl);
+        });
     },
   };
 }

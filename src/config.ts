@@ -5,7 +5,7 @@ import {
   GitUserOptions,
   KeyValue,
   ProjectSource,
-} from "@/shared/types";
+} from "@/types";
 
 import { blue, green, yellow } from "kolorist";
 

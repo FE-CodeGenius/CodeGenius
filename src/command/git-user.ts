@@ -6,9 +6,9 @@ import {
   printError,
   printInfo,
   printWarring,
-} from "@/shared/index";
-import { ACTIVATION, gitUserOptions } from "@/shared/config";
-import { GitUserOptions } from "@/shared/types";
+} from "@/helper";
+import { ACTIVATION, gitUserOptions } from "@/config";
+import { GitUserOptions } from "@/types";
 
 async function printCurrentGitUser() {
   const name = await execCommand("git", ["config", "user.name"]);

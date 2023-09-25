@@ -126,23 +126,92 @@ import { clear } from "code-genius";
 })();
 ```
 
+## hooks 命令
+
+新增或修改 `simple-git-hooks` 配置后需要重新初始化, 支持命令模式和 **API** 模式;
+
+### 命令模式
+
+```bash
+codeg hooks
+```
+
+### API 模式
+
+```typescript
+import { gitInitSimpleHooks } from "code-genius";
+
+(async () => {
+  await gitInitSimpleHooks();
+})();
+```
+
+## depcheck 命令
+
+运行 `npm-check` 检查过时的、不正确的和未使用的依赖项, 支持命令模式和 **API** 模式;
+
+### 命令模式
+
+```bash
+codeg depcheck
+```
+
+### API 模式
+
+```typescript
+import { npmDepCheck } from "code-genius";
+
+(async () => {
+  await npmDepCheck();
+})();
+```
+
+## registry 命令
+
+切换 **NPM** 镜像地址, 支持命令模式, 询问模式和 API 模式;
+
+### 命令模式
+
+```bash
+# 设置 npm 官方源
+codeg registry -u https://registry.npmjs.org/
+```
+
+### 询问模式
+
+```bash
+# 启动询问模式
+codeg registry
+```
+
+```
+# 询问过程
+1. 请选择 NPM 镜像
+```
+
+### API 模式
+
+```typescript
+import { npmRegistry } from "code-genius";
+
+(async () => {
+  await npmRegistry("https://registry.npmjs.org/");
+})();
+```
+
+
+
 ## 命令
 
-| 命令       | 参数                                                                                     | 默认值    | 功能描述                                            |
-| ---------- | ---------------------------------------------------------------------------------------- | --------- | --------------------------------------------------- |
-| commit     | --no-emoji                                                                               | true      | 生成 angualr 规范的提交信息                         |
-| verify     | --                                                                                       | --        | 校验 COMMIT_EDITMSG 中的信息是否符合 Angualr 规范   |
-| clear      | --pattern \<pattern\>                                                                    | './dist/' | 运行 rimraf 删除不再需要的文件或文件夹              |
-| hooks      | --                                                                                       | --        | 新增或修改 simple-git-hooks 配置后需要重新初始化    |
-| depcheck   | --                                                                                       | --        | 运行 npm-check 检查过时的、不正确的和未使用的依赖项 |
-| registry   | --                                                                                       | --        | 切换 NPM 镜像地址                                   |
-| fix        | --pattern \<pattern\>                                                                    | './src'   | 运行 eslint 静态扫描和修复代码中存在的问题          |
-| format     | --pattern \<pattern\>                                                                    | './src'   | 运行 prettier 格式化代码风格                        |
-| create     | --                                                                                       | --        | 运行 npm create 快速创建基础项目                    |
-| template   | -n, --project-name \<project-name\>, -f, --framework \<framework\>,                      | --        | 快速创建 CodeGenius 基础项目                        |
-| lighthouse | --url \<url\>                                                                            | --        | 运行 lighthouse 分析及收集 Web 应用的性能指标       |
-| git-user   | -n, --name \<name\>,-e, --email \<email\>,--rule-name \<regexp\>,--rule-email \<regexp\> | --        | 设置或校验 git user 信息是否规范                    |
-| quantity   | -p, --path <path>                                                                        | --        | 运行 cloc 分析并统计代码量                          |
+| 命令       | 参数                                                                                     | 默认值  | 功能描述                                            |
+| ---------- | ---------------------------------------------------------------------------------------- | ------- | --------------------------------------------------- |
+| fix        | --pattern \<pattern\>                                                                    | './src' | 运行 eslint 静态扫描和修复代码中存在的问题          |
+| format     | --pattern \<pattern\>                                                                    | './src' | 运行 prettier 格式化代码风格                        |
+| create     | --                                                                                       | --      | 运行 npm create 快速创建基础项目                    |
+| template   | -n, --project-name \<project-name\>, -f, --framework \<framework\>,                      | --      | 快速创建 CodeGenius 基础项目                        |
+| lighthouse | --url \<url\>                                                                            | --      | 运行 lighthouse 分析及收集 Web 应用的性能指标       |
+| git-user   | -n, --name \<name\>,-e, --email \<email\>,--rule-name \<regexp\>,--rule-email \<regexp\> | --      | 设置或校验 git user 信息是否规范                    |
+| quantity   | -p, --path <path>                                                                        | --      | 运行 cloc 分析并统计代码量                          |
 
 ## 执照
 

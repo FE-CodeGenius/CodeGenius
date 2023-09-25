@@ -8,7 +8,7 @@ import execa from "execa";
 import { green, yellow, gray, red } from "kolorist";
 import boxen from "boxen";
 
-import { ACTIVATION, FRAMEWORKS, TEMPLATES } from "@/shared/config";
+import { ACTIVATION, FRAMEWORKS, TEMPLATES } from "@/config";
 import { CAC } from "cac";
 import { CodeGeniusOptions } from "./types";
 
