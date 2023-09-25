@@ -18,7 +18,11 @@ import prettierFormatInstaller, {
 } from "@/command/prettier-format";
 import templateInstaller, { template } from "@/command/template";
 import lighthouseInstaller, { lighthouse } from "@/command/lighthouse";
-import gitUserInstaller, { gitUser } from "@/command/git-user";
+import gitUserInstaller, {
+  setGitUserName,
+  setGitUserEmail,
+  checkGitUserInfo,
+} from "@/command/git-user";
 import quantityInstaller, { quantity } from "@/command/quantity";
 import { defineConfig } from "@/helper";
 
@@ -35,7 +39,9 @@ export {
   prettierFormat,
   template,
   lighthouse,
-  gitUser,
+  setGitUserName,
+  setGitUserEmail,
+  checkGitUserInfo,
   quantity,
 };
 

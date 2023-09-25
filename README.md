@@ -191,6 +191,8 @@ codeg registry
 
 ### API 模式
 
+仅对 `npm config set registry xxx` 包装, 无其它配置.
+
 ```typescript
 import { npmRegistry } from "code-genius";
 
@@ -199,19 +201,63 @@ import { npmRegistry } from "code-genius";
 })();
 ```
 
+## gituser 命令
 
+设置或校验 `git user` 信息是否规范, 支持命令模式和 **API** 模式;
+
+### 命令模式
+
+```bash
+# 在默认规则下设置 email 信息
+codeg gituser -e zxin088@gmail.com
+
+# 在指定规则下设置 email 信息
+codeg gituser -e zxin088@qq.com --rule-email '^[a-zA-Z0-9._%+-]+@(qq)\.(com)$'
+```
+
+```bash
+# 在默认规则下校验 user 和 email 信息
+codeg gituser
+
+# 在指定规则下校验 user 和 email 信息
+codeg gituser --rule-email '^[a-zA-Z0-9._%+-]+@(qq)\.(com)$'
+```
+
+| 选项                    | 描述                                 |
+| ----------------------- | ------------------------------------ |
+| -n, --name \<name\>     | 设置 user.name                       |
+| -e, --email \<email\>   | 设置 user.email                      |
+| --rule-name \<regexp\>  | 设置 user.name 匹配规则(转义字符串)  |
+| --rule-email \<regexp\> | 设置 user.email 匹配规则(转义字符串) |
+
+- **--rule-name 默认 :** `[\s\S]*`
+- **--rule-email 默认 :** `^[a-zA-Z0-9._%+-]+@(163|qq|126|139|sina|sohu|yeah|gmail)\.(com|net)$`
+
+### API 模式
+
+```typescript
+import { setGitUserName, setGitUserEmail, checkGitUserInfo } from "code-genius";
+
+(async () => {
+  await setGitUserName("OSpoon", "[\\s\\S]*");
+  await setGitUserEmail(
+    "zxin088@gmail.com",
+    "^[a-zA-Z0-9._%+-]+@(gmail)\\.(com)$"
+  );
+  await checkGitUserInfo("[\\s\\S]*", "^[a-zA-Z0-9._%+-]+@(gmail)\\.(com)$");
+})();
+```
 
 ## 命令
 
-| 命令       | 参数                                                                                     | 默认值  | 功能描述                                            |
-| ---------- | ---------------------------------------------------------------------------------------- | ------- | --------------------------------------------------- |
-| fix        | --pattern \<pattern\>                                                                    | './src' | 运行 eslint 静态扫描和修复代码中存在的问题          |
-| format     | --pattern \<pattern\>                                                                    | './src' | 运行 prettier 格式化代码风格                        |
-| create     | --                                                                                       | --      | 运行 npm create 快速创建基础项目                    |
-| template   | -n, --project-name \<project-name\>, -f, --framework \<framework\>,                      | --      | 快速创建 CodeGenius 基础项目                        |
-| lighthouse | --url \<url\>                                                                            | --      | 运行 lighthouse 分析及收集 Web 应用的性能指标       |
-| git-user   | -n, --name \<name\>,-e, --email \<email\>,--rule-name \<regexp\>,--rule-email \<regexp\> | --      | 设置或校验 git user 信息是否规范                    |
-| quantity   | -p, --path <path>                                                                        | --      | 运行 cloc 分析并统计代码量                          |
+| 命令       | 参数                                                                | 默认值  | 功能描述                                      |
+| ---------- | ------------------------------------------------------------------- | ------- | --------------------------------------------- |
+| fix        | --pattern \<pattern\>                                               | './src' | 运行 eslint 静态扫描和修复代码中存在的问题    |
+| format     | --pattern \<pattern\>                                               | './src' | 运行 prettier 格式化代码风格                  |
+| create     | --                                                                  | --      | 运行 npm create 快速创建基础项目              |
+| template   | -n, --project-name \<project-name\>, -f, --framework \<framework\>, | --      | 快速创建 CodeGenius 基础项目                  |
+| lighthouse | --url \<url\>                                                       | --      | 运行 lighthouse 分析及收集 Web 应用的性能指标 |
+| quantity   | -p, --path <path>                                                   | --      | 运行 cloc 分析并统计代码量                    |
 
 ## 执照
 
