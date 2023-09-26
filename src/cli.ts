@@ -1,7 +1,7 @@
 import cac from "cac";
 
 import { cmdInstaller, handleError } from "@/helper";
-import config from "@/index";
+import { config } from "@/index";
 
 import pkg from "../package.json";
 

@@ -28,28 +28,7 @@ import rootInstaller, { root } from "@/command/root";
 import templateInstaller, { template } from "@/command/template";
 import { defineConfig } from "@/helper";
 
-export {
-  checkGitUserEmail,
-  checkGitUserName,
-  clear,
-  createProject,
-  eslintFix,
-  gitCommit,
-  gitCommitVerify,
-  gitInitSimpleHooks,
-  impSort,
-  lighthouse,
-  npmDepCheck,
-  npmRegistry,
-  prettierFormat,
-  quantity,
-  root,
-  setGitUserEmail,
-  setGitUserName,
-  template,
-};
-
-export default defineConfig({
+const config = defineConfig({
   plugins: [
     rootInstaller,
     gitCommitInstaller,
@@ -68,3 +47,25 @@ export default defineConfig({
     quantityInstaller,
   ],
 });
+
+export {
+  checkGitUserEmail,
+  checkGitUserName,
+  clear,
+  config,
+  createProject,
+  eslintFix,
+  gitCommit,
+  gitCommitVerify,
+  gitInitSimpleHooks,
+  impSort,
+  lighthouse,
+  npmDepCheck,
+  npmRegistry,
+  prettierFormat,
+  quantity,
+  root,
+  setGitUserEmail,
+  setGitUserName,
+  template,
+};

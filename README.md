@@ -362,10 +362,10 @@ codeg impsort
 ### API 模式
 
 ```typescript
-import { impSort } from "code-genius";
+import { impSort } from "../src/index";
 
 (async () => {
-  await impSort(["./api-model/test.ts"]);
+  await impSort(["./src"]);
 })();
 ```
 
