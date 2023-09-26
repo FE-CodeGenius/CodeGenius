@@ -1,4 +1,4 @@
-import { gitInitSimpleHooks } from "../src/index";
+import { gitInitSimpleHooks } from "code-genius";
 
 (async () => {
   await gitInitSimpleHooks();

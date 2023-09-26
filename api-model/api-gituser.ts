@@ -3,7 +3,7 @@ import {
   setGitUserEmail,
   checkGitUserName,
   checkGitUserEmail,
-} from "../src/index";
+} from "code-genius";
 
 (async () => {
   await setGitUserName("OSpoon", "[\\s\\S]*");

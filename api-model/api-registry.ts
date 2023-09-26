@@ -1,4 +1,4 @@
-import { npmRegistry } from "../src/index";
+import { npmRegistry } from "code-genius";
 
 (async () => {
   await npmRegistry("https://registry.npmjs.org/");

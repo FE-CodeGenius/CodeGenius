@@ -1,4 +1,4 @@
-import { clear } from "../src/index";
+import { clear } from "code-genius";
 
 (async () => {
   await clear(["./dist"]);

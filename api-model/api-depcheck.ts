@@ -1,4 +1,4 @@
-import { npmDepCheck } from "../src/index";
+import { npmDepCheck } from "code-genius";
 
 (async () => {
   await npmDepCheck();

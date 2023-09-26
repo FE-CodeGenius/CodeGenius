@@ -1,5 +1,5 @@
-import { impSort } from "../src/index";
+import { impSort } from "code-genius";
 
 (async () => {
-  await impSort(["./src"]);
+  await impSort(["./api-impsort.ts"]);
 })();

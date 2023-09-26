@@ -1,4 +1,4 @@
-import { gitCommitVerify } from "../src/index";
+import { gitCommitVerify } from "code-genius";
 
 (async () => {
   await gitCommitVerify();
