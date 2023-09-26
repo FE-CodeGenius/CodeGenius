@@ -1,3 +1,5 @@
+import { blue, green, yellow } from "kolorist";
+
 import {
   CommitScope,
   CommitType,
@@ -6,8 +8,6 @@ import {
   KeyValue,
   ProjectSource,
 } from "@/types";
-
-import { blue, green, yellow } from "kolorist";
 
 export const clearGlob = ["./dist", "./node_modules"];
 

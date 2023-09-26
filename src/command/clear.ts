@@ -1,12 +1,11 @@
-import type { CAC } from "cac";
-
 import path from "node:path";
 
-import fs from "fs-extra";
+import type { CAC } from "cac";
 import enquirer from "enquirer";
+import fs from "fs-extra";
 
-import { execCommand, loggerInfo } from "@/helper";
 import { ACTIVATION, clearGlob } from "@/config";
+import { execCommand, loggerInfo } from "@/helper";
 import { ClearOptions } from "@/types";
 
 const generateEnquirer = async (): Promise<ClearOptions> => {

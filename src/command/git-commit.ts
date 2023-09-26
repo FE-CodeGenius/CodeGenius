@@ -1,9 +1,8 @@
 import type { CAC } from "cac";
-
 import enquirer from "enquirer";
 
-import { loggerInfo, execCommand } from "@/helper";
 import { ACTIVATION, gitCommitScopes, gitCommitTypes } from "@/config";
+import { execCommand, loggerInfo } from "@/helper";
 import { GitCommitOptions } from "@/types";
 
 const generateEnquirer = async (): Promise<

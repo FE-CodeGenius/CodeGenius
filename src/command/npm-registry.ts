@@ -1,9 +1,8 @@
 import type { CAC } from "cac";
-
 import enquirer from "enquirer";
 
-import { printInfo, printWarring, execCommand, loggerInfo } from "@/helper";
 import { ACTIVATION, npmRegisters } from "@/config";
+import { execCommand, loggerInfo, printInfo, printWarring } from "@/helper";
 import { RegistryOptions } from "@/types";
 
 const printCurrentRegistry = async (isBefore: boolean = true) => {

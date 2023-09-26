@@ -65,6 +65,7 @@
     "@typescript-eslint/eslint-plugin": "^6.7.0",
     "@typescript-eslint/parser": "^6.7.0",
     "cross-env": "^7.0.3",
+    "eslint-plugin-simple-import-sort": "^10.0.0",
     "esno": "^0.17.0",
     "release-it": "^16.1.5",
     "simple-git-hooks": "^2.9.0",

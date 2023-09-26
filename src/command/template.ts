@@ -1,11 +1,11 @@
-import type { CAC } from "cac";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 
+import type { CAC } from "cac";
+import enquirer from "enquirer";
 import fs from "fs-extra";
 
-import path from "node:path";
-
-import enquirer from "enquirer";
-
+import { ACTIVATION, fileIgnore, FRAMEWORKS } from "@/config";
 import {
   emptyDir,
   generateRandom,
@@ -18,9 +18,7 @@ import {
   pkgFromUserAgent,
   toValidPackageName,
 } from "@/helper";
-import { ACTIVATION, fileIgnore, FRAMEWORKS } from "@/config";
 import { TemplateOptions } from "@/types";
-import { fileURLToPath } from "node:url";
 
 interface PromptResult {
   projectName: string;

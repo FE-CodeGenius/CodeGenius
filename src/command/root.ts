@@ -1,10 +1,10 @@
 import type { CAC } from "cac";
-
 import enquirer from "enquirer";
 import updateNotifier from "simple-update-notifier";
 
-import { execCommand } from "@/helper";
 import { commands } from "@/config";
+import { execCommand } from "@/helper";
+
 import pkg from "../../package.json";
 
 interface PromptResult {

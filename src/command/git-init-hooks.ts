@@ -1,7 +1,7 @@
-import type { CAC } from "cac";
-
-import path from "node:path";
 import { existsSync } from "node:fs";
+import path from "node:path";
+
+import type { CAC } from "cac";
 
 import { execCommand } from "@/helper";
 

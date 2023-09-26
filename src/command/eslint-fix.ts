@@ -1,5 +1,6 @@
 import type { CAC } from "cac";
 
+import { ACTIVATION, eslintGlob } from "@/config";
 import {
   execCommand,
   loggerError,
@@ -7,7 +8,6 @@ import {
   printError,
   printInfo,
 } from "@/helper";
-import { ACTIVATION, eslintGlob } from "@/config";
 
 export const eslintFix = async (paths: string[]) => {
   if (ACTIVATION) {
@@ -15,13 +15,9 @@ export const eslintFix = async (paths: string[]) => {
   }
 
   try {
-    await execCommand(
-      "npx",
-      ["eslint", "--fix", "--fix-type", "problem,suggestion", ...paths],
-      {
-        stdio: "inherit",
-      },
-    );
+    await execCommand("npx", ["eslint", "--fix", ...paths], {
+      stdio: "inherit",
+    });
     printInfo("代码已通过 eslint 校验");
   } catch (error) {
     printError(`代码未通过 eslint 校验`);

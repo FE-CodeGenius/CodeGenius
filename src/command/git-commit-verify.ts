@@ -1,9 +1,9 @@
-import type { CAC } from "cac";
-
 import { readFileSync } from "node:fs";
 import path from "node:path";
 
-import { printError, printInfo, execCommand } from "@/helper";
+import type { CAC } from "cac";
+
+import { execCommand, printError, printInfo } from "@/helper";
 
 export const gitCommitVerify = async () => {
   const dogit = await execCommand("git", ["rev-parse", "--show-toplevel"]);

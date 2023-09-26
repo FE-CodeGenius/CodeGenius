@@ -1,5 +1,6 @@
 import type { CAC } from "cac";
 
+import { ACTIVATION, gitUserOptions } from "@/config";
 import {
   execCommand,
   loggerInfo,
@@ -7,7 +8,6 @@ import {
   printInfo,
   printWarring,
 } from "@/helper";
-import { ACTIVATION, gitUserOptions } from "@/config";
 
 export async function setGitUserName(name: string, ruleName: string) {
   if (ACTIVATION) {

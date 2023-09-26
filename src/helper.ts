@@ -2,14 +2,14 @@ import fs from "node:fs";
 import path from "node:path";
 import process from "node:process";
 
-import type { Options } from "execa";
-
-import execa from "execa";
-import { green, yellow, gray, red } from "kolorist";
 import boxen from "boxen";
+import { CAC } from "cac";
+import type { Options } from "execa";
+import execa from "execa";
+import { gray, green, red, yellow } from "kolorist";
 
 import { ACTIVATION, FRAMEWORKS, TEMPLATES } from "@/config";
-import { CAC } from "cac";
+
 import { CodeGeniusOptions } from "./types";
 
 const boxenBorderStyle = {

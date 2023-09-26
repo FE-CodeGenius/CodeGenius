@@ -1,9 +1,9 @@
 import cac from "cac";
 
 import { cmdInstaller, handleError } from "@/helper";
+import config from "@/index";
 
 import pkg from "../package.json";
-import config from "@/index";
 
 const setupCli = async () => {
   const cli = cac("codeg");

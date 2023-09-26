@@ -1,8 +1,7 @@
-import type { CAC } from "cac";
-
-import path from "node:path";
 import fs from "node:fs/promises";
+import path from "node:path";
 
+import type { CAC } from "cac";
 import enquirer from "enquirer";
 
 import { execCommand } from "@/helper";

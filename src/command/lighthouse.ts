@@ -1,9 +1,8 @@
 import type { CAC } from "cac";
-
 import fs from "fs-extra";
 
-import { execCommand, loggerInfo } from "@/helper";
 import { ACTIVATION } from "@/config";
+import { execCommand, loggerInfo } from "@/helper";
 
 async function getReportfile(url: string) {
   const _url = new URL(url);

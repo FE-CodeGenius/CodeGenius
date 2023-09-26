@@ -1,8 +1,9 @@
+import path from "node:path";
+
 import type { CAC } from "cac";
 
-import { execCommand, loggerInfo } from "@/helper";
-import path from "node:path";
 import { ACTIVATION } from "@/config";
+import { execCommand, loggerInfo } from "@/helper";
 
 export const quantity = async (dir: string) => {
   if (ACTIVATION) {
