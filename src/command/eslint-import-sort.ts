@@ -6,7 +6,7 @@ import { ESLint } from "eslint";
 import fs from "fs-extra";
 
 import { ACTIVATION, impSortGlob } from "@/config";
-import { loggerInfo, printError, printSuccess } from "@/helper";
+import { loggerInfo, printError, printInfo } from "@/helper";
 import { ImpSortOptions } from "@/types";
 
 const generateEnquirer = async (): Promise<ImpSortOptions> => {
@@ -61,7 +61,7 @@ export const impSort = async (paths: string[]) => {
   const formatter = await eslint.loadFormatter("stylish");
   const resultText = await formatter.format(results);
   if (!resultText) {
-    printSuccess("模块导入顺序已修复完毕");
+    printInfo("模块导入顺序已修复完毕");
   } else {
     printError(resultText);
   }
