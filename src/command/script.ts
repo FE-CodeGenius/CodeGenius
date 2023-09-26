@@ -2,14 +2,14 @@ import path from "node:path";
 
 import type { CAC } from "cac";
 import enquirer from "enquirer";
-import { readJsonSync } from "fs-extra";
+import fsExtra from "fs-extra";
 
 import { generateScripts } from "@/helper";
 import { execCommand } from "@/helper";
 import { CommandOptions } from "@/types";
 
 export async function scriptRun() {
-  const { scripts } = readJsonSync(
+  const { scripts } = fsExtra.readJsonSync(
     path.join(process.cwd(), "scripts.config.json"),
   );
 
