@@ -6,11 +6,12 @@ import boxen from "boxen";
 import { CAC } from "cac";
 import type { Options } from "execa";
 import execa from "execa";
+import fsExtra from "fs-extra";
 import { gray, green, red, yellow } from "kolorist";
 
 import { ACTIVATION, FRAMEWORKS, TEMPLATES } from "@/config";
 
-import { CodeGeniusOptions } from "./types";
+import { CodeGeniusOptions, CommandOptions } from "./types";
 
 const boxenBorderStyle = {
   padding: 1,
@@ -291,9 +292,69 @@ export function generateRandom(length: number) {
 export const defineConfig = (config: CodeGeniusOptions): CodeGeniusOptions =>
   config;
 
-export function cmdInstaller(cli: CAC, config: CodeGeniusOptions) {
+export async function cmdInstaller(cli: CAC, config: CodeGeniusOptions) {
   const { plugins } = config;
   for (const plugin of plugins) {
     plugin(cli).setup();
   }
 }
+
+export function genScriptConfig(scripts: { [key: string]: string }) {
+  return Object.keys(scripts).map((key) => {
+    return {
+      cmd: key,
+      script: scripts[key],
+      desc: "describe the function of this cmd command",
+    };
+  });
+}
+
+export function syncScripts(
+  pkgScripts: Array<CommandOptions>,
+  configScripts: Array<CommandOptions>,
+) {
+  const mergedScripts = [...configScripts];
+
+  for (const pkgScript of pkgScripts) {
+    const configScript = mergedScripts.find(
+      (itemB) => itemB.cmd === pkgScript.cmd,
+    );
+
+    if (configScript) {
+      if (configScript.script !== pkgScript.script) {
+        configScript.script = pkgScript.script;
+      }
+    } else {
+      mergedScripts.push(pkgScript);
+    }
+  }
+
+  const syncScripts = mergedScripts.filter((configScript) => {
+    return pkgScripts.find((i) => i.cmd === configScript.cmd);
+  });
+
+  return syncScripts;
+}
+
+export const generateScripts = async () => {
+  const pkg = await fsExtra.readJSONSync(
+    path.join(process.cwd(), "package.json"),
+  );
+  let configContent = genScriptConfig(pkg.scripts);
+  const configfile = path.join(process.cwd(), "scripts.config.json");
+  if (fs.existsSync(configfile)) {
+    const { scripts } = await fsExtra.readJSONSync(configfile);
+    configContent = syncScripts(configContent, scripts);
+  }
+  await fsExtra.outputFileSync(
+    configfile,
+    JSON.stringify(
+      {
+        scripts: configContent,
+      },
+      null,
+      2,
+    ),
+  );
+  printInfo("代理脚本 scripts.config.json 已完成同步");
+};

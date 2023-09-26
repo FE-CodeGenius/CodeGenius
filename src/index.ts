@@ -25,6 +25,7 @@ import prettierFormatInstaller, {
 } from "@/command/prettier-format";
 import quantityInstaller, { quantity } from "@/command/quantity";
 import rootInstaller, { root } from "@/command/root";
+import scriptRunInstaller from "@/command/script";
 import templateInstaller, { template } from "@/command/template";
 import { defineConfig } from "@/helper";
 
@@ -45,6 +46,7 @@ const config = defineConfig({
     templateInstaller,
     lighthouseInstaller,
     quantityInstaller,
+    scriptRunInstaller,
   ],
 });
 

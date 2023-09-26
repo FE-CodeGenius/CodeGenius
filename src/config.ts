@@ -251,6 +251,10 @@ export const commands = [
     description: "运行 cloc 分析并统计代码量",
   },
   {
+    command: "script",
+    description: "代理执行 package.scripts 脚本",
+  },
+  {
     display: "help",
     command: "--help",
     description: "查看 CodeGenius 终端命令",

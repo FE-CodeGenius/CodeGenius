@@ -24,7 +24,7 @@ export const root = async () => {
     {
       name: "command",
       type: "select",
-      message: "请选择正确执行的 CodeG 命令",
+      message: "请选择待执行的 CodeG 命令",
       choices: commandChoices,
     },
   ]);

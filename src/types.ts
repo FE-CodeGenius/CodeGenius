@@ -81,3 +81,19 @@ export interface ImpSortOptions {
 export interface RegistryOptions {
   url: string;
 }
+
+export type CommandOptions = {
+  /**
+   * 指令
+   */
+  cmd: string;
+  /**
+   * 要执行的脚本
+   */
+  script: string;
+
+  /**
+   * 描述
+   */
+  desc: string;
+};

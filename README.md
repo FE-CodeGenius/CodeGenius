@@ -374,6 +374,26 @@ import { impSort } from "../src/index";
 ```
 
 PS: 依赖 `eslint` API 模式, 依赖 `simple-import-sort` 插件的同时依旧会读取项目配置的 `.eslintignore` 和 `.eslintrc.json` 文件.
+
+## script 命令
+
+代理运行 `package.scripts` 脚本, 仅支持询问模式;
+
+### 询问模式
+
+```bash
+# 启动询问模式
+codeg script
+```
+
+```
+# 询问过程
+
+1. 请选择项目运行脚本
+```
+
+PS: 第一次使用 `script` 命令会初始化 `scripts.config.json`, 可以为它增加对应的描述, 以后每次使用均会同步 `package.scripts` 的变化.
+
 ## 其他命令
 
 | 命令       | 参数              | 默认值 | 功能描述                                      |
