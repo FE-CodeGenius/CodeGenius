@@ -30,6 +30,8 @@ code-genius --help
 
 生成 **Angualr** 规范的提交信息, 支持命令模式, 询问模式和 **API** 模式;
 
+使用场景: 用于没有安装其他插件且对 **Angualr** 规范不熟悉的情况下生成提交信息.
+
 ### 命令模式
 
 ```bash
@@ -73,6 +75,8 @@ import { gitCommit } from "code-genius";
 
 校验 `COMMIT_EDITMSG` 中的信息是否符合 **Angualr** 规范, 支持命令模式和 **API** 模式;
 
+使用场景: 用于校验正在执行 `git commit` 时所提交的信息是否符合规范.
+
 ### 命令模式
 
 ```bash
@@ -93,6 +97,8 @@ import { gitCommitVerify } from "code-genius";
 ## clear 命令
 
 运行 `rimraf` 删除不再需要的文件或文件夹, 支持命令模式, 询问模式和 **API** 模式;
+
+使用场景: 用于删除可以通过项目运行自动生成的文件, 如: `dist` 目录, 还有顽固的 `node_modules`.
 
 ### 命令模式
 
@@ -134,6 +140,8 @@ import { clear } from "code-genius";
 
 新增或修改 `simple-git-hooks` 配置后需要重新初始化, 支持命令模式和 **API** 模式;
 
+使用场景: 用于 `simple-git-hooks` 来配置 `git hooks` 的使用, 方便初始化和更新时使用, 混用过 `husky` 的会按其文档进行删除操作.
+
 ### 命令模式
 
 ```bash
@@ -154,6 +162,8 @@ import { gitInitSimpleHooks } from "code-genius";
 
 运行 `npm-check` 检查过时的、不正确的和未使用的依赖项, 支持命令模式和 **API** 模式;
 
+使用场景: 用于检测当前项目的依赖项安装情况.
+
 ### 命令模式
 
 ```bash
@@ -173,6 +183,8 @@ import { npmDepCheck } from "code-genius";
 ## registry 命令
 
 切换 **NPM** 镜像地址, 支持命令模式, 询问模式和 API 模式;
+
+使用场景: 用于没有安装其他插件且对于切换命令地址不熟悉的情况下切换常见的景象地址.
 
 ### 命令模式
 
@@ -208,6 +220,8 @@ import { npmRegistry } from "code-genius";
 ## gituser 命令
 
 设置或校验 `git user` 信息是否规范, 支持命令模式和 **API** 模式;
+
+使用场景: 用于校验那些不应该出现的邮箱地址会名称出现在 `git` 提交记录中, 常见的使用公司内部邮箱提交 `github` 的开源项目, 这通常是不允许的.
 
 ### 命令模式
 
@@ -254,8 +268,9 @@ import { setGitUserName, setGitUserEmail, checkGitUserInfo } from "code-genius";
 
 ## template 命令
 
-快速创建 CodeGenius 基础项目
 基于 **CodeGenius** 内置模板快速创建新项目, 仅支持询问模式;
+
+使用场景: 用于创建青睐 **CodeGenius** 模板的新的项目 (目前模板为 `vitejs` 内置, 主要在模拟功能, 模板后续更新后可用).
 
 ### 询问模式
 
@@ -294,6 +309,8 @@ codeg template -n project-salkdyfT -f vue
 
 运行 `eslint` 静态扫描和修复代码中存在的问题, 仅支持命令模式;
 
+使用场景: 用于替代 `eslint --fix`, 功能雷同, 可以使用 **API** 模式来运行命令.
+
 ### 命令模式
 
 ```bash
@@ -316,6 +333,8 @@ PS: 依赖 `eslint` CLI 模式, 同时对项目配置的 `.eslintignore` 和 `.e
 
 运行 `prettier` 格式化代码风格, 仅支持命令模式;
 
+使用场景: 用于替代 `prettier --write`, 功能雷同, 可以使用 **API** 模式来运行命令.
+
 ### 命令模式
 
 ```bash
@@ -336,6 +355,8 @@ PS: 依赖 `prettier` CLI 模式, 同时对项目配置的 `.prettierignore` 和
 ## impsort 命令
 
 运行 `eslint` 对模块导入进行分组&按字母排序, 支持命令模式, 询问模式和 API 模式;
+
+使用场景: 用于通过 `simple-import-sort` 插件来对导入模块进行排序且未直接配置插件到 `.eslintrc` 情况.
 
 ### 命令模式
 
@@ -378,6 +399,8 @@ PS: 依赖 `eslint` API 模式, 依赖 `simple-import-sort` 插件的同时依�
 ## script 命令
 
 代理运行 `package.scripts` 脚本, 仅支持询问模式;
+
+使用场景: 用于项目有大量 `scripts` 的情况, 可以生成单独的配置文件用来注册每个 `script` 的作用, 并通过询问模式来执行对应的 `script`.
 
 ### 询问模式
 
