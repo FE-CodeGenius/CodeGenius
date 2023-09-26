@@ -2,6 +2,10 @@
 
 旨在帮助开发者轻松管理优质代码的命令行开发包
 
+## 大纲
+
+https://pmm-rust.vercel.app/?username=OSpoon&resp=CodeGenius
+
 ## 安装
 
 本地安装
