@@ -4,7 +4,8 @@
     "@types/rimraf",
     "cross-env",
     "simple-git-hooks",
-    "typescript"
+    "typescript",
+    "eslint-plugin-simple-import-sort"
   ],
   "skip-missing": false
 }
