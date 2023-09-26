@@ -1,5 +1,5 @@
-import { loggerWarring } from "@/helper";
 import { clear } from "@/command/clear";
+import { loggerWarring } from "@/helper";
 
 async function clearDist() {
   try {
