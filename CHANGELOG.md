@@ -1,5 +1,7 @@
 
 
+## [0.4.22](https://github.com/OSpoon/CodeGenius/compare/0.4.21...0.4.22) (2023-09-26)
+
 ## [0.4.21](https://github.com/OSpoon/CodeGenius/compare/0.4.20...0.4.21) (2023-09-26)
 
 ## [0.4.20](https://github.com/OSpoon/CodeGenius/compare/0.4.19...0.4.20) (2023-09-26)
