@@ -74,6 +74,10 @@ export interface ClearOptions {
   files: Array<string>;
 }
 
+export interface ImpSortOptions {
+  files: Array<string>;
+}
+
 export interface RegistryOptions {
   url: string;
 }

@@ -329,6 +329,47 @@ codeg format -p ./src -p ./components
 
 PS: 依赖 `prettier` CLI 模式, 同时对项目配置的 `.prettierignore` 和 `.prettierrc.json` 生效.
 
+## impsort 命令
+
+运行 `eslint` 对模块导入进行分组&按字母排序, 支持命令模式, 询问模式和 API 模式;
+
+### 命令模式
+
+```bash
+# 尝试修复 src 文件夹中模块的导入顺序
+codeg impsort -p ./src
+
+# 尝试修复 src 和 components 文件夹中模块的导入顺序
+codeg impsort -p ./src -p ./components
+```
+
+| 选项                      | 描述         |
+| ------------------------- | ------------ |
+| -p, --pattern \<pattern\> | 设置匹配规则 |
+
+### 询问模式
+
+```bash
+# 启动询问模式
+codeg impsort
+```
+
+```
+# 询问过程
+1. 请选择需要尝试修复的文件/夹
+```
+
+### API 模式
+
+```typescript
+import { impSort } from "code-genius";
+
+(async () => {
+  await impSort(["./api-model/test.ts"]);
+})();
+```
+
+PS: 依赖 `eslint` API 模式, 依赖 `simple-import-sort` 插件的同时依旧会读取项目配置的 `.eslintignore` 和 `.eslintrc.json` 文件.
 ## 其他命令
 
 | 命令       | 参数              | 默认值 | 功能描述                                      |

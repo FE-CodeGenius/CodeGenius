@@ -3,6 +3,7 @@ import createProjectInstaller, {
   createProject,
 } from "@/command/create-project";
 import eslintFixInstaller, { eslintFix } from "@/command/eslint-fix";
+import impSortInstaller, { impSort } from "@/command/eslint-import-sort";
 import gitCommitInstaller, { gitCommit } from "@/command/git-commit";
 import gitCommitVerifyInstaller, {
   gitCommitVerify,
@@ -36,6 +37,7 @@ export {
   gitCommit,
   gitCommitVerify,
   gitInitSimpleHooks,
+  impSort,
   lighthouse,
   npmDepCheck,
   npmRegistry,
@@ -58,6 +60,7 @@ export default defineConfig({
     clearInstaller,
     npmDepCheckInstaller,
     eslintFixInstaller,
+    impSortInstaller,
     prettierFormatInstaller,
     createProjectInstaller,
     templateInstaller,

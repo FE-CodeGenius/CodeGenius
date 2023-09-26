@@ -11,6 +11,8 @@ import {
 
 export const clearGlob = ["./dist", "./node_modules"];
 
+export const impSortGlob = ["./src"];
+
 export const formatGlob = ["./src"];
 
 export const eslintGlob = ["./src"];
@@ -223,6 +225,10 @@ export const commands = [
   {
     command: "fix",
     description: "运行 eslint 静态扫描和修复代码中存在的问题",
+  },
+  {
+    command: "impsort",
+    description: "运行 eslint 对模块导入进行分组&按字母排序",
   },
   {
     command: "format",
