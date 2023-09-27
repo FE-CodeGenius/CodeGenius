@@ -5,8 +5,22 @@ import enquirer from "enquirer";
 import fs from "fs-extra";
 
 import { ACTIVATION, clearGlob } from "@/config";
-import { execCommand, loggerInfo, printInfo } from "@/helper";
+import { execCommand, loadConfigModule, loggerInfo, printInfo } from "@/helper";
 import { ClearOptions } from "@/types";
+
+const mergeConfig = async () => {
+  const config = await loadConfigModule();
+  const commands = config && config?.commands;
+  if (commands && commands.clear) {
+    const { files } = commands.clear;
+    return {
+      paths: files && files.length > 0 ? files : clearGlob,
+    };
+  }
+  return {
+    paths: clearGlob,
+  };
+};
 
 const generateEnquirer = async (): Promise<ClearOptions> => {
   const files = fs
@@ -19,16 +33,18 @@ const generateEnquirer = async (): Promise<ClearOptions> => {
       };
     });
   files.sort((v1, v2) => v1.sort - v2.sort);
+
+  const { paths } = await mergeConfig();
   const fileMultiChoices = files.map((v) => {
     return {
       name: `./${v.file}`,
       message: `${v.file}`,
-      hint: clearGlob.includes(`./${v.file}`) ? "建议清理" : "",
+      hint: paths.includes(`./${v.file}`) ? "建议清理" : "",
     };
   });
   const result = await enquirer.prompt<ClearOptions>([
     {
-      name: "files",
+      name: "paths",
       type: "multiselect",
       message: "请选择需要清理的文件/夹",
       choices: fileMultiChoices,

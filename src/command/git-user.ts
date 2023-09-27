@@ -3,11 +3,28 @@ import type { CAC } from "cac";
 import { ACTIVATION, gitUserOptions } from "@/config";
 import {
   execCommand,
+  loadConfigModule,
   loggerInfo,
   printError,
   printInfo,
   printWarring,
 } from "@/helper";
+
+const mergeConfig = async () => {
+  const config = await loadConfigModule();
+  const commands = config && config?.commands;
+  if (commands && commands.gituser) {
+    const { ruleName, ruleEmail } = commands.gituser;
+    return {
+      ruleName: ruleName || gitUserOptions.ruleName,
+      ruleEmail: ruleEmail || gitUserOptions.ruleEmail,
+    };
+  }
+  return {
+    ruleName: gitUserOptions.ruleName,
+    ruleEmail: gitUserOptions.ruleEmail,
+  };
+};
 
 export async function setGitUserName(name: string, ruleName: string) {
   if (ACTIVATION) {
@@ -97,27 +114,20 @@ export default function gitUserInstaller(cli: CAC) {
         .alias("gitu")
         .option("-n, --name <name>", "设置 user.name")
         .option("-e, --email <email>", "设置 user.email")
-        .option("--rule-name <regexp>", "设置 user.name 匹配规则(转义字符串)", {
-          default: gitUserOptions.ruleName,
-        })
-        .option(
-          "--rule-email <regexp>",
-          "设置 user.email 匹配规则(转义字符串)",
-          {
-            default: gitUserOptions.ruleEmail,
-          },
-        )
+        .option("--rule-name <regexp>", "设置 user.name 匹配规则(转义字符串)")
+        .option("--rule-email <regexp>", "设置 user.email 匹配规则(转义字符串)")
         .action(async (options) => {
-          const { name, email, ruleName, ruleEmail } = options;
+          const { ruleName, ruleEmail } = await mergeConfig();
+          const { name, email, ruleName: rName, ruleEmail: rEmail } = options;
           if (!name && !email) {
-            await checkGitUserName(ruleName);
-            await checkGitUserEmail(ruleEmail);
+            await checkGitUserName(ruleName || rName);
+            await checkGitUserEmail(ruleEmail || rEmail);
           }
           if (name) {
-            await setGitUserName(name, ruleName);
+            await setGitUserName(name, ruleName || rName);
           }
           if (email) {
-            await setGitUserName(email, ruleEmail);
+            await setGitUserName(email, ruleEmail || rEmail);
           }
         });
     },

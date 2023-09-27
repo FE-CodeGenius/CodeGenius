@@ -6,8 +6,22 @@ import { ESLint } from "eslint";
 import fs from "fs-extra";
 
 import { ACTIVATION, impSortGlob } from "@/config";
-import { loggerInfo, printError, printInfo } from "@/helper";
+import { loadConfigModule, loggerInfo, printError, printInfo } from "@/helper";
 import { ImpSortOptions } from "@/types";
+
+const mergeConfig = async () => {
+  const config = await loadConfigModule();
+  const commands = config && config?.commands;
+  if (commands && commands.impsort) {
+    const { paths } = commands.impsort;
+    return {
+      paths: paths && paths.length > 0 ? paths : impSortGlob,
+    };
+  }
+  return {
+    paths: impSortGlob,
+  };
+};
 
 const generateEnquirer = async (): Promise<ImpSortOptions> => {
   const files = fs
@@ -20,11 +34,12 @@ const generateEnquirer = async (): Promise<ImpSortOptions> => {
       };
     });
   files.sort((v1, v2) => v1.sort - v2.sort);
+  const { paths } = await mergeConfig();
   const fileMultiChoices = files.map((v) => {
     return {
       name: `./${v.file}`,
       message: `${v.file}`,
-      hint: impSortGlob.includes(`./${v.file}`) ? "建议尝试修复" : "",
+      hint: paths.includes(`./${v.file}`) ? "建议尝试修复" : "",
     };
   });
   const result = await enquirer.prompt<ImpSortOptions>([

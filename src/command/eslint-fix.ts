@@ -3,11 +3,26 @@ import type { CAC } from "cac";
 import { ACTIVATION, eslintGlob } from "@/config";
 import {
   execCommand,
+  loadConfigModule,
   loggerError,
   loggerInfo,
   printError,
   printInfo,
 } from "@/helper";
+
+const mergeConfig = async () => {
+  const config = await loadConfigModule();
+  const commands = config && config?.commands;
+  if (commands && commands.fix) {
+    const { paths } = commands.fix;
+    return {
+      paths: paths && paths.length > 0 ? paths : eslintGlob,
+    };
+  }
+  return {
+    paths: eslintGlob,
+  };
+};
 
 export const eslintFix = async (paths: string[]) => {
   if (ACTIVATION) {
@@ -36,11 +51,13 @@ export default function eslintFixInstaller(cli: CAC) {
           default: [...eslintGlob],
         })
         .action(async (options) => {
-          const patterns =
-            typeof options.pattern === "string"
-              ? [options.pattern]
-              : options.pattern;
-          await eslintFix(patterns);
+          const { paths } = await mergeConfig();
+          const { pattern } = options;
+          if (pattern) {
+            await eslintFix(typeof pattern === "string" ? [pattern] : pattern);
+          } else {
+            await eslintFix(paths);
+          }
         });
     },
   };

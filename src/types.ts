@@ -63,10 +63,7 @@ export interface CommitOptions {
 export interface VerifyOptions {
   // TODO
 }
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface ClearOptions {
-  // TODO
-}
+
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface HooksOptions {
   // TODO
@@ -79,10 +76,7 @@ export interface DepcheckOptions {
 export interface RegistryOptions {
   // TODO
 }
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface GituserOptions {
-  // TODO
-}
+
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface TemplateOptions {
   // TODO
@@ -113,17 +107,11 @@ export interface CodeGeniusOptions {
   >;
   commands?: {
     commit?: CommitOptions;
-    verify?: VerifyOptions;
     clear?: ClearOptions;
-    hooks?: HooksOptions;
-    depcheck?: DepcheckOptions;
-    registry?: RegistryOptions;
-    gituser?: GituserOptions;
-    template?: TemplateOptions;
-    fix?: FixOptions;
-    format?: FormatOptions;
-    impsort?: ImpsortOptions;
-    script?: ScriptOptions;
+    gituser?: Pick<GitUserOptions, "ruleName" | "ruleEmail">;
+    fix?: { paths: string[] };
+    format?: { paths: string[] };
+    impsort?: { paths: string[] };
   };
 }
 

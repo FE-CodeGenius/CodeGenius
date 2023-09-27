@@ -1,7 +1,21 @@
 import type { CAC } from "cac";
 
 import { ACTIVATION, formatGlob } from "@/config";
-import { execCommand, loggerInfo } from "@/helper";
+import { execCommand, loadConfigModule, loggerInfo } from "@/helper";
+
+const mergeConfig = async () => {
+  const config = await loadConfigModule();
+  const commands = config && config?.commands;
+  if (commands && commands.format) {
+    const { paths } = commands.format;
+    return {
+      paths: paths && paths.length > 0 ? paths : formatGlob,
+    };
+  }
+  return {
+    paths: formatGlob,
+  };
+};
 
 export const prettierFormat = async (paths: string[]) => {
   if (ACTIVATION) {
@@ -19,15 +33,17 @@ export default function prettierFormatInstaller(cli: CAC) {
     setup: () => {
       cli
         .command("format", "运行 prettier 格式化代码风格")
-        .option("-p, --pattern <pattern>", "设置匹配规则", {
-          default: [...formatGlob],
-        })
+        .option("-p, --pattern <pattern>", "设置匹配规则")
         .action(async (options) => {
-          const patterns =
-            typeof options.pattern === "string"
-              ? [options.pattern]
-              : options.pattern;
-          await prettierFormat(patterns);
+          const { paths } = await mergeConfig();
+          const { pattern } = options;
+          if (pattern) {
+            await prettierFormat(
+              typeof pattern === "string" ? [pattern] : pattern,
+            );
+          } else {
+            await prettierFormat(paths);
+          }
         });
     },
   };
