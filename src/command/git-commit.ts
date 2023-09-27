@@ -2,13 +2,30 @@ import type { CAC } from "cac";
 import enquirer from "enquirer";
 
 import { ACTIVATION, gitCommitScopes, gitCommitTypes } from "@/config";
-import { execCommand, loggerInfo } from "@/helper";
+import { execCommand, loadConfigModule, loggerInfo } from "@/helper";
 import { GitCommitOptions } from "@/types";
+
+const mergeConfig = async () => {
+  const config = await loadConfigModule();
+  const commands = config && config?.commands;
+  if (commands && commands.commit) {
+    const { gitCommitTypes: types, gitCommitScopes: scopes } = commands.commit;
+    return {
+      types: types && types.length > 0 ? types : gitCommitTypes,
+      scopes: scopes && scopes.length > 0 ? scopes : gitCommitScopes,
+    };
+  }
+  return {
+    types: gitCommitTypes,
+    scopes: gitCommitScopes,
+  };
+};
 
 const generateEnquirer = async (): Promise<
   Pick<GitCommitOptions, Exclude<keyof GitCommitOptions, "emoji">>
 > => {
-  const typesChoices = gitCommitTypes.map(({ emoji, code, description }) => {
+  const { types, scopes } = await mergeConfig();
+  const typesChoices = types.map(({ emoji, code, description }) => {
     const formatCode = `${code}:`.padEnd(20);
     return {
       name: `${emoji} ${code}`,
@@ -16,7 +33,7 @@ const generateEnquirer = async (): Promise<
     };
   });
 
-  const scopesChoices = gitCommitScopes.map(({ name, description }) => {
+  const scopesChoices = scopes.map(({ name, description }) => {
     const formatName = `${name}:`.padEnd(20);
     return {
       name,

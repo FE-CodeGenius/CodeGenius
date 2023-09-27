@@ -1,3 +1,4 @@
 .release-it.js
 build.config.ts
 ./templates/
+dist

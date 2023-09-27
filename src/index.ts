@@ -50,11 +50,12 @@ const config = defineConfig({
   ],
 });
 
+export { config, defineConfig };
+
 export {
   checkGitUserEmail,
   checkGitUserName,
   clear,
-  config,
   createProject,
   eslintFix,
   gitCommit,

@@ -271,3 +271,12 @@ export const commands = [
     description: "查看 CodeGenius 版本信息",
   },
 ];
+
+export const DEFAULT_CONFIG_FILES = [
+  "codeg.config.js",
+  "codeg.config.mjs",
+  "codeg.config.ts",
+  "codeg.config.mts",
+  "codeg.config.cjs",
+  "codeg.config.cts",
+];

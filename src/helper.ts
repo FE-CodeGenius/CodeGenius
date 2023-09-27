@@ -9,7 +9,12 @@ import execa from "execa";
 import fsExtra from "fs-extra";
 import { gray, green, red, yellow } from "kolorist";
 
-import { ACTIVATION, FRAMEWORKS, TEMPLATES } from "@/config";
+import {
+  ACTIVATION,
+  DEFAULT_CONFIG_FILES,
+  FRAMEWORKS,
+  TEMPLATES,
+} from "@/config";
 
 import { CodeGeniusOptions, CommandOptions } from "./types";
 
@@ -294,8 +299,10 @@ export const defineConfig = (config: CodeGeniusOptions): CodeGeniusOptions =>
 
 export async function cmdInstaller(cli: CAC, config: CodeGeniusOptions) {
   const { plugins } = config;
-  for (const plugin of plugins) {
-    plugin(cli).setup();
+  if (plugins) {
+    for (const plugin of plugins) {
+      plugin(cli).setup();
+    }
   }
 }
 
@@ -358,3 +365,19 @@ export const generateScripts = async () => {
   );
   printInfo("代理脚本 scripts.config.json 已完成同步");
 };
+
+export async function loadConfigModule(): Promise<
+  CodeGeniusOptions | undefined
+> {
+  let resolvedPath: string | undefined;
+  for (const filename of DEFAULT_CONFIG_FILES) {
+    const filePath = path.resolve(process.cwd(), filename);
+    if (!fs.existsSync(filePath)) continue;
+    resolvedPath = filePath;
+    break;
+  }
+
+  if (!resolvedPath) return;
+
+  return (await import(resolvedPath)).default;
+}

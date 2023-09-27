@@ -54,13 +54,77 @@ export interface GitUserOptions {
   ruleEmail?: string;
 }
 
+export interface CommitOptions {
+  gitCommitTypes?: Array<CommitType>;
+  gitCommitScopes?: Array<CommitScope>;
+}
+
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+export interface VerifyOptions {
+  // TODO
+}
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+export interface ClearOptions {
+  // TODO
+}
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+export interface HooksOptions {
+  // TODO
+}
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+export interface DepcheckOptions {
+  // TODO
+}
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+export interface RegistryOptions {
+  // TODO
+}
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+export interface GituserOptions {
+  // TODO
+}
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+export interface TemplateOptions {
+  // TODO
+}
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+export interface FixOptions {
+  // TODO
+}
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+export interface FormatOptions {
+  // TODO
+}
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+export interface ImpsortOptions {
+  // TODO
+}
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+export interface ScriptOptions {
+  // TODO
+}
+
 export interface CodeGeniusOptions {
-  plugins: Array<
+  plugins?: Array<
     (cli: CAC) => {
       name: string;
       setup: () => void;
     }
   >;
+  commands?: {
+    commit?: CommitOptions;
+    verify?: VerifyOptions;
+    clear?: ClearOptions;
+    hooks?: HooksOptions;
+    depcheck?: DepcheckOptions;
+    registry?: RegistryOptions;
+    gituser?: GituserOptions;
+    template?: TemplateOptions;
+    fix?: FixOptions;
+    format?: FormatOptions;
+    impsort?: ImpsortOptions;
+    script?: ScriptOptions;
+  };
 }
 
 export interface GitCommitOptions {
