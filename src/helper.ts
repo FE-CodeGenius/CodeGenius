@@ -1,6 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import process from "node:process";
+import { pathToFileURL } from "node:url";
 
 import boxen from "boxen";
 import { CAC } from "cac";
@@ -212,7 +213,7 @@ export const getEveryFilesBySuffixes = async (
       "--diff-filter=d",
       "--cached",
     ]);
-    files = result?.split("\n").map((path) => `${cwd}/${path}`) || [];
+    files = result?.split("\n").map((path: string) => `${cwd}/${path}`) || [];
   } else {
     files = getEveryFiles(paths.map((path) => `${cwd}/${path}`));
   }
@@ -378,6 +379,5 @@ export async function loadConfigModule(): Promise<
   }
 
   if (!resolvedPath) return;
-
-  return (await import(resolvedPath)).default;
+  return (await import(pathToFileURL(resolvedPath).href)).default;
 }
