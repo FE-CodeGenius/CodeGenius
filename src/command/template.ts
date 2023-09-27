@@ -98,8 +98,6 @@ export const template = async (options: TemplateOptions) => {
     }),
   });
 
-  console.log(projectName, framework, variant, overwrite, packageName);
-
   const root = path.join(process.cwd(), projectName);
   if (overwrite) emptyDir(root);
   const template: string = variant || framework;

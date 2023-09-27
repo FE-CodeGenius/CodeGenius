@@ -5,7 +5,7 @@ import enquirer from "enquirer";
 import fs from "fs-extra";
 
 import { ACTIVATION, clearGlob } from "@/config";
-import { execCommand, loggerInfo } from "@/helper";
+import { execCommand, loggerInfo, printInfo } from "@/helper";
 import { ClearOptions } from "@/types";
 
 const generateEnquirer = async (): Promise<ClearOptions> => {
@@ -46,6 +46,7 @@ export const clear = async (paths: string[]) => {
   await execCommand("npx", ["rimraf", "--glob", ...paths], {
     stdio: "inherit",
   });
+  printInfo("清理结束");
 };
 
 export default function clearInstaller(cli: CAC) {

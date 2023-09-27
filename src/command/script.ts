@@ -31,13 +31,15 @@ export async function scriptRun() {
   ]);
 
   if (result.script) {
-    const script = result.script;
-    if (script.startsWith("npx")) {
-      const cmd = script.split(" ")[0];
-      const args = script.split(" ").slice(1);
-      execCommand(cmd, args, { stdio: "inherit" });
-    } else {
-      execCommand("npx", script.split(" "), { stdio: "inherit" });
+    const scripts = result.script.split("&&").map((v) => v.trim());
+    for (const script of scripts) {
+      if (script.startsWith("npx")) {
+        const cmd = script.split(" ")[0];
+        const args = script.split(" ").slice(1);
+        await execCommand(cmd, args, { stdio: "inherit" });
+      } else {
+        await execCommand("npx", script.split(" "), { stdio: "inherit" });
+      }
     }
   }
 }

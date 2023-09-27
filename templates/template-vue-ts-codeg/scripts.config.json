@@ -1,0 +1,29 @@
+{
+  "scripts": [
+    {
+      "cmd": "dev",
+      "script": "vite",
+      "desc": "启动"
+    },
+    {
+      "cmd": "build",
+      "script": "npx codeg clear -p ./dist && npx codeg depcheck && vue-tsc && vite build",
+      "desc": "构建"
+    },
+    {
+      "cmd": "preview",
+      "script": "vite preview",
+      "desc": "预览"
+    },
+    {
+      "cmd": "prepare",
+      "script": "npx codeg hooks",
+      "desc": "npm hooks, 用于初始化"
+    },
+    {
+      "cmd": "commit",
+      "script": "npx codeg commit",
+      "desc": "生成规范信息提交代码"
+    }
+  ]
+}

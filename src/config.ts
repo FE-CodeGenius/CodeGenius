@@ -175,6 +175,12 @@ export const FRAMEWORKS: Framework[] = [
         display: "TypeScript",
         color: blue,
       },
+      {
+        framework: "vue",
+        name: "vue-ts-codeg",
+        display: "TypeScriptForCodeG",
+        color: yellow,
+      },
     ],
   },
 ];

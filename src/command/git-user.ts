@@ -64,6 +64,8 @@ export async function checkGitUserName(ruleName: string) {
   if (!nameRegExp.test(username)) {
     printError(`${username} 不符合 ${ruleName} 规范`);
     process.exit(1);
+  } else {
+    printInfo(`${username} 符合规范`);
   }
 }
 
@@ -80,6 +82,8 @@ export async function checkGitUserEmail(ruleEmail: string) {
   if (!emailRegExp.test(useremail)) {
     printError(`${useremail} 不符合 ${ruleEmail} 规范`);
     process.exit(1);
+  } else {
+    printInfo(`${useremail} 符合规范`);
   }
 }
 

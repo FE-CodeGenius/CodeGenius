@@ -1,0 +1,7 @@
+{
+  "ignores": [
+    "simple-git-hooks",
+    "eslint-plugin-simple-import-sort"
+  ],
+  "skip-missing": false
+}
