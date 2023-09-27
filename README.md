@@ -394,7 +394,7 @@ import { impSort } from "../src/index";
 })();
 ```
 
-PS: 依赖 `eslint` API 模式, 依赖 `simple-import-sort` 插件的同时依旧会读取项目配置的 `.eslintignore` 和 `.eslintrc.json` 文件.
+PS: 依赖 `eslint` API 模式, 依赖 `simple-import-sort` 插件的同时依旧会读取项目配置的 `.eslintignore` 和 `.eslintrc.json` 文件, 使用 `impsort` 的同时将同步进行 `fix` 检测和修复.
 
 ## script 命令
 
