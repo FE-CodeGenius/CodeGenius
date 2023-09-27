@@ -71,6 +71,34 @@ import { gitCommit } from "code-genius";
 })();
 ```
 
+### 配置文件
+
+```typescript
+# 覆盖默认的 `gitCommitTypes` 和 `gitCommitScopes` 配置
+import { defineConfig } from "code-genius";
+
+export default defineConfig({
+  commands: {
+    commit: {
+      gitCommitTypes: [
+        {
+          emoji: "🎉",
+          code: "feat",
+          description: "增加新功能/特性",
+        },
+      ],
+      gitCommitScopes: [
+        {
+          emoji: "🐛",
+          code: "fix",
+          description: "修复bug",
+        },
+      ],
+    },
+  },
+});
+```
+
 ## verify 命令
 
 校验 `COMMIT_EDITMSG` 中的信息是否符合 **Angualr** 规范, 支持命令模式和 **API** 模式;
@@ -134,6 +162,21 @@ import { clear } from "code-genius";
 (async () => {
   await clear(["./dist"]);
 })();
+```
+
+### 配置文件
+
+```typescript
+# 覆盖默认的 `files` 配置
+import { defineConfig } from "code-genius";
+
+export default defineConfig({
+  commands: {
+    clear: {
+      files: ["./dist"]
+    },
+  },
+});
 ```
 
 ## hooks 命令
@@ -266,6 +309,21 @@ import { setGitUserName, setGitUserEmail, checkGitUserInfo } from "code-genius";
 })();
 ```
 
+### 配置文件
+
+```typescript
+# 覆盖默认的 `gituser` 配置
+import { defineConfig } from "code-genius";
+
+export default defineConfig({
+  commands: {
+    gituser: {
+      ruleEmail: "^[a-zA-Z0-9._%+-]+@(gmail)\\.(com)$",
+    },
+  },
+});
+```
+
 ## template 命令
 
 基于 **CodeGenius** 内置模板快速创建新项目, 仅支持询问模式;
@@ -329,6 +387,21 @@ codeg fix -p ./src -p ./components
 
 PS: 依赖 `eslint` CLI 模式, 同时对项目配置的 `.eslintignore` 和 `.eslintrc.json` 生效.
 
+### 配置文件
+
+```typescript
+# 覆盖默认的 `fix` 配置
+import { defineConfig } from "code-genius";
+
+export default defineConfig({
+  commands: {
+    fix: {
+      paths: ["./src", "./scripts"],
+    },
+  },
+});
+```
+
 ## format 命令
 
 运行 `prettier` 格式化代码风格, 仅支持命令模式;
@@ -351,6 +424,21 @@ codeg format -p ./src -p ./components
 | -p, --pattern \<pattern\> | 设置匹配规则 |
 
 PS: 依赖 `prettier` CLI 模式, 同时对项目配置的 `.prettierignore` 和 `.prettierrc.json` 生效.
+
+### 配置文件
+
+```typescript
+# 覆盖默认的 `format` 配置
+import { defineConfig } from "code-genius";
+
+export default defineConfig({
+  commands: {
+    format: {
+      paths: ["./src", "./scripts"],
+    },
+  },
+});
+```
 
 ## impsort 命令
 
@@ -395,6 +483,21 @@ import { impSort } from "../src/index";
 ```
 
 PS: 依赖 `eslint` API 模式, 依赖 `simple-import-sort` 插件的同时依旧会读取项目配置的 `.eslintignore` 和 `.eslintrc.json` 文件, 使用 `impsort` 的同时将同步进行 `fix` 检测和修复.
+
+### 配置文件
+
+```typescript
+# 覆盖默认的 `impsort` 配置
+import { defineConfig } from "code-genius";
+
+export default defineConfig({
+  commands: {
+    format: {
+      impsort: ["./src", "./scripts"],
+    },
+  },
+});
+```
 
 ## script 命令
 

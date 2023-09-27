@@ -5,6 +5,9 @@ export default defineConfig({
     gituser: {
       ruleEmail: "^[a-zA-Z0-9._%+-]+@(gmail)\\.(com)$",
     },
+    clear: {
+      files: ["./dist"]
+    },
     fix: {
       paths: ["./src", "./scripts"],
     },
