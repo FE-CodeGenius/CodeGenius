@@ -18,7 +18,7 @@ export async function setGitUserName(name: string, ruleName: string) {
       })}`,
     );
   }
-  const nameRegExp = new RegExp(ruleName!);
+  const nameRegExp = new RegExp(ruleName);
   if (!nameRegExp.test(name)) {
     printWarring(`设置失败(user.name), ${name} 不符合规范`);
   } else {
@@ -39,7 +39,7 @@ export async function setGitUserEmail(email: string, ruleEmail: string) {
       })}`,
     );
   }
-  const emailRegExp = new RegExp(ruleEmail!, "i");
+  const emailRegExp = new RegExp(ruleEmail, "i");
   if (!emailRegExp.test(email)) {
     printWarring(`设置失败(user.email), ${email} 不符合规范`);
   } else {
@@ -59,7 +59,7 @@ export async function checkGitUserName(ruleName: string) {
       })}`,
     );
   }
-  const nameRegExp = new RegExp(ruleName!);
+  const nameRegExp = new RegExp(ruleName);
   const username = await execCommand("git", ["config", "user.name"]);
   if (!nameRegExp.test(username)) {
     printError(`${username} 不符合 ${ruleName} 规范`);
@@ -77,7 +77,7 @@ export async function checkGitUserEmail(ruleEmail: string) {
       })}`,
     );
   }
-  const emailRegExp = new RegExp(ruleEmail!, "i");
+  const emailRegExp = new RegExp(ruleEmail, "i");
   const useremail = await execCommand("git", ["config", "user.email"]);
   if (!emailRegExp.test(useremail)) {
     printError(`${useremail} 不符合 ${ruleEmail} 规范`);

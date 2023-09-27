@@ -5,7 +5,7 @@ import { ACTIVATION, npmRegisters } from "@/config";
 import { execCommand, loggerInfo, printInfo, printWarring } from "@/helper";
 import { RegistryOptions } from "@/types";
 
-const printCurrentRegistry = async (isBefore: boolean = true) => {
+const printCurrentRegistry = async (isBefore = true) => {
   printInfo(`${isBefore ? "当前" : "最新"} NPM 镜像地址（全局）：`);
   await execCommand("npm", ["config", "get", "registry", "-g"], {
     stdio: "inherit",
