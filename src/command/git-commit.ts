@@ -4,7 +4,7 @@ import type { CAC } from "cac";
 import enquirer from "enquirer";
 
 import { ACTIVATION, gitCommitScopes, gitCommitTypes } from "@/config";
-import { execCommand, loadConfigModule, loggerInfo, printInfo } from "@/helper";
+import { execCommand, loadConfigModule, loggerInfo } from "@/helper";
 import { GitCommitOptions } from "@/types";
 
 const mergeConfig = async () => {
@@ -115,7 +115,7 @@ export default function gitCommitInstaller(cli: CAC) {
             await gitCommit(type, scope, description);
           }
           const getTime = () => `${(performance.now() - start).toFixed(2)}ms`;
-          printInfo(`😁 commit 命令执行结束, 共用时: ${getTime()}`);
+          loggerInfo(`😁 commit 命令执行结束, 共用时: ${getTime()}`);
         });
     },
   };

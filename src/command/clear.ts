@@ -1,4 +1,5 @@
 import path from "node:path";
+import { performance } from "node:perf_hooks";
 
 import type { CAC } from "cac";
 import enquirer from "enquirer";
@@ -44,7 +45,7 @@ const generateEnquirer = async (): Promise<ClearOptions> => {
   });
   const result = await enquirer.prompt<ClearOptions>([
     {
-      name: "paths",
+      name: "files",
       type: "multiselect",
       message: "请选择需要清理的文件/夹",
       choices: fileMultiChoices,
@@ -84,7 +85,10 @@ export default function clearInstaller(cli: CAC) {
                 ? [options.pattern]
                 : options.pattern;
           }
+          const start = performance.now();
           await clear(paths);
+          const getTime = () => `${(performance.now() - start).toFixed(2)}ms`;
+          loggerInfo(`😁 clear 命令执行结束, 共用时: ${getTime()}`);
         });
     },
   };
