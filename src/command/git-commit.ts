@@ -1,8 +1,10 @@
+import { performance } from "node:perf_hooks";
+
 import type { CAC } from "cac";
 import enquirer from "enquirer";
 
 import { ACTIVATION, gitCommitScopes, gitCommitTypes } from "@/config";
-import { execCommand, loadConfigModule, loggerInfo } from "@/helper";
+import { execCommand, loadConfigModule, loggerInfo, printInfo } from "@/helper";
 import { GitCommitOptions } from "@/types";
 
 const mergeConfig = async () => {
@@ -103,6 +105,8 @@ export default function gitCommitInstaller(cli: CAC) {
         .option("-s, --scope <scope>", "填写修改范围")
         .option("-d, --description <description>", "填写修改描述")
         .action(async (options) => {
+          const start = performance.now();
+
           const { type, scope, description } = options;
           if (!type || !scope || !description) {
             const result = await generateEnquirer();
@@ -110,6 +114,8 @@ export default function gitCommitInstaller(cli: CAC) {
           } else {
             await gitCommit(type, scope, description);
           }
+          const getTime = () => `${(performance.now() - start).toFixed(2)}ms`;
+          printInfo(`😁 commit 命令执行结束, 共用时: ${getTime()}`);
         });
     },
   };
