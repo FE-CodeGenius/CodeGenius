@@ -379,5 +379,6 @@ export async function loadConfigModule(): Promise<
   }
 
   if (!resolvedPath) return;
-  return (await import(pathToFileURL(resolvedPath).href)).default;
+  const moduleURL = pathToFileURL(resolvedPath).href;
+  return (await import(moduleURL)).default;
 }

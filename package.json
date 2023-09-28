@@ -71,7 +71,8 @@
     "release-it": "^16.1.5",
     "simple-git-hooks": "^2.9.0",
     "typescript": "^5.1.6",
-    "unbuild": "^2.0.0-rc.0"
+    "unbuild": "^2.0.0-rc.0",
+    "code-genius": "./dist"
   },
   "dependencies": {
     "boxen": "^7.1.1",

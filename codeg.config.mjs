@@ -1,3 +1,4 @@
+// 开发期间使用
 import { defineConfig } from "./dist/index.mjs";
 
 export default defineConfig({
