@@ -134,96 +134,6 @@ export const printError = (content: string | unknown) => {
   );
 };
 
-/**
- * 根据后缀列表过滤获取合法的文件列表
- * @param fileList
- * @param suffixes
- * @returns
- */
-export function getFiilesBySuffixes(
-  fileList: string[],
-  suffixes: string[],
-): string[] {
-  const paths: string[] = [];
-
-  for (let i = 0; i < fileList.length; i++) {
-    const file = fileList[i];
-
-    for (let j = 0; j < suffixes.length; j++) {
-      const extension = suffixes[j];
-
-      if (file.endsWith(extension)) {
-        paths.push(file);
-        break;
-      }
-    }
-  }
-  return paths;
-}
-
-/**
- * 获取目录列表下所有的文件列表
- *
- * @param paths
- * @returns
- */
-export function getEveryFiles(paths: string[]): string[] {
-  const fileList: string[] = [];
-  function traverseDirectory(dirPath: string) {
-    const files = fs.readdirSync(dirPath);
-
-    files.forEach((file) => {
-      const filePath = path.join(dirPath, file);
-      const stat = fs.statSync(filePath);
-
-      if (stat.isDirectory()) {
-        traverseDirectory(filePath);
-      } else {
-        fileList.push(filePath);
-      }
-    });
-  }
-
-  paths.forEach((dirPath) => {
-    traverseDirectory(dirPath);
-  });
-
-  return Array.from(new Set(fileList));
-}
-
-/**
- * 获取指定目录后暂存区所有符合给定后缀的文件列表
- * @param cwd
- * @param staged
- * @param paths
- * @param suffix
- * @returns
- */
-export const getEveryFilesBySuffixes = async (
-  cwd: string,
-  staged: boolean,
-  paths: string[],
-  suffix: string[],
-) => {
-  let files: string[] = [];
-  if (staged) {
-    const result = await execCommand("git", [
-      "diff",
-      "--name-only",
-      "--diff-filter=d",
-      "--cached",
-    ]);
-    files = result?.split("\n").map((path: string) => `${cwd}/${path}`) || [];
-  } else {
-    files = getEveryFiles(paths.map((path) => `${cwd}/${path}`));
-  }
-  return getFiilesBySuffixes(files, suffix);
-};
-
-export function formatTargetDir(targetDir: string | undefined) {
-  return targetDir?.trim().replace(/\/+$/g, "");
-}
-
 export function isValidPackageName(projectName: string) {
   return /^(?:@[a-z0-9-*~][a-z0-9-*._~]*\/)?[a-z0-9-~][a-z0-9-._~]*$/.test(
     projectName,
@@ -284,6 +194,11 @@ export function isValidVariant(framework: string) {
   return variants.length > 0;
 }
 
+/**
+ * 生成随机串
+ * @param length
+ * @returns
+ */
 export function generateRandom(length: number) {
   let result = "";
   const characters =
@@ -295,9 +210,19 @@ export function generateRandom(length: number) {
   return result;
 }
 
+/**
+ * 用户配置工厂函数
+ * @param config
+ * @returns
+ */
 export const defineConfig = (config: CodeGeniusOptions): CodeGeniusOptions =>
   config;
 
+/**
+ * 用于循环注册指令
+ * @param cli
+ * @param config
+ */
 export async function cmdInstaller(cli: CAC, config: CodeGeniusOptions) {
   const { plugins } = config;
   if (plugins) {
@@ -307,6 +232,11 @@ export async function cmdInstaller(cli: CAC, config: CodeGeniusOptions) {
   }
 }
 
+/**
+ * 用于转换 scripts 结构
+ * @param scripts
+ * @returns
+ */
 export function genScriptConfig(scripts: { [key: string]: string }) {
   return Object.keys(scripts).map((key) => {
     return {
@@ -317,6 +247,12 @@ export function genScriptConfig(scripts: { [key: string]: string }) {
   });
 }
 
+/**
+ * 用于合并两份 scripts.config.json 数据
+ * @param pkgScripts
+ * @param configScripts
+ * @returns
+ */
 export function syncScripts(
   pkgScripts: Array<CommandOptions>,
   configScripts: Array<CommandOptions>,
@@ -337,13 +273,16 @@ export function syncScripts(
     }
   }
 
-  const syncScripts = mergedScripts.filter((configScript) => {
+  const scripts = mergedScripts.filter((configScript) => {
     return pkgScripts.find((i) => i.cmd === configScript.cmd);
   });
 
-  return syncScripts;
+  return scripts;
 }
 
+/**
+ * 读取 package.json 解析并生成 scripts.config.json 配置文件
+ */
 export const generateScripts = async () => {
   const pkg = await fsExtra.readJSONSync(
     path.join(process.cwd(), "package.json"),
@@ -367,6 +306,9 @@ export const generateScripts = async () => {
   printInfo("代理脚本 scripts.config.json 已完成同步");
 };
 
+/**
+ * 动态加载用户配置文件
+ */
 export async function loadConfigModule(): Promise<
   CodeGeniusOptions | undefined
 > {

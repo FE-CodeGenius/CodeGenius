@@ -1,9 +1,6 @@
 import type { CAC } from "cac";
 
 export type ColorFunc = (str: string | number) => string;
-export interface CommandSet {
-  [key: string]: (cli: CAC) => void;
-}
 
 export interface CommitType {
   emoji: string;
@@ -57,45 +54,6 @@ export interface GitUserOptions {
 export interface CommitOptions {
   gitCommitTypes?: Array<CommitType>;
   gitCommitScopes?: Array<CommitScope>;
-}
-
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface VerifyOptions {
-  // TODO
-}
-
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface HooksOptions {
-  // TODO
-}
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface DepcheckOptions {
-  // TODO
-}
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface RegistryOptions {
-  // TODO
-}
-
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface TemplateOptions {
-  // TODO
-}
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface FixOptions {
-  // TODO
-}
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface FormatOptions {
-  // TODO
-}
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface ImpsortOptions {
-  // TODO
-}
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface ScriptOptions {
-  // TODO
 }
 
 export interface CodeGeniusOptions {
