@@ -5,7 +5,8 @@
     "cross-env",
     "simple-git-hooks",
     "typescript",
-    "eslint-plugin-simple-import-sort"
+    "eslint-plugin-simple-import-sort",
+    "code-genius"
   ],
   "skip-missing": false
 }
