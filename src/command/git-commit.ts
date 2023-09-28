@@ -72,11 +72,25 @@ const generateEnquirer = async (): Promise<
   };
 };
 
-export const gitCommit = async (content: string) => {
+export const gitCommit = async (
+  type: string,
+  scope: string,
+  description: string,
+) => {
   if (ACTIVATION) {
-    loggerInfo(`gitCommit 参数信息: \n${JSON.stringify(content)}`);
+    loggerInfo(
+      `gitCommit 参数信息: \n${JSON.stringify({
+        type,
+        scope,
+        description,
+      })}`,
+    );
   }
-  await execCommand("git", ["commit", "-m", content], { stdio: "inherit" });
+  await execCommand(
+    "git",
+    ["commit", "-m", `${type}(${scope}): ${description}`],
+    { stdio: "inherit" },
+  );
 };
 
 export default function gitCommitInstaller(cli: CAC) {
@@ -90,14 +104,12 @@ export default function gitCommitInstaller(cli: CAC) {
         .option("-d, --description <description>", "填写修改描述")
         .action(async (options) => {
           const { type, scope, description } = options;
-          let content = "";
           if (!type || !scope || !description) {
             const result = await generateEnquirer();
-            content = `${result.type}(${result.scope}): ${result.description}`;
+            await gitCommit(result.type, result.scope, result.description);
           } else {
-            content = `${type}(${scope}): ${description}`;
+            await gitCommit(type, scope, description);
           }
-          await gitCommit(content);
         });
     },
   };
