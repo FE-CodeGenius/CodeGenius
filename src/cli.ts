@@ -1,14 +1,14 @@
 import cac from "cac";
 
 import { cmdInstaller, handleError } from "@/helper";
-import { config } from "@/index";
+import { plugins } from "@/index";
 
 import pkg from "../package.json";
 
 const setupCli = async () => {
   const cli = cac("codeg");
 
-  cmdInstaller(cli, config);
+  await cmdInstaller(cli, plugins);
 
   cli.help();
   cli.version(pkg.version);

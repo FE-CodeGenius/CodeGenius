@@ -1,10 +1,11 @@
 import type { CAC } from "cac";
 
 import { ACTIVATION, formatGlob } from "@/config";
-import { execCommand, loadConfigModule, loggerInfo } from "@/helper";
+import { execCommand, loggerInfo } from "@/helper";
 
-const mergeConfig = async () => {
-  const config = await loadConfigModule();
+import { CodeGeniusOptions } from "./../types";
+
+const mergeConfig = async (config: CodeGeniusOptions) => {
   const commands = config && config?.commands;
   if (commands && commands.format) {
     const { paths } = commands.format;
@@ -27,7 +28,10 @@ export const prettierFormat = async (paths: string[]) => {
   });
 };
 
-export default function prettierFormatInstaller(cli: CAC) {
+export default function prettierFormatInstaller(
+  cli: CAC,
+  config: CodeGeniusOptions,
+) {
   return {
     name: "prettierFormatInstaller",
     setup: () => {
@@ -35,7 +39,7 @@ export default function prettierFormatInstaller(cli: CAC) {
         .command("format", "运行 prettier 格式化代码风格")
         .option("-p, --pattern <pattern>", "设置匹配规则")
         .action(async (options) => {
-          const { paths } = await mergeConfig();
+          const { paths } = await mergeConfig(config);
           const { pattern } = options;
           if (pattern) {
             await prettierFormat(

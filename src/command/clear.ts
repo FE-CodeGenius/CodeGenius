@@ -6,11 +6,10 @@ import enquirer from "enquirer";
 import fs from "fs-extra";
 
 import { ACTIVATION, clearGlob } from "@/config";
-import { execCommand, loadConfigModule, loggerInfo, printInfo } from "@/helper";
-import { ClearOptions } from "@/types";
+import { execCommand, loggerInfo, printInfo } from "@/helper";
+import { ClearOptions, CodeGeniusOptions } from "@/types";
 
-const mergeConfig = async () => {
-  const config = await loadConfigModule();
+const mergeConfig = async (config: CodeGeniusOptions) => {
   const commands = config && config?.commands;
   if (commands && commands.clear) {
     const { files } = commands.clear;
@@ -23,7 +22,9 @@ const mergeConfig = async () => {
   };
 };
 
-const generateEnquirer = async (): Promise<ClearOptions> => {
+const generateEnquirer = async (
+  config: CodeGeniusOptions,
+): Promise<ClearOptions> => {
   const files = fs
     .readdirSync(path.join(process.cwd(), "."))
     .filter((v) => !v.startsWith("."))
@@ -35,7 +36,7 @@ const generateEnquirer = async (): Promise<ClearOptions> => {
     });
   files.sort((v1, v2) => v1.sort - v2.sort);
 
-  const { paths } = await mergeConfig();
+  const { paths } = await mergeConfig(config);
   const fileMultiChoices = files.map((v) => {
     return {
       name: `./${v.file}`,
@@ -66,7 +67,7 @@ export const clear = async (paths: string[]) => {
   printInfo("清理结束");
 };
 
-export default function clearInstaller(cli: CAC) {
+export default function clearInstaller(cli: CAC, config: CodeGeniusOptions) {
   return {
     name: "clearInstaller",
     setup: () => {
@@ -77,7 +78,7 @@ export default function clearInstaller(cli: CAC) {
           const { pattern } = options;
           let paths = [];
           if (!pattern) {
-            const result = await generateEnquirer();
+            const result = await generateEnquirer(config);
             paths = result.files;
           } else {
             paths =

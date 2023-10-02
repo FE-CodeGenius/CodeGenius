@@ -29,34 +29,33 @@ import scriptRunInstaller from "@/command/script";
 import templateInstaller, { template } from "@/command/template";
 import { defineConfig } from "@/helper";
 
-const config = defineConfig({
-  plugins: [
-    rootInstaller,
-    gitCommitInstaller,
-    gitCommitVerifyInstaller,
-    gitUserInstaller,
-    gitInitSimpleHooksInstaller,
-    npmRegistryInstaller,
-    clearInstaller,
-    npmDepCheckInstaller,
-    eslintFixInstaller,
-    impSortInstaller,
-    prettierFormatInstaller,
-    createProjectInstaller,
-    templateInstaller,
-    lighthouseInstaller,
-    quantityInstaller,
-    scriptRunInstaller,
-  ],
-});
+import { Plugins } from "./types";
 
-export { config, defineConfig };
+export const plugins = [
+  rootInstaller,
+  gitCommitInstaller,
+  gitCommitVerifyInstaller,
+  gitUserInstaller,
+  gitInitSimpleHooksInstaller,
+  npmRegistryInstaller,
+  clearInstaller,
+  npmDepCheckInstaller,
+  eslintFixInstaller,
+  impSortInstaller,
+  prettierFormatInstaller,
+  createProjectInstaller,
+  templateInstaller,
+  lighthouseInstaller,
+  quantityInstaller,
+  scriptRunInstaller,
+] as Plugins;
 
 export {
   checkGitUserEmail,
   checkGitUserName,
   clear,
   createProject,
+  defineConfig,
   eslintFix,
   gitCommit,
   gitCommitVerify,

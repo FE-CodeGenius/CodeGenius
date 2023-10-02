@@ -6,11 +6,12 @@ import { ESLint } from "eslint";
 import fs from "fs-extra";
 
 import { ACTIVATION, impSortGlob } from "@/config";
-import { loadConfigModule, loggerInfo, printError, printInfo } from "@/helper";
+import { loggerInfo, printError, printInfo } from "@/helper";
 import { ImpSortOptions } from "@/types";
 
-const mergeConfig = async () => {
-  const config = await loadConfigModule();
+import { CodeGeniusOptions } from "./../types";
+
+const mergeConfig = async (config: CodeGeniusOptions) => {
   const commands = config && config?.commands;
   if (commands && commands.impsort) {
     const { paths } = commands.impsort;
@@ -23,7 +24,9 @@ const mergeConfig = async () => {
   };
 };
 
-const generateEnquirer = async (): Promise<ImpSortOptions> => {
+const generateEnquirer = async (
+  config: CodeGeniusOptions,
+): Promise<ImpSortOptions> => {
   const files = fs
     .readdirSync(path.join(process.cwd(), "."))
     .filter((v) => !v.startsWith("."))
@@ -34,7 +37,7 @@ const generateEnquirer = async (): Promise<ImpSortOptions> => {
       };
     });
   files.sort((v1, v2) => v1.sort - v2.sort);
-  const { paths } = await mergeConfig();
+  const { paths } = await mergeConfig(config);
   const fileMultiChoices = files.map((v) => {
     return {
       name: `./${v.file}`,
@@ -82,7 +85,7 @@ export const impSort = async (paths: string[]) => {
   }
 };
 
-export default function impSortInstaller(cli: CAC) {
+export default function impSortInstaller(cli: CAC, config: CodeGeniusOptions) {
   return {
     name: "impSortInstaller",
     setup: () => {
@@ -93,7 +96,7 @@ export default function impSortInstaller(cli: CAC) {
           const { pattern } = options;
           let paths = [];
           if (!pattern) {
-            const result = await generateEnquirer();
+            const result = await generateEnquirer(config);
             paths = result.files;
           } else {
             paths =

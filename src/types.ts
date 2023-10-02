@@ -56,13 +56,17 @@ export interface CommitOptions {
   gitCommitScopes?: Array<CommitScope>;
 }
 
+export type Plugins = Array<
+  (
+    cli: CAC,
+    config: CodeGeniusOptions | undefined,
+  ) => {
+    name: string;
+    setup: () => void;
+  }
+>;
+
 export interface CodeGeniusOptions {
-  plugins?: Array<
-    (cli: CAC) => {
-      name: string;
-      setup: () => void;
-    }
-  >;
   commands?: {
     commit?: CommitOptions;
     clear?: ClearOptions;

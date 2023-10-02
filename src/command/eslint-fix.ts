@@ -3,15 +3,15 @@ import type { CAC } from "cac";
 import { ACTIVATION, eslintGlob } from "@/config";
 import {
   execCommand,
-  loadConfigModule,
   loggerError,
   loggerInfo,
   printError,
   printInfo,
 } from "@/helper";
 
-const mergeConfig = async () => {
-  const config = await loadConfigModule();
+import { CodeGeniusOptions } from "./../types";
+
+const mergeConfig = async (config: CodeGeniusOptions) => {
   const commands = config && config?.commands;
   if (commands && commands.fix) {
     const { paths } = commands.fix;
@@ -41,7 +41,10 @@ export const eslintFix = async (paths: string[]) => {
   }
 };
 
-export default function eslintFixInstaller(cli: CAC) {
+export default function eslintFixInstaller(
+  cli: CAC,
+  config: CodeGeniusOptions,
+) {
   return {
     name: "eslintFixInstaller",
     setup: () => {
@@ -51,7 +54,7 @@ export default function eslintFixInstaller(cli: CAC) {
           default: [...eslintGlob],
         })
         .action(async (options) => {
-          const { paths } = await mergeConfig();
+          const { paths } = await mergeConfig(config);
           const { pattern } = options;
           if (pattern) {
             await eslintFix(typeof pattern === "string" ? [pattern] : pattern);

@@ -3,15 +3,15 @@ import type { CAC } from "cac";
 import { ACTIVATION, gitUserOptions } from "@/config";
 import {
   execCommand,
-  loadConfigModule,
   loggerInfo,
   printError,
   printInfo,
   printWarring,
 } from "@/helper";
 
-const mergeConfig = async () => {
-  const config = await loadConfigModule();
+import { CodeGeniusOptions } from "./../types";
+
+const mergeConfig = async (config: CodeGeniusOptions) => {
   const commands = config && config?.commands;
   if (commands && commands.gituser) {
     const { ruleName, ruleEmail } = commands.gituser;
@@ -104,7 +104,7 @@ export async function checkGitUserEmail(ruleEmail: string) {
   }
 }
 
-export default function gitUserInstaller(cli: CAC) {
+export default function gitUserInstaller(cli: CAC, config: CodeGeniusOptions) {
   return {
     name: "gitUserInstaller",
     setup: () => {
@@ -117,7 +117,7 @@ export default function gitUserInstaller(cli: CAC) {
         .option("--rule-name <regexp>", "设置 user.name 匹配规则(转义字符串)")
         .option("--rule-email <regexp>", "设置 user.email 匹配规则(转义字符串)")
         .action(async (options) => {
-          const { ruleName, ruleEmail } = await mergeConfig();
+          const { ruleName, ruleEmail } = await mergeConfig(config);
           const { name, email, ruleName: rName, ruleEmail: rEmail } = options;
           if (!name && !email) {
             await checkGitUserName(ruleName || rName);

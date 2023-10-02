@@ -17,7 +17,7 @@ import {
   TEMPLATES,
 } from "@/config";
 
-import { CodeGeniusOptions, CommandOptions } from "./types";
+import { CodeGeniusOptions, CommandOptions, Plugins } from "./types";
 
 const boxenBorderStyle = {
   padding: 1,
@@ -223,12 +223,10 @@ export const defineConfig = (config: CodeGeniusOptions): CodeGeniusOptions =>
  * @param cli
  * @param config
  */
-export async function cmdInstaller(cli: CAC, config: CodeGeniusOptions) {
-  const { plugins } = config;
-  if (plugins) {
-    for (const plugin of plugins) {
-      plugin(cli).setup();
-    }
+export async function cmdInstaller(cli: CAC, plugins: Plugins) {
+  const userConfig = await loadConfigModule();
+  for (const plugin of plugins) {
+    plugin(cli, userConfig).setup();
   }
 }
 
