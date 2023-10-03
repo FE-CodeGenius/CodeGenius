@@ -3,12 +3,11 @@ import path from "node:path";
 import process from "node:process";
 import { pathToFileURL } from "node:url";
 
-import boxen from "boxen";
 import { CAC } from "cac";
 import type { Options } from "execa";
 import execa from "execa";
 import fsExtra from "fs-extra";
-import { gray, green, red, yellow } from "kolorist";
+import { bgYellow, gray, green, red, yellow } from "kolorist";
 
 import {
   ACTIVATION,
@@ -18,21 +17,6 @@ import {
 } from "@/config";
 
 import { CodeGeniusOptions, CommandOptions, Plugins } from "./types";
-
-const boxenBorderStyle = {
-  padding: 1,
-  margin: 1,
-  borderStyle: {
-    topLeft: "+",
-    topRight: "+",
-    bottomLeft: "+",
-    bottomRight: "+",
-    top: "-",
-    bottom: "-",
-    left: "|",
-    right: "|",
-  },
-};
 
 export const execCommand = async (
   cmd: string,
@@ -50,88 +34,42 @@ export function handleError(error: unknown) {
 
 export const loggerInfo = (content: string) => {
   if (ACTIVATION) {
-    console.log(
-      boxen(gray(content as string), {
-        title: "CODEG INFO HINT:",
-        borderColor: "gray",
-        ...boxenBorderStyle,
-      }),
-    );
+    console.log(bgYellow("CODEG INFO HINT:"), gray(content as string));
   }
 };
 
 export const loggerWarring = (content: string | unknown) => {
   if (ACTIVATION) {
-    console.log(
-      boxen(yellow(content as string), {
-        title: "CODEG WARRING HINT:",
-        borderColor: "yellow",
-        ...boxenBorderStyle,
-      }),
-    );
+    console.log(bgYellow("CODEG WARRING HINT:"), yellow(content as string));
   }
 };
 
 export const loggerSuccess = (content: string) => {
   if (ACTIVATION) {
-    console.log(
-      boxen(green(content as string), {
-        title: "CODEG SUCCESS HINT:",
-        borderColor: "green",
-        ...boxenBorderStyle,
-      }),
-    );
+    console.log(bgYellow("CODEG SUCCESS HINT:"), green(content as string));
   }
 };
 
 export const loggerError = (content: string | unknown) => {
   if (ACTIVATION) {
-    boxen(red(content as string), {
-      title: "CODEG ERROR HINT:",
-      borderColor: "red",
-      ...boxenBorderStyle,
-    });
+    console.log(bgYellow("CODEG ERROR HINT:"), red(content as string));
   }
 };
 
 export const printInfo = (content: string) => {
-  console.log(
-    boxen(gray(content as string), {
-      title: "CODEG INFO HINT:",
-      borderColor: "gray",
-      ...boxenBorderStyle,
-    }),
-  );
+  console.log(bgYellow("CODEG INFO HINT:"), gray(content as string));
 };
 
 export const printWarring = (content: string) => {
-  console.log(
-    boxen(yellow(content as string), {
-      title: "CODEG WARRING HINT:",
-      borderColor: "yellow",
-      ...boxenBorderStyle,
-    }),
-  );
+  console.log(bgYellow("CODEG WARRING HINT:"), yellow(content as string));
 };
 
 export const printSuccess = (content: string) => {
-  console.log(
-    boxen(green(content as string), {
-      title: "CODEG SUCCESS HINT:",
-      borderColor: "green",
-      ...boxenBorderStyle,
-    }),
-  );
+  console.log(bgYellow("CODEG SUCCESS HINT:"), green(content as string));
 };
 
 export const printError = (content: string | unknown) => {
-  console.log(
-    boxen(red(content as string), {
-      title: "CODEG ERROR HINT:",
-      borderColor: "red",
-      ...boxenBorderStyle,
-    }),
-  );
+  console.log(bgYellow("CODEG ERROR HINT:"), red(content as string));
 };
 
 export function isValidPackageName(projectName: string) {
