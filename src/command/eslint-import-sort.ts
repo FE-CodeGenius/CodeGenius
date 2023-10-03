@@ -1,5 +1,7 @@
 import path from "node:path";
+import { performance } from "node:perf_hooks";
 
+import Ajv from "ajv";
 import type { CAC } from "cac";
 import enquirer from "enquirer";
 import { ESLint } from "eslint";
@@ -10,6 +12,14 @@ import { loggerInfo, printError, printInfo } from "@/helper";
 import { ImpSortOptions } from "@/types";
 
 import { CodeGeniusOptions } from "./../types";
+
+const schema = {
+  type: "object",
+  properties: {
+    paths: { type: "array" },
+  },
+  required: ["paths"],
+};
 
 const mergeConfig = async (config: CodeGeniusOptions) => {
   const commands = config && config?.commands;
@@ -63,6 +73,15 @@ export const impSort = async (paths: string[]) => {
     loggerInfo(`impSort 参数信息: \n ${JSON.stringify(paths)}`);
   }
 
+  const ajv = new Ajv();
+  const validate = ajv.compile(schema);
+  const valid = validate({
+    paths,
+  });
+  if (!valid && validate.errors && validate.errors?.length > 0) {
+    throw new Error(validate.errors[0].message);
+  }
+
   const eslint = new ESLint({
     fix: true,
     overrideConfig: {
@@ -92,19 +111,20 @@ export default function impSortInstaller(cli: CAC, config: CodeGeniusOptions) {
       cli
         .command("impsort", "运行 eslint 对模块导入进行分组&按字母排序")
         .option("-p, --pattern <pattern>", "设置匹配规则")
+        .option("-a, --ask", "启用询问模式")
         .action(async (options) => {
-          const { pattern } = options;
+          const { pattern, ask } = options;
           let paths = [];
-          if (!pattern) {
+          if (ask) {
             const result = await generateEnquirer(config);
             paths = result.files;
           } else {
-            paths =
-              typeof options.pattern === "string"
-                ? [options.pattern]
-                : options.pattern;
+            paths = typeof pattern === "string" ? [pattern] : pattern;
           }
+          const start = performance.now();
           await impSort(paths);
+          const getTime = () => `${(performance.now() - start).toFixed(2)}ms`;
+          loggerInfo(`😁 impsort 命令执行结束, 共用时: ${getTime()}`);
         });
     },
   };

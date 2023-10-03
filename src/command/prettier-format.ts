@@ -1,3 +1,5 @@
+import { performance } from "node:perf_hooks";
+
 import type { CAC } from "cac";
 
 import { ACTIVATION, formatGlob } from "@/config";
@@ -41,6 +43,7 @@ export default function prettierFormatInstaller(
         .action(async (options) => {
           const { paths } = await mergeConfig(config);
           const { pattern } = options;
+          const start = performance.now();
           if (pattern) {
             await prettierFormat(
               typeof pattern === "string" ? [pattern] : pattern,
@@ -48,6 +51,8 @@ export default function prettierFormatInstaller(
           } else {
             await prettierFormat(paths);
           }
+          const getTime = () => `${(performance.now() - start).toFixed(2)}ms`;
+          loggerInfo(`😁 format 命令执行结束, 共用时: ${getTime()}`);
         });
     },
   };

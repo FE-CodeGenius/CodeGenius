@@ -201,7 +201,7 @@ export const gitUserOptions: GitUserOptions = {
 
 export const commands = [
   {
-    command: "commit",
+    command: "commit --ask",
     description: "生成 angualr 规范的提交信息",
   },
   {
@@ -217,11 +217,11 @@ export const commands = [
     description: "新增或修改 simple-git-hooks 配置后需要重新初始化",
   },
   {
-    command: "registry",
+    command: "registry --ask",
     description: "切换 NPM 镜像地址",
   },
   {
-    command: "clear",
+    command: "clear --ask",
     description: "运行 rimraf 删除不再需要的文件或文件夹",
   },
   {
@@ -233,7 +233,7 @@ export const commands = [
     description: "运行 eslint 静态扫描和修复代码中存在的问题",
   },
   {
-    command: "impsort",
+    command: "impsort --ask",
     description: "运行 eslint 对模块导入进行分组&按字母排序",
   },
   {

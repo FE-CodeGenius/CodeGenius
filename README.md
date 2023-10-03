@@ -142,6 +142,7 @@ codeg clear -p ./dist -p ./node_modules
 | 选项                      | 描述         |
 | ------------------------- | ------------ |
 | -p, --pattern \<pattern\> | 设置匹配规则 |
+| -a, --ask                 | 启用询问模式 |
 
 ### 询问模式
 
@@ -236,6 +237,10 @@ import { npmDepCheck } from "code-genius";
 # 设置 npm 官方源
 codeg registry -u https://registry.npmjs.org/
 ```
+
+| 选项      | 描述         |
+| --------- | ------------ |
+| -a, --ask | 启用询问模式 |
 
 ### 询问模式
 
@@ -461,6 +466,7 @@ codeg impsort -p ./src -p ./components
 | 选项                      | 描述         |
 | ------------------------- | ------------ |
 | -p, --pattern \<pattern\> | 设置匹配规则 |
+| -a, --ask                 | 启用询问模式 |
 
 ### 询问模式
 

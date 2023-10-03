@@ -1,6 +1,7 @@
 import path from "node:path";
 import { performance } from "node:perf_hooks";
 
+import Ajv from "ajv";
 import type { CAC } from "cac";
 import enquirer from "enquirer";
 import fs from "fs-extra";
@@ -8,6 +9,14 @@ import fs from "fs-extra";
 import { ACTIVATION, clearGlob } from "@/config";
 import { execCommand, loggerInfo, printInfo } from "@/helper";
 import { ClearOptions, CodeGeniusOptions } from "@/types";
+
+const schema = {
+  type: "object",
+  properties: {
+    paths: { type: "array" },
+  },
+  required: ["paths"],
+};
 
 const mergeConfig = async (config: CodeGeniusOptions) => {
   const commands = config && config?.commands;
@@ -61,6 +70,16 @@ export const clear = async (paths: string[]) => {
   if (ACTIVATION) {
     loggerInfo(`clear 参数信息: \n ${JSON.stringify(paths)}`);
   }
+
+  const ajv = new Ajv();
+  const validate = ajv.compile(schema);
+  const valid = validate({
+    paths,
+  });
+  if (!valid && validate.errors && validate.errors?.length > 0) {
+    throw new Error(validate.errors[0].message);
+  }
+
   await execCommand("npx", ["rimraf", "--glob", ...paths], {
     stdio: "inherit",
   });
@@ -74,17 +93,15 @@ export default function clearInstaller(cli: CAC, config: CodeGeniusOptions) {
       cli
         .command("clear", "运行 rimraf 删除不再需要的文件或文件夹")
         .option("-p, --pattern <pattern>", "设置匹配规则")
+        .option("-a, --ask", "启用询问模式")
         .action(async (options) => {
-          const { pattern } = options;
+          const { pattern, ask } = options;
           let paths = [];
-          if (!pattern) {
+          if (ask) {
             const result = await generateEnquirer(config);
             paths = result.files;
           } else {
-            paths =
-              typeof options.pattern === "string"
-                ? [options.pattern]
-                : options.pattern;
+            paths = typeof pattern === "string" ? [pattern] : pattern;
           }
           const start = performance.now();
           await clear(paths);

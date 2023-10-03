@@ -1,9 +1,18 @@
+import Ajv from "ajv";
 import type { CAC } from "cac";
 import enquirer from "enquirer";
 
 import { ACTIVATION, npmRegisters } from "@/config";
 import { execCommand, loggerInfo, printInfo, printWarring } from "@/helper";
 import { RegistryOptions } from "@/types";
+
+const schema = {
+  type: "object",
+  properties: {
+    registry: { type: "string" },
+  },
+  required: ["registry"],
+};
 
 const printCurrentRegistry = async (isBefore = true) => {
   printInfo(`${isBefore ? "当前" : "最新"} NPM 镜像地址（全局）：`);
@@ -46,6 +55,16 @@ export const npmRegistry = async (registry: string) => {
   if (ACTIVATION) {
     loggerInfo(`npmRegistry 参数信息: \n ${JSON.stringify(registry)}`);
   }
+
+  const ajv = new Ajv();
+  const validate = ajv.compile(schema);
+  const valid = validate({
+    registry,
+  });
+  if (!valid && validate.errors && validate.errors?.length > 0) {
+    throw new Error(validate.errors[0].message);
+  }
+
   await execCommand("npm", ["config", "set", "registry", registry], {
     stdio: "inherit",
   });
@@ -59,10 +78,11 @@ export default function npmRegistryInstaller(cli: CAC) {
       cli
         .command("registry", "切换 NPM 镜像地址")
         .option("-u, --url <url>", "镜像地址")
+        .option("-a, --ask", "启用询问模式")
         .action(async (options) => {
-          const { url } = options;
+          const { url, ask } = options;
           let registryUrl = "";
-          if (!url) {
+          if (ask) {
             const result = await generateEnquirer();
             registryUrl = result.url;
           } else {
