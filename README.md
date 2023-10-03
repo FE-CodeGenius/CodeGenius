@@ -148,7 +148,7 @@ codeg clear -p ./dist -p ./node_modules
 
 ```bash
 # 启动询问模式
-codeg clear
+codeg clear --ask
 ```
 
 ```
@@ -246,7 +246,7 @@ codeg registry -u https://registry.npmjs.org/
 
 ```bash
 # 启动询问模式
-codeg registry
+codeg registry --ask
 ```
 
 ```
@@ -472,7 +472,7 @@ codeg impsort -p ./src -p ./components
 
 ```bash
 # 启动询问模式
-codeg impsort
+codeg impsort --ask
 ```
 
 ```
