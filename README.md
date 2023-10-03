@@ -43,12 +43,13 @@ codeg commit -t fix -s feat -d 修复xx功能的xxBug
 | -t, --type \<type\>               | 添加修改类型 |
 | -s, --scope \<scope\>             | 填写修改范围 |
 | -d, --description \<description\> | 填写修改描述 |
+| -a, --ask                         | 启用询问模式 |
 
 ### 询问模式
 
 ```bash
 # 启动询问模式
-codeg commit
+codeg commit --ask
 ```
 
 ```
@@ -419,6 +420,7 @@ codeg format
 # 格式化 src 和 components 文件夹下的文件
 codeg format -p ./src -p ./components
 ```
+
 | 选项                      | 描述         |
 | ------------------------- | ------------ |
 | -p, --pattern \<pattern\> | 设置匹配规则 |

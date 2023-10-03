@@ -28,7 +28,7 @@ export const root = async () => {
       choices: commandChoices,
     },
   ]);
-  await execCommand("codeg", [result.command], { stdio: "inherit" });
+  await execCommand("codeg", [result.command, "--ask"], { stdio: "inherit" });
 };
 
 export default function rootInstaller(cli: CAC) {

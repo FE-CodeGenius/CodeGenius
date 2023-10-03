@@ -1,11 +1,20 @@
-import { performance } from "node:perf_hooks";
-
+import Ajv from "ajv";
 import type { CAC } from "cac";
 import enquirer from "enquirer";
 
 import { ACTIVATION, gitCommitScopes, gitCommitTypes } from "@/config";
 import { execCommand, loadConfigModule, loggerInfo } from "@/helper";
 import { GitCommitOptions } from "@/types";
+
+const schema = {
+  type: "object",
+  properties: {
+    type: { type: "string" },
+    scope: { type: "string" },
+    description: { type: "string" },
+  },
+  required: ["type", "scope", "description"],
+};
 
 const mergeConfig = async () => {
   const config = await loadConfigModule();
@@ -60,6 +69,7 @@ const generateEnquirer = async (): Promise<
       name: "description",
       type: "text",
       message: "请输入提交描述",
+      required: true,
     },
     {
       name: "emoji",
@@ -88,6 +98,17 @@ export const gitCommit = async (
       })}`,
     );
   }
+
+  const ajv = new Ajv();
+  const validate = ajv.compile(schema);
+  const valid = validate({
+    type,
+    scope,
+    description,
+  });
+  if (!valid && validate.errors && validate.errors?.length > 0) {
+    throw new Error(validate.errors[0].message);
+  }
   await execCommand(
     "git",
     ["commit", "-m", `${type}(${scope}): ${description}`],
@@ -104,18 +125,15 @@ export default function gitCommitInstaller(cli: CAC) {
         .option("-t, --type <type>", "添加修改类型")
         .option("-s, --scope <scope>", "填写修改范围")
         .option("-d, --description <description>", "填写修改描述")
+        .option("-a, --ask", "启用询问模式")
         .action(async (options) => {
-          const start = performance.now();
-
-          const { type, scope, description } = options;
-          if (!type || !scope || !description) {
+          const { type, scope, description, ask } = options;
+          if (ask) {
             const result = await generateEnquirer();
             await gitCommit(result.type, result.scope, result.description);
           } else {
             await gitCommit(type, scope, description);
           }
-          const getTime = () => `${(performance.now() - start).toFixed(2)}ms`;
-          loggerInfo(`😁 commit 命令执行结束, 共用时: ${getTime()}`);
         });
     },
   };
