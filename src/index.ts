@@ -82,4 +82,4 @@ export {
   template,
 };
 
-export { execCommand, loggerError, loggerInfo, printError,printInfo };
+export { execCommand, loggerError, loggerInfo, printError, printInfo };
