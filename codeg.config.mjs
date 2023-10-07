@@ -3,6 +3,7 @@ import { defineConfig } from "./dist/index.mjs";
 import { clearInstaller } from "@codegenius/clear-plugin";
 import { quantityInstaller } from "@codegenius/quantity-plugin";
 import { npmDepCheckInstaller } from "@codegenius/depcheck-plugin";
+import { lighthouseInstaller } from "@codegenius/lighthouse-plugin";
 
 export default defineConfig({
   commands: {
@@ -25,5 +26,6 @@ export default defineConfig({
     }),
     quantityInstaller(),
     npmDepCheckInstaller(),
+    lighthouseInstaller(),
   ],
 });

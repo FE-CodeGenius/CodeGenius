@@ -16,7 +16,6 @@ import gitUserInstaller, {
   setGitUserEmail,
   setGitUserName,
 } from "@/command/git-user";
-import lighthouseInstaller, { lighthouse } from "@/command/lighthouse";
 import npmRegistryInstaller, { npmRegistry } from "@/command/npm-registry";
 import prettierFormatInstaller, {
   prettierFormat,
@@ -43,7 +42,6 @@ export const plugins = [
   prettierFormatInstaller,
   createProjectInstaller,
   templateInstaller,
-  lighthouseInstaller,
   scriptRunInstaller,
 ] as BuiltInPlugins;
 
@@ -57,7 +55,6 @@ export {
   gitCommitVerify,
   gitInitSimpleHooks,
   impSort,
-  lighthouse,
   npmRegistry,
   prettierFormat,
   root,
