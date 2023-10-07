@@ -8,13 +8,13 @@
     "url": "https://github.com/OSpoon"
   },
   "license": "MIT",
-  "homepage": "https://github.com/OSpoon/CodeGenius#readme",
+  "homepage": "https://github.com/FE-CodeGenius/CodeGenius#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/OSpoon/CodeGenius.git"
+    "url": "git+https://github.com/FE-CodeGenius/CodeGenius.git"
   },
   "bugs": {
-    "url": "https://github.com/OSpoon/CodeGenius/issues"
+    "url": "https://github.com/FE-CodeGenius/CodeGenius/issues"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org"
