@@ -16,7 +16,7 @@ import {
   TEMPLATES,
 } from "@/config";
 
-import { CodeGeniusOptions, CommandOptions, Plugins } from "./types";
+import { BuiltInPlugins, CodeGeniusOptions, CommandOptions } from "./types";
 
 export const execCommand = async (
   cmd: string,
@@ -161,10 +161,13 @@ export const defineConfig = (config: CodeGeniusOptions): CodeGeniusOptions =>
  * @param cli
  * @param config
  */
-export async function setup(cli: CAC, plugins: Plugins) {
+export async function setup(cli: CAC, plugins: BuiltInPlugins) {
   const userConfig = await loadConfigModule();
   for (const plugin of plugins) {
     plugin(cli, userConfig).setup();
+  }
+  for (const ins of userConfig?.plugins || []) {
+    ins.setup(cli);
   }
 }
 

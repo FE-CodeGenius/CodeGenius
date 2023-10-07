@@ -1,13 +1,12 @@
 // 开发期间使用
 import { defineConfig } from "./dist/index.mjs";
+import { clearInstaller } from "@codegenius/clear-plugin";
+import { quantityInstaller } from "@codegenius/quantity-plugin";
 
 export default defineConfig({
   commands: {
     gituser: {
       ruleEmail: "^[a-zA-Z0-9._%+-]+@(gmail)\\.(com)$",
-    },
-    clear: {
-      files: ["./dist"]
     },
     fix: {
       paths: ["./src", "./scripts"],
@@ -19,4 +18,10 @@ export default defineConfig({
       paths: ["./src", "./scripts"],
     },
   },
+  plugins: [
+    clearInstaller({
+      files: ["./dist"],
+    }),
+    quantityInstaller(),
+  ],
 });

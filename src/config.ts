@@ -221,10 +221,6 @@ export const commands = [
     description: "切换 NPM 镜像地址",
   },
   {
-    command: "clear --ask",
-    description: "运行 rimraf 删除不再需要的文件或文件夹",
-  },
-  {
     command: "depcheck",
     description: "运行 depcheck 检查过时的、不正确的和未使用的依赖项",
   },
@@ -251,10 +247,6 @@ export const commands = [
   {
     command: "lighthouse",
     description: "运行 lighthouse 分析及收集 Web 应用的性能指标",
-  },
-  {
-    command: "quantity",
-    description: "运行 cloc 分析并统计代码量",
   },
   {
     command: "script",
