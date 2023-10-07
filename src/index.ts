@@ -27,9 +27,10 @@ import quantityInstaller, { quantity } from "@/command/quantity";
 import rootInstaller, { root } from "@/command/root";
 import scriptRunInstaller from "@/command/script";
 import templateInstaller, { template } from "@/command/template";
-import { defineConfig } from "@/helper";
+import { defineConfig, execCommand, loggerInfo, printInfo } from "@/helper";
 
-import { Plugins } from "./types";
+import { ACTIVATION, clearGlob } from "./config";
+import { ClearOptions, CodeGeniusOptions, Plugins } from "./types";
 
 export const plugins = [
   rootInstaller,
@@ -70,4 +71,14 @@ export {
   setGitUserEmail,
   setGitUserName,
   template,
+};
+
+export {
+  ACTIVATION,
+  clearGlob,
+  ClearOptions,
+  CodeGeniusOptions,
+  execCommand,
+  loggerInfo,
+  printInfo,
 };
