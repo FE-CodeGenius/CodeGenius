@@ -27,7 +27,14 @@ import quantityInstaller, { quantity } from "@/command/quantity";
 import rootInstaller, { root } from "@/command/root";
 import scriptRunInstaller from "@/command/script";
 import templateInstaller, { template } from "@/command/template";
-import { defineConfig, execCommand, loggerInfo, printInfo } from "@/helper";
+import {
+  defineConfig,
+  execCommand,
+  loggerError,
+  loggerInfo,
+  printError,
+  printInfo,
+} from "@/helper";
 
 import { Plugins } from "./types";
 
@@ -75,4 +82,4 @@ export {
   template,
 };
 
-export { execCommand, loggerInfo, printInfo };
+export { execCommand, loggerError, loggerInfo, printError,printInfo };
