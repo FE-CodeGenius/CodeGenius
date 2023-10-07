@@ -29,8 +29,10 @@ import scriptRunInstaller from "@/command/script";
 import templateInstaller, { template } from "@/command/template";
 import { defineConfig, execCommand, loggerInfo, printInfo } from "@/helper";
 
-import { ACTIVATION, clearGlob } from "./config";
-import { ClearOptions, CodeGeniusOptions, Plugins } from "./types";
+import { Plugins } from "./types";
+
+export * from "./config";
+export * from "./types";
 
 export const plugins = [
   rootInstaller,
@@ -73,12 +75,4 @@ export {
   template,
 };
 
-export {
-  ACTIVATION,
-  clearGlob,
-  ClearOptions,
-  CodeGeniusOptions,
-  execCommand,
-  loggerInfo,
-  printInfo,
-};
+export { execCommand, loggerInfo, printInfo };
