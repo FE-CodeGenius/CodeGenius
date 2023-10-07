@@ -7,7 +7,7 @@ import { CAC } from "cac";
 import type { Options } from "execa";
 import execa from "execa";
 import fsExtra from "fs-extra";
-import { bgBlue, bgGreen, bgRed, bgYellow } from "kolorist";
+import { blue, green, red, yellow } from "kolorist";
 
 import {
   ACTIVATION,
@@ -34,42 +34,42 @@ export function handleError(error: unknown) {
 
 export const loggerInfo = (content: string) => {
   if (ACTIVATION) {
-    console.log(bgBlue("[CODEG INFO HINT]:"), content as string);
+    console.log(blue("[CODEG INFO HINT]:"), content as string);
   }
 };
 
 export const loggerWarring = (content: string | unknown) => {
   if (ACTIVATION) {
-    console.log(bgYellow("[CODEG WARRING HINT]:"), content as string);
+    console.log(yellow("[CODEG WARRING HINT]:"), content as string);
   }
 };
 
 export const loggerSuccess = (content: string) => {
   if (ACTIVATION) {
-    console.log(bgGreen("[CODEG SUCCESS HINT]:"), content as string);
+    console.log(green("[CODEG SUCCESS HINT]:"), content as string);
   }
 };
 
 export const loggerError = (content: string | unknown) => {
   if (ACTIVATION) {
-    console.log(bgRed("[CODEG ERROR HINT]:"), content as string);
+    console.log(red("[CODEG ERROR HINT]:"), content as string);
   }
 };
 
 export const printInfo = (content: string) => {
-  console.log(bgBlue("[CODEG INFO HINT]:"), content as string);
+  console.log(blue("[CODEG INFO HINT]:"), content as string);
 };
 
 export const printWarring = (content: string) => {
-  console.log(bgYellow("[CODEG WARRING HINT]:"), content as string);
+  console.log(yellow("[CODEG WARRING HINT]:"), content as string);
 };
 
 export const printSuccess = (content: string) => {
-  console.log(bgGreen("[CODEG SUCCESS HINT]:"), content as string);
+  console.log(green("[CODEG SUCCESS HINT]:"), content as string);
 };
 
 export const printError = (content: string | unknown) => {
-  console.log(bgRed("[CODEG ERROR HINT]:"), content as string);
+  console.log(red("[CODEG ERROR HINT]:"), content as string);
 };
 
 export function isValidPackageName(projectName: string) {
