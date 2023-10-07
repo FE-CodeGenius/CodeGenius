@@ -17,7 +17,6 @@ import gitUserInstaller, {
   setGitUserName,
 } from "@/command/git-user";
 import lighthouseInstaller, { lighthouse } from "@/command/lighthouse";
-import npmDepCheckInstaller, { npmDepCheck } from "@/command/npm-dep-check";
 import npmRegistryInstaller, { npmRegistry } from "@/command/npm-registry";
 import prettierFormatInstaller, {
   prettierFormat,
@@ -39,7 +38,6 @@ export const plugins = [
   gitUserInstaller,
   gitInitSimpleHooksInstaller,
   npmRegistryInstaller,
-  npmDepCheckInstaller,
   eslintFixInstaller,
   impSortInstaller,
   prettierFormatInstaller,
@@ -60,7 +58,6 @@ export {
   gitInitSimpleHooks,
   impSort,
   lighthouse,
-  npmDepCheck,
   npmRegistry,
   prettierFormat,
   root,

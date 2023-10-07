@@ -2,6 +2,7 @@
 import { defineConfig } from "./dist/index.mjs";
 import { clearInstaller } from "@codegenius/clear-plugin";
 import { quantityInstaller } from "@codegenius/quantity-plugin";
+import { npmDepCheckInstaller } from "@codegenius/depcheck-plugin";
 
 export default defineConfig({
   commands: {
@@ -23,5 +24,6 @@ export default defineConfig({
       files: ["./dist"],
     }),
     quantityInstaller(),
+    npmDepCheckInstaller(),
   ],
 });

@@ -57,7 +57,6 @@
     "cli"
   ],
   "devDependencies": {
-    "@codegenius/quantity-plugin": "^0.0.1",
     "@release-it/conventional-changelog": "^7.0.1",
     "@types/eslint": "^8.44.3",
     "@types/execa": "^2.0.0",
@@ -77,6 +76,8 @@
   },
   "dependencies": {
     "@codegenius/clear-plugin": "^0.0.4",
+    "@codegenius/quantity-plugin": "^0.0.1",
+    "@codegenius/depcheck-plugin": "^0.0.2",
     "ajv": "^8.12.0",
     "cac": "^6.7.14",
     "enquirer": "^2.4.1",

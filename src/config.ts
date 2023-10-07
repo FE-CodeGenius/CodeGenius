@@ -221,10 +221,6 @@ export const commands = [
     description: "切换 NPM 镜像地址",
   },
   {
-    command: "depcheck",
-    description: "运行 depcheck 检查过时的、不正确的和未使用的依赖项",
-  },
-  {
     command: "fix",
     description: "运行 eslint 静态扫描和修复代码中存在的问题",
   },
