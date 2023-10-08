@@ -1,8 +1,8 @@
+import { prettierFormat } from "@codegenius/format-plugin";
 import { checkGitUserEmail } from "@codegenius/git-user-plugin";
+import { impSort } from "@codegenius/impsort-plugin";
 
 import { eslintFix } from "@/command/eslint-fix";
-import { impSort } from "@/command/eslint-import-sort";
-import { prettierFormat } from "@/command/prettier-format";
 import { execCommand } from "@/helper";
 
 async function lint() {

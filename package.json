@@ -36,8 +36,7 @@
   },
   "files": [
     "bin",
-    "dist",
-    "templates"
+    "dist"
   ],
   "engines": {
     "node": ">=14.17"
@@ -76,13 +75,17 @@
   },
   "dependencies": {
     "@codegenius/clear-plugin": "^0.0.4",
-    "@codegenius/create-plugin": "^0.0.1",
+    "@codegenius/create-plugin": "^0.0.2",
     "@codegenius/depcheck-plugin": "^0.0.2",
-    "@codegenius/git-user-plugin": "^0.0.1",
+    "@codegenius/format-plugin": "^0.0.2",
+    "@codegenius/git-user-plugin": "^0.0.2",
     "@codegenius/hooks-plugin": "^0.1.0",
+    "@codegenius/impsort-plugin": "^0.0.2",
     "@codegenius/lighthouse-plugin": "^0.0.1",
     "@codegenius/quantity-plugin": "^0.0.1",
-    "@codegenius/registry-plugin": "^0.0.1",
+    "@codegenius/registry-plugin": "^0.0.2",
+    "@codegenius/template-plugin": "^0.0.2",
+    "@codegenius/verify-plugin": "^0.0.1",
     "ajv": "^8.12.0",
     "cac": "^6.7.14",
     "enquirer": "^2.4.1",

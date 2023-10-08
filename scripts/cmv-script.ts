@@ -1,4 +1,4 @@
-import { gitCommitVerify } from "@/command/git-commit-verify";
+import { gitCommitVerify } from "@codegenius/verify-plugin";
 
 async function cmv() {
   await gitCommitVerify();
