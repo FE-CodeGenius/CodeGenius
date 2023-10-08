@@ -1,4 +1,4 @@
-import { npmDepCheck } from "@/command/npm-dep-check";
+import { npmDepCheck } from "@codegenius/depcheck-plugin";
 
 async function cmv() {
   await npmDepCheck();

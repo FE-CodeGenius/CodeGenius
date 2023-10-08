@@ -1,4 +1,5 @@
-import { clear } from "@/command/clear";
+import { clear } from "@codegenius/clear-plugin";
+
 import { loggerWarring } from "@/helper";
 
 async function clearDist() {

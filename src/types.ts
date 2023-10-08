@@ -56,7 +56,7 @@ export interface CommitOptions {
   gitCommitScopes?: Array<CommitScope>;
 }
 
-export type Plugins = Array<
+export type BuiltInPlugins = Array<
   (
     cli: CAC,
     config: CodeGeniusOptions | undefined,
@@ -65,6 +65,8 @@ export type Plugins = Array<
     setup: () => void;
   }
 >;
+
+export type Plugins = Array<{ name: string; setup: (cli: CAC) => void }>;
 
 export interface CodeGeniusOptions {
   commands?: {
@@ -75,6 +77,7 @@ export interface CodeGeniusOptions {
     format?: { paths: string[] };
     impsort?: { paths: string[] };
   };
+  plugins?: Plugins;
 }
 
 export interface GitCommitOptions {
