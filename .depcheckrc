@@ -2,6 +2,7 @@
   "ignores": [
     "@release-it/conventional-changelog",
     "@types/rimraf",
+    "@types/eslint",
     "cross-env",
     "simple-git-hooks",
     "typescript",
