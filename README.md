@@ -123,150 +123,59 @@ import { gitCommitVerify } from "code-genius";
 })();
 ```
 
-## hooks 命令
+## clear 命令
 
-新增或修改 `simple-git-hooks` 配置后需要重新初始化, 支持命令模式和 **API** 模式;
+运行 `rimraf` 删除不再需要的文件或文件夹, 支持命令模式, 询问模式和 **API** 模式;
 
-使用场景: 用于 `simple-git-hooks` 来配置 `git hooks` 的使用, 方便初始化和更新时使用, 混用过 `husky` 的会按其文档进行删除操作.
-
-### 命令模式
-
-```bash
-codeg hooks
-```
-
-### API 模式
-
-```typescript
-import { gitInitSimpleHooks } from "code-genius";
-
-(async () => {
-  await gitInitSimpleHooks();
-})();
-```
-
-## depcheck 命令
-
-运行 `npm-check` 检查过时的、不正确的和未使用的依赖项, 支持命令模式和 **API** 模式;
-
-使用场景: 用于检测当前项目的依赖项安装情况.
+使用场景: 用于删除可以通过项目运行自动生成的文件, 如: `dist` 目录, 还有顽固的 `node_modules`.
 
 ### 命令模式
 
 ```bash
-codeg depcheck
+# 删除 dist 文件夹
+codeg clear -p ./dist
+
+# 删除 dist 和 node_modules 两个文件夹
+codeg clear -p ./dist -p ./node_modules
 ```
 
-### API 模式
-
-```typescript
-import { npmDepCheck } from "code-genius";
-
-(async () => {
-  await npmDepCheck();
-})();
-```
-
-## registry 命令
-
-切换 **NPM** 镜像地址, 支持命令模式, 询问模式和 API 模式;
-
-使用场景: 用于没有安装其他插件且对于切换命令地址不熟悉的情况下切换常见的镜像地址.
-
-### 命令模式
-
-```bash
-# 设置 npm 官方源
-codeg registry -u https://registry.npmjs.org/
-```
-
-| 选项      | 描述         |
-| --------- | ------------ |
-| -a, --ask | 启用询问模式 |
+| 选项                      | 描述         |
+| ------------------------- | ------------ |
+| -p, --pattern \<pattern\> | 设置匹配规则 |
+| -a, --ask                 | 启用询问模式 |
 
 ### 询问模式
 
 ```bash
 # 启动询问模式
-codeg registry --ask
+codeg clear --ask
 ```
 
 ```
 # 询问过程
-1. 请选择 NPM 镜像
+1. 请选择需要清理的文件/夹
 ```
 
 ### API 模式
 
-仅对 `npm config set registry xxx` 包装, 无其它配置.
-
 ```typescript
-import { npmRegistry } from "code-genius";
+import { clear } from "code-genius";
 
 (async () => {
-  await npmRegistry("https://registry.npmjs.org/");
-})();
-```
-
-## gituser 命令
-
-设置或校验 `git user` 信息是否规范, 支持命令模式和 **API** 模式;
-
-使用场景: 用于校验那些不应该出现的邮箱地址会名称出现在 `git` 提交记录中, 常见的使用公司内部邮箱提交 `github` 的开源项目, 这通常是不允许的.
-
-### 命令模式
-
-```bash
-# 在默认规则下设置 email 信息
-codeg gituser -e zxin088@gmail.com
-
-# 在指定规则下设置 email 信息
-codeg gituser -e zxin088@qq.com --rule-email '^[a-zA-Z0-9._%+-]+@(qq)\.(com)$'
-```
-
-```bash
-# 在默认规则下校验 user 和 email 信息
-codeg gituser
-
-# 在指定规则下校验 user 和 email 信息
-codeg gituser --rule-email '^[a-zA-Z0-9._%+-]+@(qq)\.(com)$'
-```
-
-| 选项                    | 描述                                 |
-| ----------------------- | ------------------------------------ |
-| -n, --name \<name\>     | 设置 user.name                       |
-| -e, --email \<email\>   | 设置 user.email                      |
-| --rule-name \<regexp\>  | 设置 user.name 匹配规则(转义字符串)  |
-| --rule-email \<regexp\> | 设置 user.email 匹配规则(转义字符串) |
-
-- **--rule-name 默认 :** `[\s\S]*`
-- **--rule-email 默认 :** `^[a-zA-Z0-9._%+-]+@(163|qq|126|139|sina|sohu|yeah|gmail)\.(com|net)$`
-
-### API 模式
-
-```typescript
-import { setGitUserName, setGitUserEmail, checkGitUserInfo } from "code-genius";
-
-(async () => {
-  await setGitUserName("OSpoon", "[\\s\\S]*");
-  await setGitUserEmail(
-    "zxin088@gmail.com",
-    "^[a-zA-Z0-9._%+-]+@(gmail)\\.(com)$"
-  );
-  await checkGitUserInfo("[\\s\\S]*", "^[a-zA-Z0-9._%+-]+@(gmail)\\.(com)$");
+  await clear(["./dist"]);
 })();
 ```
 
 ### 配置文件
 
 ```typescript
-# 覆盖默认的 `gituser` 配置
+# 覆盖默认的 `files` 配置
 import { defineConfig } from "code-genius";
 
 export default defineConfig({
   commands: {
-    gituser: {
-      ruleEmail: "^[a-zA-Z0-9._%+-]+@(gmail)\\.(com)$",
+    clear: {
+      files: ["./dist"]
     },
   },
 });
@@ -469,14 +378,6 @@ codeg script
 ```
 
 PS: 第一次使用 `script` 命令会初始化 `scripts.config.json`, 可以为它增加对应的描述, 以后每次使用均会同步 `package.scripts` 的变化.
-
-## 其他命令
-
-| 命令       | 参数              | 默认值 | 功能描述                                      |
-| ---------- | ----------------- | ------ | --------------------------------------------- |
-| create     | --                | --     | 运行 npm create 快速创建基础项目              |
-| lighthouse | --url \<url\>     | --     | 运行 lighthouse 分析及收集 Web 应用的性能指标 |
-| quantity   | -p, --path <path> | --     | 运行 cloc 分析并统计代码量                    |
 
 ## 执照
 
