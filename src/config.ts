@@ -209,18 +209,6 @@ export const commands = [
     description: "校验 COMMIT_EDITMSG 中的信息是否符合 Angualr 规范",
   },
   {
-    command: "git-user",
-    description: "设置或校验 git user 信息是否规范",
-  },
-  {
-    command: "hooks",
-    description: "新增或修改 simple-git-hooks 配置后需要重新初始化",
-  },
-  {
-    command: "registry --ask",
-    description: "切换 NPM 镜像地址",
-  },
-  {
     command: "fix",
     description: "运行 eslint 静态扫描和修复代码中存在的问题",
   },
@@ -233,16 +221,8 @@ export const commands = [
     description: "运行 prettier 格式化代码风格",
   },
   {
-    command: "create",
-    description: "运行 npm create 快速创建基础项目",
-  },
-  {
     command: "template",
     description: "运行 cg 生成 CodeGenius 内置模板项目",
-  },
-  {
-    command: "lighthouse",
-    description: "运行 lighthouse 分析及收集 Web 应用的性能指标",
   },
   {
     command: "script",

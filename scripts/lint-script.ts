@@ -1,6 +1,7 @@
+import { checkGitUserEmail } from "@codegenius/git-user-plugin";
+
 import { eslintFix } from "@/command/eslint-fix";
 import { impSort } from "@/command/eslint-import-sort";
-import { checkGitUserEmail } from "@/command/git-user";
 import { prettierFormat } from "@/command/prettier-format";
 import { execCommand } from "@/helper";
 

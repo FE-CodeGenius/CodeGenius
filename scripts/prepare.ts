@@ -1,4 +1,4 @@
-import { gitInitSimpleHooks } from "@/command/git-init-hooks";
+import { gitInitSimpleHooks } from "@codegenius/hooks-plugin";
 
 async function prepare() {
   gitInitSimpleHooks();
