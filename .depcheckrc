@@ -7,6 +7,7 @@
     "simple-git-hooks",
     "typescript",
     "eslint-plugin-simple-import-sort",
+    "esno",
     "code-genius"
   ],
   "skip-missing": false
