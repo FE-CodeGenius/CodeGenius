@@ -2,7 +2,7 @@
   "scripts": [
     {
       "cmd": "prepare",
-      "script": "esno scripts/prepare.ts",
+      "script": "npx codeg hooks",
       "desc": "预执行脚本, 用来初始化 hooks 等配置"
     },
     {
@@ -17,7 +17,7 @@
     },
     {
       "cmd": "release",
-      "script": "release-it",
+      "script": "dotenv release-it --ci",
       "desc": "发布项目到 npm 仓库, 并推送 Github"
     }
   ]
