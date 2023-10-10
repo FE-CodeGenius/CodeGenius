@@ -160,6 +160,57 @@ codeg script
 
 PS: 第一次使用 `script` 命令会初始化 `scripts.config.json`, 可以为它增加对应的描述, 以后每次使用均会同步 `package.scripts` 的变化.
 
+## 更多命令
+
+更多命令可以通过插件的形式进行组合, 这样可以为不同的项目定制不同的 CLI 功能, 避免额外的功能在使用上造成负担.
+
+```javascript
+// codeg.config.mjs code-genius 项目已配置的插件
+import { defineConfig } from "code-genius";
+import { clearInstaller } from "@codegenius/clear-plugin";
+import { quantityInstaller } from "@codegenius/quantity-plugin";
+import { npmDepCheckInstaller } from "@codegenius/depcheck-plugin";
+import { lighthouseInstaller } from "@codegenius/lighthouse-plugin";
+import { createProjectInstaller } from "@codegenius/create-plugin";
+import { gitInitSimpleHooksInstaller } from "@codegenius/hooks-plugin";
+import { gitUserInstaller } from "@codegenius/git-user-plugin";
+import { npmRegistryInstaller } from "@codegenius/registry-plugin";
+import { gitCommitVerifyInstaller } from "@codegenius/verify-plugin";
+import { templateInstaller } from "@codegenius/template-plugin";
+import { prettierFormatInstaller } from "@codegenius/format-plugin";
+import { impSortInstaller } from "@codegenius/impsort-plugin";
+
+export default defineConfig({
+  commands: {
+    fix: {
+      paths: ["./src", "./scripts"],
+    },
+  },
+  plugins: [
+    clearInstaller({
+      files: ["./dist"],
+    }),
+    quantityInstaller(),
+    npmDepCheckInstaller(),
+    lighthouseInstaller(),
+    createProjectInstaller(),
+    gitInitSimpleHooksInstaller(),
+    gitUserInstaller({
+      ruleEmail: "^[a-zA-Z0-9._%+-]+@(gmail)\\.(com)$",
+    }),
+    npmRegistryInstaller(),
+    gitCommitVerifyInstaller(),
+    templateInstaller(),
+    prettierFormatInstaller({
+      files: ["./src", "./scripts"],
+    }),
+    impSortInstaller({
+      files: ["./src", "./scripts"],
+    }),
+  ],
+});
+```
+
 ## 执照
 
 MIT License
