@@ -16,26 +16,6 @@ export interface CommitOptions {
   gitCommitScopes?: Array<CommitScope>;
 }
 
-export interface CodeGeniusOptions {
-  commands?: {
-    commit?: CommitOptions;
-    fix?: { paths: string[] };
-  };
-  plugins?: Plugins;
-}
-
-export type BuiltInPlugins = Array<
-  (
-    cli: CAC,
-    config: CodeGeniusOptions | undefined,
-  ) => {
-    name: string;
-    setup: () => void;
-  }
->;
-
-export type Plugins = Array<{ name: string; setup: (cli: CAC) => void }>;
-
 export interface GitCommitOptions {
   emoji: boolean;
   type: string;
@@ -44,7 +24,33 @@ export interface GitCommitOptions {
 }
 
 export type CommandOptions = {
-  cmd: string;
-  script: string;
-  desc: string;
+  display: string;
+  command: string;
+  description: string;
 };
+
+export interface CommandsOptions {
+  commit?: CommitOptions;
+  fix?: { paths: string[] };
+}
+
+export interface CodeGeniusOptions {
+  commands?: CommandsOptions;
+  plugins?: Plugins;
+}
+
+export type BuiltInPlugin = (options?: CommandsOptions) => {
+  name: string;
+  describe?: string;
+  command?: string;
+  setup: (cli: CAC) => void;
+};
+
+export type BuiltInPlugins = Array<BuiltInPlugin>;
+
+export type Plugins = Array<{
+  name: string;
+  describe?: string;
+  command?: string;
+  setup: (cli: CAC) => void;
+}>;

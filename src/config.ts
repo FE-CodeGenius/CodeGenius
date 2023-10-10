@@ -92,28 +92,16 @@ export const gitCommitScopes: Array<CommitScope> = [
   },
 ];
 
-export const commands = [
+export const defaultCommands = [
   {
-    command: "commit --ask",
-    description: "生成 angualr 规范的提交信息",
-  },
-  {
-    command: "fix",
-    description: "运行 eslint 静态扫描和修复代码中存在的问题",
-  },
-  {
-    command: "script",
-    description: "代理执行 package.scripts 脚本",
+    display: "version",
+    command: "--version",
+    description: "查看版本号",
   },
   {
     display: "help",
     command: "--help",
-    description: "查看 CodeGenius 终端命令",
-  },
-  {
-    display: "version",
-    command: "--version",
-    description: "查看 CodeGenius 版本信息",
+    description: "查看帮助信息",
   },
 ];
 

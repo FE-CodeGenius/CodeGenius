@@ -3,8 +3,14 @@ import type { CAC } from "cac";
 import enquirer from "enquirer";
 
 import { ACTIVATION, gitCommitScopes, gitCommitTypes } from "@/config";
-import { execCommand, loadConfigModule, loggerInfo } from "@/helper";
-import { GitCommitOptions } from "@/types";
+import { execCommand } from "@/helper";
+import { loggerInfo } from "@/logger";
+import {
+  CommandsOptions,
+  CommitScope,
+  CommitType,
+  GitCommitOptions,
+} from "@/types";
 
 const schema = {
   type: "object",
@@ -16,26 +22,12 @@ const schema = {
   required: ["type", "scope", "description"],
 };
 
-const mergeConfig = async () => {
-  const config = await loadConfigModule();
-  const commands = config && config?.commands;
-  if (commands && commands.commit) {
-    const { gitCommitTypes: types, gitCommitScopes: scopes } = commands.commit;
-    return {
-      types: types && types.length > 0 ? types : gitCommitTypes,
-      scopes: scopes && scopes.length > 0 ? scopes : gitCommitScopes,
-    };
-  }
-  return {
-    types: gitCommitTypes,
-    scopes: gitCommitScopes,
-  };
-};
-
-const generateEnquirer = async (): Promise<
+const generateEnquirer = async (
+  types: Array<CommitType>,
+  scopes: Array<CommitScope>,
+): Promise<
   Pick<GitCommitOptions, Exclude<keyof GitCommitOptions, "emoji">>
 > => {
-  const { types, scopes } = await mergeConfig();
   const typesChoices = types.map(({ emoji, code, description }) => {
     const formatCode = `${code}:`.padEnd(20);
     return {
@@ -116,10 +108,13 @@ export const gitCommit = async (
   );
 };
 
-export default function gitCommitInstaller(cli: CAC) {
+export default function gitCommitInstaller(config: CommandsOptions) {
+  const { commit } = config;
   return {
-    name: "gitCommitInstaller",
-    setup: () => {
+    name: "commit",
+    describe: "生成 angualr 规范的提交信息",
+    command: "commit --ask",
+    setup: (cli: CAC) => {
       cli
         .command("commit", "生成 angualr 规范的提交信息")
         .option("-t, --type <type>", "添加修改类型")
@@ -128,8 +123,10 @@ export default function gitCommitInstaller(cli: CAC) {
         .option("-a, --ask", "启用询问模式")
         .action(async (options) => {
           const { type, scope, description, ask } = options;
+          const types = commit?.gitCommitTypes || gitCommitTypes;
+          const scopes = commit?.gitCommitScopes || gitCommitScopes;
           if (ask) {
-            const result = await generateEnquirer();
+            const result = await generateEnquirer(types, scopes);
             await gitCommit(result.type, result.scope, result.description);
           } else {
             await gitCommit(type, scope, description);

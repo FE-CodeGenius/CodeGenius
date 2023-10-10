@@ -2,8 +2,8 @@ import type { CAC } from "cac";
 import enquirer from "enquirer";
 import updateNotifier from "simple-update-notifier";
 
-import { commands } from "@/config";
 import { execCommand } from "@/helper";
+import { CommandOptions } from "@/types";
 
 import pkg from "../../package.json";
 
@@ -11,7 +11,7 @@ interface PromptResult {
   command: string;
 }
 
-export const root = async () => {
+export const root = async (commands: Array<CommandOptions>) => {
   updateNotifier({ pkg });
   const commandChoices = commands.map(({ display, command, description }) => {
     const formatCommand = `${display || command}`.padEnd(15);
@@ -31,16 +31,16 @@ export const root = async () => {
   await execCommand("codeg", result.command.split(" "), { stdio: "inherit" });
 };
 
-export default function rootInstaller(cli: CAC) {
+export default function rootInstaller(commands: Array<CommandOptions>) {
   return {
     name: "rootInstaller",
-    setup: () => {
+    setup: (cli: CAC) => {
       cli
         .command("[root]", "启动 CodeGenius 命令行选项模式 ")
         .alias("start")
         .alias("dev")
         .action(async () => {
-          await root();
+          await root(commands);
         });
     },
   };

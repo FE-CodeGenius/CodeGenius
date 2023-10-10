@@ -4,7 +4,7 @@ import type { CAC } from "cac";
 import enquirer from "enquirer";
 import fsExtra from "fs-extra";
 
-import { generateScripts } from "@/helper";
+import { generateScripts } from "@/command/script/utils";
 import { execCommand } from "@/helper";
 import { CommandOptions } from "@/types";
 
@@ -14,10 +14,10 @@ export async function scriptRun() {
   );
 
   const scriptChoices = scripts.map((script: CommandOptions) => {
-    const formatCmd = `${script.cmd}`.padEnd(15);
+    const formatCmd = `${script.display}`.padEnd(15);
     return {
-      name: script.script,
-      message: `${formatCmd} ${script.desc}`,
+      name: script.command,
+      message: `${formatCmd} ${script.description}`,
     };
   });
 
@@ -44,10 +44,12 @@ export async function scriptRun() {
   }
 }
 
-export default function scriptRunInstaller(cli: CAC) {
+export default function scriptRunInstaller() {
   return {
-    name: "scriptRunInstaller",
-    setup: () => {
+    name: "script",
+    describe: "代理运行 package.scripts 脚本",
+    command: "script",
+    setup: (cli: CAC) => {
       cli
         .command("script", "代理运行 package.scripts 脚本")
         .action(async () => {
