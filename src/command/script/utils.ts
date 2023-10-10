@@ -14,8 +14,8 @@ import { CommandOptions } from "@/types";
 export function genScriptConfig(scripts: { [key: string]: string }) {
   return Object.keys(scripts).map((key) => {
     return {
-      command: key,
-      display: scripts[key],
+      command: scripts[key],
+      display: key,
       description: "description the function of this cmd command",
     };
   });

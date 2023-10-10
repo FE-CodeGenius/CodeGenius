@@ -1,24 +1,24 @@
 {
   "scripts": [
     {
-      "cmd": "prepare",
-      "script": "npx codeg hooks",
-      "desc": "预执行脚本, 用来初始化 hooks 等配置"
+      "command": "npx codeg hooks",
+      "display": "prepare",
+      "description": "预执行脚本, 用来初始化 hooks 等配"
     },
     {
-      "cmd": "build",
-      "script": "unbuild",
-      "desc": "使用 unbuild 构建项目, 输出到 dist 目录"
+      "command": "unbuild",
+      "display": "build",
+      "description": "使用 unbuild 构建项目, 输出到 dist 目录"
     },
     {
-      "cmd": "stub",
-      "script": "unbuild --stub",
-      "desc": "使用 unbuild 软构建项目, 方便调试"
+      "command": "unbuild --stub",
+      "display": "stub",
+      "description": "使用 unbuild 软构建项目, 方便调试"
     },
     {
-      "cmd": "release",
-      "script": "dotenv release-it --ci",
-      "desc": "发布项目到 npm 仓库, 并推送 Github"
+      "command": "dotenv release-it --ci",
+      "display": "release",
+      "description": "发布项目到 npm 仓库, 并推送 Github"
     }
   ]
 }
