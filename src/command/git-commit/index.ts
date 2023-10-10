@@ -109,7 +109,7 @@ export const gitCommit = async (
 };
 
 export default function gitCommitInstaller(config: CommandsOptions) {
-  const { commit } = config;
+  const { commit } = config || {};
   return {
     name: "commit",
     describe: "生成 angualr 规范的提交信息",

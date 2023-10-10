@@ -23,7 +23,7 @@ export const eslintFix = async (paths: string[]) => {
 };
 
 export default function eslintFixInstaller(config: CommandsOptions) {
-  const { fix } = config;
+  const { fix } = config || {};
   return {
     name: "fix",
     describe: "运行 eslint 静态扫描和修复代码中存在的问题",
