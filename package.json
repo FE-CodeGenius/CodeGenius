@@ -97,7 +97,7 @@
     "simple-update-notifier": "^2.0.0"
   },
   "simple-git-hooks": {
-    "pre-commit": "npx cross-env CG_DEBUG=activation esno scripts/lint-script.ts",
-    "commit-msg": "npx cross-env CG_DEBUG=activation esno scripts/cmv-script.ts"
+    "pre-commit": "npx esno scripts/lint-script.ts",
+    "commit-msg": "npx codeg verify"
   }
 }
