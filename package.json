@@ -45,7 +45,8 @@
     "prepare": "npx codeg hooks",
     "build": "unbuild",
     "stub": "unbuild --stub",
-    "release": "dotenv release-it --ci"
+    "release": "dotenv release-it --ci",
+    "test": "vitest"
   },
   "keywords": [
     "CodeGenius",
@@ -72,7 +73,9 @@
     "release-it": "^16.1.5",
     "simple-git-hooks": "^2.9.0",
     "typescript": "^5.1.6",
-    "unbuild": "^2.0.0-rc.0"
+    "unbuild": "^2.0.0-rc.0",
+    "vite-tsconfig-paths": "^4.2.1",
+    "vitest": "^0.34.6"
   },
   "dependencies": {
     "@codegenius/clear-plugin": "^0.0.8",
