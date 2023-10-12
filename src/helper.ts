@@ -6,6 +6,7 @@ import { pathToFileURL } from "node:url";
 import { CAC } from "cac";
 import type { Options } from "execa";
 import execa from "execa";
+import { loadConfig } from "unconfig";
 
 import { DEFAULT_CONFIG_FILES, defaultCommands } from "@/config";
 import { printError } from "@/logger";
@@ -55,12 +56,29 @@ export async function loadConfigModule(): Promise<
 }
 
 /**
+ * 使用 unconfig 加载配置文件
+ * @returns
+ */
+export async function loadConfigForUnConfig() {
+  const { config } = await loadConfig<CodeGeniusOptions | undefined>({
+    sources: [
+      {
+        files: "codeg.config",
+        extensions: ["ts", "mts", "cts", "js", "mjs", "cjs", "json", ""],
+      },
+    ],
+    merge: false,
+  });
+  return config;
+}
+
+/**
  * 用于循环注册指令
  * @param cli
  * @param config
  */
 export async function setup(cli: CAC, plugins: BuiltInPlugins) {
-  const uconfig = await loadConfigModule();
+  const uconfig = await loadConfigForUnConfig();
   const commands: Array<CommandOptions> = [];
   // 实例化内部命令
   const builtInPluginsIns = plugins.map((fn) => fn(uconfig?.commands));
